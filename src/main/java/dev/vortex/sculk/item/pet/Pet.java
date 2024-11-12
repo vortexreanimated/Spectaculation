@@ -18,12 +18,12 @@
  */
 package dev.vortex.sculk.item.pet;
 
-import lombok.Getter;
-import lombok.Setter;
 import dev.vortex.sculk.item.*;
 import dev.vortex.sculk.skill.Skill;
 import dev.vortex.sculk.user.User;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -106,13 +106,15 @@ public abstract class Pet implements SkullStatistics, LoreableMaterialStatistics
 
     public static int getLevel(double xp, Rarity rarity)
     {
-        if (xp < 0.0)
+        if (xp < 0.0) {
             return -1;
+        }
         List<Integer> goals = getGoalsForRarity(rarity);
         for (int i = 0; i < goals.size(); i++)
         {
-            if (goals.get(i) > xp)
+            if (goals.get(i) > xp) {
                 return i;
+            }
         }
         return 100;
     }
@@ -120,8 +122,9 @@ public abstract class Pet implements SkullStatistics, LoreableMaterialStatistics
     private static double getXP(int level, Rarity rarity)
     {
         level--;
-        if (level < 0 || level > 99)
+        if (level < 0 || level > 99) {
             return -1.0;
+        }
         return getGoalsForRarity(rarity).get(level);
     }
 
@@ -143,15 +146,17 @@ public abstract class Pet implements SkullStatistics, LoreableMaterialStatistics
     {
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.DARK_GRAY + getSkill().getName() + " Pet");
-        if (hasStatBoosts())
+        if (hasStatBoosts()) {
             lore.add(" ");
+        }
         int level = getLevel(instance);
         addPropertyInt("Magic Find", (getPerMagicFind() * 100.0), lore, level);
         addPropertyPercent("Crit Damage", getPerCritDamage(), lore, level);
         addPropertyPercent("Crit Chance", getPerCritChance(), lore, level);
         double health = getPerHealth();
-        if (health > 0.0)
+        if (health > 0.0) {
             lore.add(ChatColor.GRAY + "Health: " + ChatColor.GREEN + "+" + Math.round(health * level) + " HP");
+        }
         addPropertyInt("Strength", getPerStrength(), lore, level);
         addPropertyInt("Defense", getPerDefense(), lore, level);
         addPropertyPercent("Speed", getPerSpeed(), lore, level);
@@ -178,9 +183,9 @@ public abstract class Pet implements SkullStatistics, LoreableMaterialStatistics
         {
             SpecificItemType type = instance.getType().getStatistics().getSpecificType();
             lore.add(" ");
-            lore.add((instance.isRecombobulated() ? instance.getRarity().getBoldedColor() + ChatColor.MAGIC + "D" + ChatColor.RESET + " " : "") +
-                    instance.getRarity().getDisplay() + (type != SpecificItemType.NONE ? " " + type.getName() : "") +
-                    (instance.isRecombobulated() ? instance.getRarity().getBoldedColor() + " " + ChatColor.MAGIC + "D" + ChatColor.RESET : ""));
+            lore.add((instance.isRecombobulated() ? instance.getRarity().getBoldedColor() + ChatColor.MAGIC + "D" + ChatColor.RESET + " " : "")
+                    + instance.getRarity().getDisplay() + (type != SpecificItemType.NONE ? " " + type.getName() : "")
+                    + (instance.isRecombobulated() ? instance.getRarity().getBoldedColor() + " " + ChatColor.MAGIC + "D" + ChatColor.RESET : ""));
         }
         return lore;
     }
@@ -200,16 +205,17 @@ public abstract class Pet implements SkullStatistics, LoreableMaterialStatistics
     @Override
     public void onInteraction(PlayerInteractEvent e)
     {
-        if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK)
+        if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
+        }
         Player player = e.getPlayer();
         User user = User.getUser(player.getUniqueId());
         SItem item = SItem.find(e.getItem());
         user.addPet(item);
         player.setItemInHand(null);
         player.playSound(player.getLocation(), Sound.ORB_PICKUP, 1f, 1f);
-        player.sendMessage(ChatColor.GREEN + "Successfully added " + item.getRarity().getColor() + item.getType().getDisplayName(item.getType().getData()) +
-                ChatColor.GREEN + " to your pet menu!");
+        player.sendMessage(ChatColor.GREEN + "Successfully added " + item.getRarity().getColor() + item.getType().getDisplayName(item.getType().getData())
+                + ChatColor.GREEN + " to your pet menu!");
     }
 
     @Override
@@ -227,15 +233,17 @@ public abstract class Pet implements SkullStatistics, LoreableMaterialStatistics
     private static void addPropertyInt(String name, double value, List<String> lore, int level)
     {
         long fin = Math.round(value * level);
-        if (value != 0.0)
+        if (value != 0.0) {
             lore.add(ChatColor.GRAY + name + ": " + ChatColor.GREEN + (fin >= 0 ? "+" : "") + fin);
+        }
     }
 
     private static void addPropertyPercent(String name, double value, List<String> lore, int level)
     {
         long fin = Math.round((value * 100.0) * level);
-        if (value != 0.0)
+        if (value != 0.0) {
             lore.add(ChatColor.GRAY + name + ": " + ChatColor.GREEN + (fin >= 0 ? "+" : "") + fin + "%");
+        }
     }
 
     public double getPerHealth()
@@ -277,8 +285,8 @@ public abstract class Pet implements SkullStatistics, LoreableMaterialStatistics
 
     public boolean hasStatBoosts()
     {
-        return getPerHealth() != 0.0 || getPerDefense() != 0.0 || getPerStrength() != 0.0 || getPerIntelligence() != 0.0 || getPerSpeed() != 0.0 || getPerCritChance() != 0.0 ||
-                getPerCritDamage() != 0.0 || getPerMagicFind() != 0.0 || getPerTrueDefense() != 0.0;
+        return getPerHealth() != 0.0 || getPerDefense() != 0.0 || getPerStrength() != 0.0 || getPerIntelligence() != 0.0 || getPerSpeed() != 0.0 || getPerCritChance() != 0.0
+                || getPerCritDamage() != 0.0 || getPerMagicFind() != 0.0 || getPerTrueDefense() != 0.0;
     }
 
     @Getter
@@ -319,8 +327,9 @@ public abstract class Pet implements SkullStatistics, LoreableMaterialStatistics
         @Override
         public boolean equals(Object o)
         {
-            if (!(o instanceof PetItem))
+            if (!(o instanceof PetItem)) {
                 return false;
+            }
             PetItem pet = (PetItem) o;
             return type == pet.type && rarity == pet.rarity && xp == pet.xp && active == pet.active;
         }

@@ -45,4 +45,7 @@ public class SLog
     {
         log(o, Level.SEVERE);
     }
+
+    private SLog() {
+    }
 }

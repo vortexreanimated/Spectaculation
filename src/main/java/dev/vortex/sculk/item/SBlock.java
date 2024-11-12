@@ -18,10 +18,10 @@
  */
 package dev.vortex.sculk.item;
 
-import lombok.Getter;
-import lombok.Setter;
 import dev.vortex.sculk.Spectaculation;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -66,13 +66,15 @@ public class SBlock
     public static SBlock getBlock(Location location)
     {
         ConfigurationSection cs = plugin.blocks.getConfigurationSection(toLocationString(location));
-        if (cs == null)
+        if (cs == null) {
             return null;
+        }
         NBTTagCompound compound = new NBTTagCompound();
         for (String key : cs.getKeys(false))
         {
-            if (key.equals("type"))
+            if ("type".equals(key)) {
                 continue;
+            }
             compound.set(key, SUtil.getBaseFromObject(cs, key));
         }
         return new SBlock(location, SMaterial.getMaterial(cs.getString("type")), compound);
@@ -84,8 +86,9 @@ public class SBlock
         for (String key : data.c())
         {
             Object o = SUtil.getObjectFromCompound(data, key);
-            if (o instanceof NBTTagCompound)
+            if (o instanceof NBTTagCompound) {
                 continue;
+            }
             plugin.blocks.set(toLocationString() + "." + key, o);
         }
         plugin.blocks.save();

@@ -70,7 +70,9 @@ public class PetsGUI extends GUI
         border(BLACK_STAINED_GLASS_PANE);
         PaginationList<Pet.PetItem> paged = new PaginationList<>(28);
         paged.addAll(user.getPets());
-        if (paged.size() == 0) page = 0;
+        if (paged.size() == 0) {
+            page = 0;
+        }
         int finalPage = page;
         if (page > 1)
         {
@@ -116,10 +118,12 @@ public class PetsGUI extends GUI
         }
         Pet.PetItem active = user.getActivePet();
         String name;
-        if (active == null)
+        if (active == null) {
             name = ChatColor.RED + "None";
-        else
+        }
+        else {
             name = active.getRarity().getColor() + active.getType().getDisplayName(active.getType().getData());
+        }
         set(4, SUtil.getStack(ChatColor.GREEN + "Pets", Material.BONE, (short) 0, 1,
             ChatColor.GRAY + "View and manage all of your",
             ChatColor.GRAY + "Pets.",
@@ -203,7 +207,9 @@ public class PetsGUI extends GUI
             }
         });
         List<Pet.PetItem> p = paged.getPage(page);
-        if (p == null) return;
+        if (p == null) {
+            return;
+        }
         for (int i = 0; i < p.size(); i++)
         {
             int slot = INTERIOR[i];
@@ -219,10 +225,12 @@ public class PetsGUI extends GUI
                 ItemMeta meta = item.getStack().getItemMeta();
                 List<String> lore = meta.getLore();
                 lore.add(" ");
-                if (pet.isActive())
+                if (pet.isActive()) {
                     lore.add(ChatColor.RED + "Click to despawn");
-                else
+                }
+                else {
                     lore.add(ChatColor.YELLOW + "Click to summon");
+                }
                 meta.setLore(lore);
                 item.getStack().setItemMeta(meta);
             }

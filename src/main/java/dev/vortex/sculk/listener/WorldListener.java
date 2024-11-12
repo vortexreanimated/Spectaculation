@@ -59,47 +59,58 @@ public class WorldListener extends PListener
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent e)
     {
-        if (e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL) return;
-        if (e.getEntity() instanceof FallingBlock) return;
+        if (e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL) {
+            return;
+        }
+        if (e.getEntity() instanceof FallingBlock) {
+            return;
+        }
         e.setCancelled(true);
     }
 
     @EventHandler
     public void onEntityChangeBlock(EntityChangeBlockEvent e)
     {
-        if (e.getEntity().getType() == EntityType.ENDERMAN)
+        if (e.getEntity().getType() == EntityType.ENDERMAN) {
             e.setCancelled(true);
-        if (e.getBlock().getType() == Material.SOIL && e.getTo() == Material.DIRT)
+        }
+        if (e.getBlock().getType() == Material.SOIL && e.getTo() == Material.DIRT) {
             e.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent e)
     {
         Entity entity = e.getEntity();
-        if (entity instanceof EnderDragonPart || entity instanceof EnderDragon || entity instanceof Creeper)
+        if (entity instanceof EnderDragonPart || entity instanceof EnderDragon || entity instanceof Creeper) {
             e.blockList().clear();
+        }
     }
 
     @EventHandler
     public void onBlockIgnite(BlockIgniteEvent e)
     {
-        if (e.getIgnitingEntity() instanceof Fireball)
+        if (e.getIgnitingEntity() instanceof Fireball) {
             e.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void onBlockFade(BlockFadeEvent e)
     {
-        if (e.getNewState().getType() == Material.DIRT || e.getNewState().getType() == Material.GRASS)
+        if (e.getNewState().getType() == Material.DIRT || e.getNewState().getType() == Material.GRASS) {
             e.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent e)
     {
         Entity entity = e.getEntity();
-        if (!entity.hasMetadata("specEntityObject")) return;
+        if (!entity.hasMetadata("specEntityObject")) {
+            return;
+        }
         e.getDrops().clear();
     }
 
@@ -108,9 +119,12 @@ public class WorldListener extends PListener
     {
         Creeper creeper = e.getEntity();
         SEntity sEntity = SEntity.findSEntity(creeper);
-        if (sEntity == null) return;
-        if (sEntity.getFunction() instanceof CreeperFunction)
+        if (sEntity == null) {
+            return;
+        }
+        if (sEntity.getFunction() instanceof CreeperFunction) {
             ((CreeperFunction) sEntity.getFunction()).onCreeperIgnite(e, sEntity);
+        }
     }
 
     @EventHandler
@@ -135,8 +149,8 @@ public class WorldListener extends PListener
             {
                 if (Groups.FORAGING_REGIONS.contains(region.getType()))
                 {
-                    if (block.getType() == Material.LOG || block.getType() == Material.LOG_2 || block.getType() == Material.LEAVES ||
-                            block.getType() == Material.LEAVES_2)
+                    if (block.getType() == Material.LOG || block.getType() == Material.LOG_2 || block.getType() == Material.LEAVES
+                            || block.getType() == Material.LEAVES_2)
                     {
                         allowBreak = true;
                         int level = Skill.getLevel(user.getSkillXP(ForagingSkill.INSTANCE), ForagingSkill.INSTANCE.hasSixtyLevels());
@@ -175,8 +189,9 @@ public class WorldListener extends PListener
                         }
                         case STONE:
                         {
-                            if (block.getData() != 0)
+                            if (block.getData() != 0) {
                                 break;
+                            }
                             block.setType(Material.COBBLESTONE);
                             break;
                         }
@@ -193,8 +208,9 @@ public class WorldListener extends PListener
                     if (type != block.getType())
                     {
                         e.setCancelled(true);
-                        if (equiv.getStatistics() instanceof ExperienceRewardStatistics)
+                        if (equiv.getStatistics() instanceof ExperienceRewardStatistics) {
                             Skill.reward(((ExperienceRewardStatistics) equiv.getStatistics()).getRewardedSkill(), ((ExperienceRewardStatistics) equiv.getStatistics()).getRewardXP(), player);
+                        }
                         int level = Skill.getLevel(user.getSkillXP(MiningSkill.INSTANCE), MiningSkill.INSTANCE.hasSixtyLevels());
                         double d = MiningSkill.INSTANCE.getDoubleDropChance(level);
                         double t = MiningSkill.INSTANCE.getTripleDropChance(level);
@@ -214,18 +230,23 @@ public class WorldListener extends PListener
                     }
                 }
             }
-            if (user.isOnIsland(block))
+            if (user.isOnIsland(block)) {
                 allowBreak = true;
-            if (!allowBreak)
+            }
+            if (!allowBreak) {
                 e.setCancelled(true);
+            }
         }
-        if (equiv.getStatistics() instanceof ExperienceRewardStatistics && !e.isCancelled())
+        if (equiv.getStatistics() instanceof ExperienceRewardStatistics && !e.isCancelled()) {
             Skill.reward(((ExperienceRewardStatistics) equiv.getStatistics()).getRewardedSkill(), ((ExperienceRewardStatistics) equiv.getStatistics()).getRewardXP(), player);
+        }
         SBlock sBlock = SBlock.getBlock(e.getBlock().getLocation());
-        if (sBlock != null && !e.isCancelled())
+        if (sBlock != null && !e.isCancelled()) {
             sBlock.delete();
-        if (e.isCancelled() || player.getGameMode() == GameMode.CREATIVE)
+        }
+        if (e.isCancelled() || player.getGameMode() == GameMode.CREATIVE) {
             return;
+        }
         e.setCancelled(true);
         for (ItemStack drop : drops)
         {
@@ -240,8 +261,9 @@ public class WorldListener extends PListener
     @EventHandler
     public void onFarmlandDecay(BlockPhysicsEvent e)
     {
-        if (e.getChangedType() == Material.SOIL)
+        if (e.getChangedType() == Material.SOIL) {
             e.setCancelled(true);
+        }
     }
 
     @EventHandler
@@ -249,9 +271,13 @@ public class WorldListener extends PListener
     {
         Entity entity = e.getEntity();
         SEntity sEntity = SEntity.findSEntity(entity);
-        if (sEntity == null) return;
+        if (sEntity == null) {
+            return;
+        }
         sEntity.getFunction().onTarget(sEntity, e);
-        if (!(sEntity.getGenericInstance() instanceof Dragon)) return;
+        if (!(sEntity.getGenericInstance() instanceof Dragon)) {
+            return;
+        }
         e.setCancelled(true);
     }
 
@@ -260,8 +286,9 @@ public class WorldListener extends PListener
     {
         Material portalType = e.getLocation().getBlock().getType();
         Entity entity = e.getEntity();
-        if (ALREADY_TELEPORTING.contains(entity.getUniqueId()))
+        if (ALREADY_TELEPORTING.contains(entity.getUniqueId())) {
             return;
+        }
         if (portalType == Material.PORTAL)
         {
             World hub = Bukkit.getWorld(!plugin.config.getString("hub_world").isEmpty() ? plugin.config.getString("hub_world") : "hub");
@@ -276,7 +303,9 @@ public class WorldListener extends PListener
             entity.teleport(hub.getSpawnLocation());
             return;
         }
-        if (!(entity instanceof Player)) return;
+        if (!(entity instanceof Player)) {
+            return;
+        }
         ALREADY_TELEPORTING.add(entity.getUniqueId());
         SUtil.delay(() -> ALREADY_TELEPORTING.remove(entity.getUniqueId()), 15);
         entity.sendMessage(ChatColor.GRAY + "Sending you to your island...");
@@ -308,21 +337,24 @@ public class WorldListener extends PListener
         SEntity sEntity = SEntity.findSEntity(slime);
         if (sEntity != null)
         {
-            if (sEntity.getStatistics() instanceof SlimeStatistics && !((SlimeStatistics) sEntity.getStatistics()).split())
+            if (sEntity.getStatistics() instanceof SlimeStatistics && !((SlimeStatistics) sEntity.getStatistics()).split()) {
                 e.setCancelled(true);
+            }
         }
     }
 
     private static void addToRestorer(Block block, Player player)
     {
-        if (RESTORER.containsKey(player.getUniqueId()))
+        if (RESTORER.containsKey(player.getUniqueId())) {
             RESTORER.get(player.getUniqueId()).add(block.getState());
+        }
         else
         {
             RESTORER.put(player.getUniqueId(), new ArrayList<>());
             RESTORER.get(player.getUniqueId()).add(block.getState());
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     for (BlockState state : RESTORER.get(player.getUniqueId()))
@@ -342,12 +374,15 @@ public class WorldListener extends PListener
         for (ItemStack drop : drops)
         {
             int amount = 0;
-            if (SUtil.random(0.0, 1.0) < t)
+            if (SUtil.random(0.0, 1.0) < t) {
                 amount = 2;
-            else if (SUtil.random(0.0, 1.0) < d)
+            }
+            else if (SUtil.random(0.0, 1.0) < d) {
                 amount = 1;
-            if (amount == 0)
+            }
+            if (amount == 0) {
                 continue;
+            }
             block.getWorld().dropItemNaturally(block.getLocation().clone().add(0.5, 0.5, 0.5),
                     SUtil.setStackAmount(drop, amount));
         }
@@ -357,10 +392,12 @@ public class WorldListener extends PListener
     {
         return new BukkitRunnable()
         {
+            @Override
             public void run()
             {
-                if (block.getType() != Material.BEDROCK)
+                if (block.getType() != Material.BEDROCK) {
                     return;
+                }
                 int r5 = SUtil.random(1, 5);
                 switch (type)
                 {

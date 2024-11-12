@@ -49,8 +49,9 @@ public enum Rarity
 
     public Rarity downgrade()
     {
-        if (this.ordinal() - 1 < 0)
+        if (this.ordinal() - 1 < 0) {
             return this;
+        }
         return values()[this.ordinal() - 1];
     }
 

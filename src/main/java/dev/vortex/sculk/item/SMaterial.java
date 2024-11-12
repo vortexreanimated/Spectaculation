@@ -18,7 +18,6 @@
  */
 package dev.vortex.sculk.item;
 
-import lombok.Getter;
 import dev.vortex.sculk.entity.SEntityType;
 import dev.vortex.sculk.item.accessory.*;
 import dev.vortex.sculk.item.armor.ArmorSet;
@@ -83,6 +82,7 @@ import dev.vortex.sculk.item.tarantula.*;
 import dev.vortex.sculk.item.weapon.*;
 import dev.vortex.sculk.item.weapon.vanilla.*;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -937,18 +937,21 @@ public enum SMaterial
 
     public static SMaterial getSpecEquivalent(Material material, short data)
     {
-        if (material == Material.LOG || material == Material.LOG_2 || material == Material.LEAVES || material == Material.LEAVES_2)
+        if (material == Material.LOG || material == Material.LOG_2 || material == Material.LEAVES || material == Material.LEAVES_2) {
             data %= 4;
+        }
         List<SMaterial> results = Arrays.stream(values())
-                .filter((m) -> m.craft && m.getCraftMaterial() == material)
+                .filter(m -> m.craft && m.getCraftMaterial() == material)
                 .collect(Collectors.toList());
         for (SMaterial result : results)
         {
-            if (result.data == data)
+            if (result.data == data) {
                 return result;
+            }
         }
-        if (results.isEmpty())
+        if (results.isEmpty()) {
             return null;
+        }
         return results.getFirst();
     }
 
@@ -970,30 +973,35 @@ public enum SMaterial
     public static ArmorSet findArmorSet(SMaterial helmet, SMaterial chestplate, SMaterial leggings, SMaterial boots)
     {
         List<ArmorSet> subList = CACHED_SETS.stream().filter(s ->
-                s.getHelmet().equals(helmet.getStatistics().getClass()) &&
-                        s.getChestplate().equals(chestplate.getStatistics().getClass()) &&
-                        s.getLeggings().equals(leggings.getStatistics().getClass()) &&
-                        s.getBoots().equals(boots.getStatistics().getClass())).collect(Collectors.toList());
-        if (subList.size() == 0) return null;
+                s.getHelmet().equals(helmet.getStatistics().getClass())
+                        && s.getChestplate().equals(chestplate.getStatistics().getClass())
+                        && s.getLeggings().equals(leggings.getStatistics().getClass())
+                        && s.getBoots().equals(boots.getStatistics().getClass())).collect(Collectors.toList());
+        if (subList.size() == 0) {
+            return null;
+        }
         return subList.getFirst();
     }
 
     public static ArmorSet findArmorSet(SMaterial piece)
     {
         List<ArmorSet> subList = CACHED_SETS.stream().filter(s ->
-                s.getHelmet().equals(piece.getStatistics().getClass()) ||
-                        s.getChestplate().equals(piece.getStatistics().getClass()) ||
-                        s.getLeggings().equals(piece.getStatistics().getClass()) ||
-                        s.getBoots().equals(piece.getStatistics().getClass())).collect(Collectors.toList());
-        if (subList.size() == 0) return null;
+                s.getHelmet().equals(piece.getStatistics().getClass())
+                        || s.getChestplate().equals(piece.getStatistics().getClass())
+                        || s.getLeggings().equals(piece.getStatistics().getClass())
+                        || s.getBoots().equals(piece.getStatistics().getClass())).collect(Collectors.toList());
+        if (subList.size() == 0) {
+            return null;
+        }
         return subList.getFirst();
     }
 
     public MaterialFunction getFunction()
     {
         Object generic = getGenericInstance();
-        if (generic instanceof MaterialFunction function)
+        if (generic instanceof MaterialFunction function) {
             return function;
+        }
         return null;
     }
 
@@ -1026,70 +1034,88 @@ public enum SMaterial
             };
         }
         Object generic = getGenericInstance();
-        if (generic instanceof MaterialStatistics statistics)
+        if (generic instanceof MaterialStatistics statistics) {
             return statistics;
+        }
         return null;
     }
 
     public String getDisplayName(short variant)
     {
-        if (hasClass())
+        if (hasClass()) {
             return getStatistics().getDisplayName();
+        }
         return SUtil.getMaterialDisplayName(craftMaterial, variant);
     }
 
     public TickingMaterial getTickingInstance()
     {
         Object generic = getGenericInstance();
-        if (generic instanceof TickingMaterial tickingMaterial)
+        if (generic instanceof TickingMaterial tickingMaterial) {
             return tickingMaterial;
+        }
         return null;
     }
 
     public PlayerBoostStatistics getBoostStatistics()
     {
         MaterialStatistics statistics = getStatistics();
-        if (!(statistics instanceof PlayerBoostStatistics)) return null;
+        if (!(statistics instanceof PlayerBoostStatistics)) {
+            return null;
+        }
         return (PlayerBoostStatistics) statistics;
     }
 
     public SkullStatistics getSkullStatistics()
     {
         MaterialStatistics statistics = getStatistics();
-        if (!(statistics instanceof SkullStatistics)) return null;
+        if (!(statistics instanceof SkullStatistics)) {
+            return null;
+        }
         return (SkullStatistics) statistics;
     }
 
     public Ability getAbility()
     {
-        if (!hasClass()) return null;
+        if (!hasClass()) {
+            return null;
+        }
         Object generic = getGenericInstance();
-        if (generic instanceof Ability ability)
+        if (generic instanceof Ability ability) {
             return ability;
+        }
         return null;
     }
 
     public OrbBuff getOrbBuff()
     {
-        if (!hasClass()) return null;
+        if (!hasClass()) {
+            return null;
+        }
         Object generic = getGenericInstance();
-        if (generic instanceof OrbBuff buff)
+        if (generic instanceof OrbBuff buff) {
             return buff;
+        }
         return null;
     }
 
     public ItemData getItemData()
     {
-        if (!hasClass()) return null;
+        if (!hasClass()) {
+            return null;
+        }
         Object generic = getGenericInstance();
-        if (generic instanceof ItemData itemData)
+        if (generic instanceof ItemData itemData) {
             return itemData;
+        }
         return null;
     }
 
     public Object getGenericInstance()
     {
-        if (clazz == null) return null;
+        if (clazz == null) {
+            return null;
+        }
         try
         {
             return clazz.newInstance();
@@ -1113,14 +1139,18 @@ public enum SMaterial
         SItem boots = SItem.find(inventory.getBoots());
         for (ArmorSet set : CACHED_SETS)
         {
-            if (set.getHelmet() != null && helmet != null && helmet.getType().getStatistics().getClass() == set.getHelmet())
+            if (set.getHelmet() != null && helmet != null && helmet.getType().getStatistics().getClass() == set.getHelmet()) {
                 return set;
-            if (set.getChestplate() != null && chestplate != null && chestplate.getType().getStatistics().getClass() == set.getChestplate())
+            }
+            if (set.getChestplate() != null && chestplate != null && chestplate.getType().getStatistics().getClass() == set.getChestplate()) {
                 return set;
-            if (set.getLeggings() != null && leggings != null && leggings.getType().getStatistics().getClass() == set.getLeggings())
+            }
+            if (set.getLeggings() != null && leggings != null && leggings.getType().getStatistics().getClass() == set.getLeggings()) {
                 return set;
-            if (set.getBoots() != null && boots != null && boots.getType().getStatistics().getClass() == set.getBoots())
+            }
+            if (set.getBoots() != null && boots != null && boots.getType().getStatistics().getClass() == set.getBoots()) {
                 return set;
+            }
         }
         return null;
     }

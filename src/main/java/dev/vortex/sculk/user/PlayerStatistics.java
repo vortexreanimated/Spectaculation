@@ -18,10 +18,10 @@
  */
 package dev.vortex.sculk.user;
 
-import lombok.Getter;
-import lombok.Setter;
 import dev.vortex.sculk.Spectaculation;
 import dev.vortex.sculk.item.armor.ArmorSet;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -79,6 +79,7 @@ public class PlayerStatistics
     {
         itemTicker.put(slot, new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (Bukkit.getPlayer(uuid) == null)
@@ -93,8 +94,9 @@ public class PlayerStatistics
 
     public void cancelTickingItem(int slot)
     {
-        if (itemTicker.containsKey(slot))
+        if (itemTicker.containsKey(slot)) {
             itemTicker.get(slot).cancel();
+        }
         itemTicker.remove(slot);
     }
 
@@ -115,8 +117,8 @@ public class PlayerStatistics
     @Override
     public String toString()
     {
-        return maxHealth.addAll() + ", " + defense.addAll() + ", " + strength.addAll() + ", " + speed.addAll() + ", " + critChance.addAll() + ", " +
-            critDamage.addAll() + ", " + magicFind.addAll() + ", " + intelligence.addAll();
+        return maxHealth.addAll() + ", " + defense.addAll() + ", " + strength.addAll() + ", " + speed.addAll() + ", " + critChance.addAll() + ", "
+            + critDamage.addAll() + ", " + magicFind.addAll() + ", " + intelligence.addAll();
     }
 
     public void boostManaRegeneration(double percent, long ticks)
@@ -124,6 +126,7 @@ public class PlayerStatistics
         manaRegenerationPercentBonus += percent;
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 manaRegenerationPercentBonus -= percent;
@@ -136,6 +139,7 @@ public class PlayerStatistics
         healthRegenerationPercentBonus += percent;
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 healthRegenerationPercentBonus -= percent;

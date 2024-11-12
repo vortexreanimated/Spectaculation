@@ -67,8 +67,8 @@ public class SkyBlockProfileGUI extends GUI
                 " ",
                 ChatColor.GRAY + "Damage Reduction: " + ChatColor.GREEN + SUtil.roundTo(((double) statistics.getDefense().addAll() / ((double) statistics.getDefense().addAll() + 100.0)) * 100.0,
                         1) + "%",
-                ChatColor.GRAY + "Effective Health: " + ChatColor.RED +
-                        SUtil.commaify(SUtil.roundTo((double) statistics.getMaxHealth().addAll() * (((double) statistics.getDefense().addAll() + 100.0) / 100.0), 1)) + "❤"));
+                ChatColor.GRAY + "Effective Health: " + ChatColor.RED
+                        + SUtil.commaify(SUtil.roundTo((double) statistics.getMaxHealth().addAll() * (((double) statistics.getDefense().addAll() + 100.0) / 100.0), 1)) + "❤"));
         set(21, SUtil.getStack(ChatColor.RED + "❁ Strength " + ChatColor.WHITE + SUtil.commaify(statistics.getStrength().addAll()), Material.BLAZE_POWDER,
                 (short) 0, 1,
                 ChatColor.GRAY + "Strength increases your base",

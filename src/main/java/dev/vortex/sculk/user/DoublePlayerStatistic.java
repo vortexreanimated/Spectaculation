@@ -41,6 +41,7 @@ public class DoublePlayerStatistic implements PlayerStatistic<Double>
         this(0.0);
     }
 
+    @Override
     public Double addAll()
     {
         double result = defaultValue;
@@ -49,45 +50,56 @@ public class DoublePlayerStatistic implements PlayerStatistic<Double>
         return result;
     }
 
+    @Override
     public void add(int slot, Double d)
     {
         set(slot, safeGet(slot) + d);
     }
 
+    @Override
     public void sub(int slot, Double d)
     {
         set(slot, safeGet(slot) - d);
     }
 
+    @Override
     public void zero(int slot)
     {
         set(slot, 0.0);
     }
 
+    @Override
     public boolean contains(int slot)
     {
         return slot >= 0 && slot < values.size();
     }
 
+    @Override
     public Double safeGet(int index)
     {
-        if (index < 0 || index > values.size() - 1) set(index, 0.0);
+        if (index < 0 || index > values.size() - 1) {
+            set(index, 0.0);
+        }
         return values.get(index);
     }
 
+    @Override
     public void set(int slot, Double d)
     {
         values.ensureCapacity(slot + 1);
-        while (values.size() < slot + 1)
+        while (values.size() < slot + 1) {
             values.add(0.0);
+        }
         values.set(slot, d);
     }
 
+    @Override
     public int next()
     {
         return values.size();
     }
 
+    @Override
     public Double getFor(int slot)
     {
         return safeGet(slot);
@@ -96,8 +108,9 @@ public class DoublePlayerStatistic implements PlayerStatistic<Double>
     public ArrayList<Double> forInventory()
     {
         ArrayList<Double> list = new ArrayList<>();
-        for (int i = 6; i < values.size(); i++)
+        for (int i = 6; i < values.size(); i++) {
             list.add(safeGet(i));
+        }
         return list;
     }
 }

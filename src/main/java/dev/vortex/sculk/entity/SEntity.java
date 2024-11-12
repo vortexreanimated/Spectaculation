@@ -18,13 +18,13 @@
  */
 package dev.vortex.sculk.entity;
 
-import lombok.Getter;
 import dev.vortex.sculk.Spectaculation;
 import dev.vortex.sculk.entity.end.EndermanStatistics;
 import dev.vortex.sculk.entity.nms.SNMSEntity;
 import dev.vortex.sculk.entity.wolf.WolfStatistics;
 import dev.vortex.sculk.util.SLog;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
 import net.minecraft.server.v1_8_R3.GenericAttributes;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -64,13 +64,16 @@ public class SEntity // 3, 4, 5
         EntityStatistics statistics = (EntityStatistics) instance;
         this.function = function;
         this.statistics = statistics;
-        if (instance instanceof SNMSEntity sEntity)
+        if (instance instanceof SNMSEntity sEntity) {
             this.entity = sEntity.spawn(location);
-        else
+        }
+        else {
             this.entity = (LivingEntity) location.getWorld().spawnEntity(location, specType.getCraftType());
+        }
         this.damageDealt = new HashMap<>();
-        if (statistics.getMovementSpeed() != -1.0)
+        if (statistics.getMovementSpeed() != -1.0) {
             ((CraftLivingEntity) entity).getHandle().getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(statistics.getMovementSpeed());
+        }
         Location move = this.entity.getLocation().clone();
         move.setYaw(((Double) SUtil.random(0.0, 360.0)).floatValue());
         this.entity.teleport(move);
@@ -90,39 +93,51 @@ public class SEntity // 3, 4, 5
         {
             this.ticker = new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
-                    if (entity.isDead())
+                    if (entity.isDead()) {
                         cancel();
+                    }
                     function.tick(entity);
                 }
             }.runTaskTimer(Spectaculation.getPlugin(), 0, 1);
         }
-        if (statistics instanceof SlimeStatistics slimeStatistics && this.entity instanceof Slime slime)
+        if (statistics instanceof SlimeStatistics slimeStatistics && this.entity instanceof Slime slime) {
             slime.setSize(slimeStatistics.getSize());
-        if (statistics instanceof EndermanStatistics endermanStatistics && this.entity instanceof Enderman enderman)
-            enderman.setCarriedMaterial(endermanStatistics.getCarriedMaterial() != null ? endermanStatistics.getCarriedMaterial() : new MaterialData(Material.AIR));
-        if (this.entity instanceof org.bukkit.entity.Ageable)
-        {
-            if (genericInstance instanceof Ageable ageable && ageable.isBaby())
-                ((org.bukkit.entity.Ageable) this.entity).setBaby();
-            else
-                ((org.bukkit.entity.Ageable) this.entity).setAdult();
         }
-        if (statistics instanceof ZombieStatistics zombieStatistics && this.entity instanceof Zombie zombie)
+        if (statistics instanceof EndermanStatistics endermanStatistics && this.entity instanceof Enderman enderman) {
+            enderman.setCarriedMaterial(endermanStatistics.getCarriedMaterial() != null ? endermanStatistics.getCarriedMaterial() : new MaterialData(Material.AIR));
+        }
+        if (this.entity instanceof org.bukkit.entity.Ageable ageable1)
+        {
+            if (genericInstance instanceof Ageable ageable && ageable.isBaby()) {
+                ageable1.setBaby();
+            }
+            else {
+                ageable1.setAdult();
+            }
+        }
+        if (statistics instanceof ZombieStatistics zombieStatistics && this.entity instanceof Zombie zombie) {
             zombie.setVillager(zombieStatistics.isVillager());
-        if (statistics instanceof JockeyStatistics jockeyStatistics)
+        }
+        if (statistics instanceof JockeyStatistics jockeyStatistics) {
             this.entity.setPassenger(new SEntity(location, jockeyStatistics.getPassenger()).getEntity());
-        if (statistics instanceof WolfStatistics wolfStatistics && this.entity instanceof Wolf wolf)
+        }
+        if (statistics instanceof WolfStatistics wolfStatistics && this.entity instanceof Wolf wolf) {
             wolf.setAngry(wolfStatistics.isAngry());
-        if (statistics instanceof SkeletonStatistics skeletonStatistics && this.entity instanceof Skeleton skeleton)
+        }
+        if (statistics instanceof SkeletonStatistics skeletonStatistics && this.entity instanceof Skeleton skeleton) {
             skeleton.setSkeletonType(skeletonStatistics.isWither() ? Skeleton.SkeletonType.WITHER : Skeleton.SkeletonType.NORMAL);
+        }
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
-                if (!statistics.isVisible())
+                if (!statistics.isVisible()) {
                     ((CraftLivingEntity) entity).getHandle().setInvisible(true);
+                }
             }
         }.runTaskLater(Spectaculation.getPlugin(), 2);
         this.entity.setMaxHealth(statistics.getEntityMaxHealth());
@@ -138,10 +153,11 @@ public class SEntity // 3, 4, 5
             this.entity.setCustomNameVisible(true);
             this.task = new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
-                    entity.setCustomName(ChatColor.RED + statistics.getEntityName() + " " + ChatColor.GREEN + (int) entity.getHealth() +
-                            ChatColor.WHITE + "/" + ChatColor.GREEN + (int) entity.getMaxHealth() + ChatColor.RED + "❤");
+                    entity.setCustomName(ChatColor.RED + statistics.getEntityName() + " " + ChatColor.GREEN + (int) entity.getHealth()
+                            + ChatColor.WHITE + "/" + ChatColor.GREEN + (int) entity.getMaxHealth() + ChatColor.RED + "❤");
                 }
             }.runTaskTimer(Spectaculation.getPlugin(), 0, 10);
         }
@@ -155,8 +171,9 @@ public class SEntity // 3, 4, 5
     public void addDamageFor(Player player, double damage)
     {
         UUID uuid = player.getUniqueId();
-        if (damageDealt.containsKey(uuid))
+        if (damageDealt.containsKey(uuid)) {
             damage += damageDealt.get(uuid);
+        }
         damageDealt.remove(uuid);
         damageDealt.put(uuid, damage);
     }
@@ -165,6 +182,7 @@ public class SEntity // 3, 4, 5
     {
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 ((CraftLivingEntity) entity).getHandle().setInvisible(!visible);
@@ -174,25 +192,30 @@ public class SEntity // 3, 4, 5
 
     public void setTarget(LivingEntity target)
     {
-        if (!(entity instanceof Creature)) return;
+        if (!(entity instanceof Creature)) {
+            return;
+        }
         ((Creature) entity).setTarget(target);
     }
 
     public void remove()
     {
-        if (this.ticker != null)
+        if (this.ticker != null) {
             this.ticker.cancel();
-        if (this.task != null)
+        }
+        if (this.task != null) {
             this.task.cancel();
+        }
         entity.remove();
     }
 
     public static SEntity findSEntity(Entity entity)
     {
-        if (!entity.hasMetadata("specEntityObject") ||
-                entity.getMetadata("specEntityObject").size() == 0 ||
-                !(entity.getMetadata("specEntityObject").getFirst().value() instanceof SEntity))
+        if (!entity.hasMetadata("specEntityObject")
+            || entity.getMetadata("specEntityObject").size() == 0
+            || !(entity.getMetadata("specEntityObject").getFirst().value() instanceof SEntity)) {
             return null;
+        }
         return (SEntity) entity.getMetadata("specEntityObject").getFirst().value();
     }
 }

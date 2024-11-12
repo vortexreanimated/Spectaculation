@@ -65,6 +65,7 @@ public class UncollidableArmorStand extends EntityArmorStand implements EntitySt
         return false;
     }
 
+    @Override
     public double getXPDropped()
     {
         return 0.0;

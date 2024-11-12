@@ -65,8 +65,9 @@ public class ShopTradingOptionsGUI extends GUI
         SItem display = item.clone();
         display.getStack().setAmount(amount);
         ItemMeta meta = display.getStack().getItemMeta();
-        if (amount != 1)
+        if (amount != 1) {
             meta.setDisplayName(meta.getDisplayName() + ChatColor.DARK_GRAY + " x" + amount);
+        }
         List<String> lore = meta.getLore();
         lore.add(" ");
         lore.add(ChatColor.GRAY + "Cost");

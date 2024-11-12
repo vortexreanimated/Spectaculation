@@ -59,7 +59,9 @@ public class WaterBottle implements MaterialStatistics, MaterialFunction, ItemDa
     @Override
     public List<String> getDataLore(String key, Object value)
     {
-        if (!key.equals("effects")) return null;
+        if (!"effects".equals(key)) {
+            return null;
+        }
         NBTTagCompound compound = (NBTTagCompound) value;
         List<String> lore = new ArrayList<>();
         for (String k : compound.c())
@@ -70,8 +72,8 @@ public class WaterBottle implements MaterialStatistics, MaterialFunction, ItemDa
             int level = effectData.getInt("level");
             long duration = effectData.getLong("duration");
             PotionEffect effect = new PotionEffect(type, level, duration);
-            lore.add(type.getName() + " " + SUtil.toRomanNumeral(effect.getLevel()) +
-                    (!effect.getType().isInstant() ? ChatColor.WHITE + " (" + effect.getDurationDisplay() + ")" : ""));
+            lore.add(type.getName() + " " + SUtil.toRomanNumeral(effect.getLevel())
+                    + (!effect.getType().isInstant() ? ChatColor.WHITE + " (" + effect.getDurationDisplay() + ")" : ""));
             for (String line : SUtil.splitByWordAndLength(effect.getDescription(), 30, "\\s"))
                 lore.add(ChatColor.GRAY + line);
         }
@@ -84,16 +86,20 @@ public class WaterBottle implements MaterialStatistics, MaterialFunction, ItemDa
         int max = 0;
         for (PotionEffect effect : instance.getPotionEffects())
         {
-            if (effect.getLevel() > max)
+            if (effect.getLevel() > max) {
                 max = effect.getLevel();
+            }
         }
         instance.setRarity(SUtil.findPotionRarity(max), false);
-        if (instance.getPotionEffects().size() == 1)
-            instance.setDisplayName(ChatColor.stripColor(instance.getPotionEffects().getFirst().getType().getName() + " " +
-                    SUtil.toRomanNumeral(instance.getPotionEffects().getFirst().getLevel())) + (instance.isSplashPotion() ? " Splash" : "") + " Potion");
-        if (instance.getPotionEffects().size() > 1)
+        if (instance.getPotionEffects().size() == 1) {
+            instance.setDisplayName(ChatColor.stripColor(instance.getPotionEffects().getFirst().getType().getName() + " "
+                + SUtil.toRomanNumeral(instance.getPotionEffects().getFirst().getLevel())) + (instance.isSplashPotion() ? " Splash" : "") + " Potion");
+        }
+        if (instance.getPotionEffects().size() > 1) {
             instance.setDisplayName((instance.isSplashPotion() ? "Splash " : "") + "Potion");
-        if (instance.getPotionEffects().size() == 0)
+        }
+        if (instance.getPotionEffects().size() == 0) {
             instance.setDisplayName("Water Bottle");
+        }
     }
 }

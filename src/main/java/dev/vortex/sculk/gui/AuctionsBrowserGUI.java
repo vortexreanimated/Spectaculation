@@ -79,9 +79,12 @@ public class AuctionsBrowserGUI extends GUI
         String browsing = ChatColor.GREEN + "Currently browsing!";
         String view = ChatColor.YELLOW + "Click to view items!";
         List<AuctionItem> items = result.getPage(page);
-        if (items == null)
+        if (items == null) {
             items = new ArrayList<>();
-        if (items.size() == 0) page = 0;
+        }
+        if (items.size() == 0) {
+            page = 0;
+        }
         int finalPage = page;
         set(new GUIClickableItem()
         {
@@ -270,10 +273,12 @@ public class AuctionsBrowserGUI extends GUI
                 @Override
                 public void run(InventoryClickEvent e)
                 {
-                    if (e.isRightClick())
+                    if (e.isRightClick()) {
                         new AuctionsBrowserGUI(0).open(player);
-                    else
+                    }
+                    else {
                         new AuctionsBrowserGUI(finalPage - 1).open(player);
+                    }
                 }
                 @Override
                 public int getSlot()
@@ -298,10 +303,12 @@ public class AuctionsBrowserGUI extends GUI
                 @Override
                 public void run(InventoryClickEvent e)
                 {
-                    if (e.isRightClick())
+                    if (e.isRightClick()) {
                         new AuctionsBrowserGUI(result.getPageCount()).open(player);
-                    else
+                    }
+                    else {
                         new AuctionsBrowserGUI(finalPage + 1).open(player);
+                    }
                 }
                 @Override
                 public int getSlot()
@@ -382,10 +389,12 @@ public class AuctionsBrowserGUI extends GUI
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (e.isRightClick())
+                if (e.isRightClick()) {
                     settings.setSort(settings.getSort().previous());
-                else
+                }
+                else {
                     settings.setSort(settings.getSort().next());
+                }
                 new AuctionsBrowserGUI().open(player);
             }
 
@@ -401,10 +410,12 @@ public class AuctionsBrowserGUI extends GUI
                 List<String> lore = new ArrayList<>(Collections.singletonList(" "));
                 for (AuctionSettings.Sort s : AuctionSettings.Sort.values())
                 {
-                    if (settings.getSort() == s)
+                    if (settings.getSort() == s) {
                         lore.add(ChatColor.AQUA + "▶ " + s.getDisplay());
-                    else
+                    }
+                    else {
                         lore.add(ChatColor.GRAY + s.getDisplay());
+                    }
                 }
                 lore.add(" ");
                 lore.add(ChatColor.AQUA + "Right-Click to go backwards!");
@@ -420,21 +431,27 @@ public class AuctionsBrowserGUI extends GUI
                 Rarity tier = settings.getTier();
                 if (e.isRightClick())
                 {
-                    if (tier == null)
+                    if (tier == null) {
                         settings.setTier(Rarity.values()[Rarity.values().length - 1]);
-                    else if (tier.ordinal() == 0)
+                    }
+                    else if (tier.ordinal() == 0) {
                         settings.setTier(null);
-                    else
+                    }
+                    else {
                         settings.setTier(tier.downgrade());
+                    }
                 }
                 else
                 {
-                    if (tier == null)
+                    if (tier == null) {
                         settings.setTier(Rarity.values()[0]);
-                    else if (tier.ordinal() == Rarity.values().length - 1)
+                    }
+                    else if (tier.ordinal() == Rarity.values().length - 1) {
                         settings.setTier(null);
-                    else
+                    }
+                    else {
                         settings.setTier(tier.upgrade());
+                    }
                 }
                 new AuctionsBrowserGUI().open(player);
             }
@@ -449,17 +466,21 @@ public class AuctionsBrowserGUI extends GUI
             public ItemStack getItem()
             {
                 List<String> lore = new ArrayList<>(Collections.singletonList(" "));
-                if (settings.getTier() == null)
+                if (settings.getTier() == null) {
                     lore.add(ChatColor.DARK_GRAY + "▶ No filter");
-                else
+                }
+                else {
                     lore.add(ChatColor.GRAY + "No filter");
+                }
                 for (Rarity rarity : Rarity.values())
                 {
                     String normal = SUtil.toNormalCase(rarity.name());
-                    if (settings.getTier() == rarity)
+                    if (settings.getTier() == rarity) {
                         lore.add(rarity.getColor() + "▶ " + normal);
-                    else
+                    }
+                    else {
                         lore.add(ChatColor.GRAY + normal);
+                    }
                 }
                 lore.add(" ");
                 lore.add(ChatColor.AQUA + "Right-Click to go backwards!");
@@ -472,10 +493,12 @@ public class AuctionsBrowserGUI extends GUI
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (e.isRightClick())
+                if (e.isRightClick()) {
                     settings.setType(settings.getType().previous());
-                else
+                }
+                else {
                     settings.setType(settings.getType().next());
+                }
                 new AuctionsBrowserGUI().open(player);
             }
 
@@ -491,10 +514,12 @@ public class AuctionsBrowserGUI extends GUI
                 List<String> lore = new ArrayList<>(Collections.singletonList(" "));
                 for (AuctionSettings.Type t : AuctionSettings.Type.values())
                 {
-                    if (settings.getType() == t)
+                    if (settings.getType() == t) {
                         lore.add(ChatColor.DARK_AQUA + "▶ " + t.getDisplay());
-                    else
+                    }
+                    else {
                         lore.add(ChatColor.GRAY + t.getDisplay());
+                    }
                 }
                 lore.add(" ");
                 lore.add(ChatColor.AQUA + "Right-Click to go backwards!");

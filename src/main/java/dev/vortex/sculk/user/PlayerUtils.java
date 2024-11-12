@@ -97,8 +97,9 @@ public final class PlayerUtils
             critChance.set(PlayerStatistic.HAND, reforge.getCritChance().getForRarity(hand.getRarity()));
             intelligence.set(PlayerStatistic.HAND, reforge.getIntelligence().getForRarity(hand.getRarity()));
             PlayerBoostStatistics handStatistics = hand.getType().getBoostStatistics();
-            if (handStatistics != null)
+            if (handStatistics != null) {
                 strength.add(PlayerStatistic.HAND, handStatistics.getBaseStrength());
+            }
         }
         else
         {
@@ -129,20 +130,23 @@ public final class PlayerUtils
             intelligence.set(slot, reforge.getIntelligence().getForRarity(piece.getRarity()));
             PlayerBoostStatistics pieceStatistics = piece.getType().getBoostStatistics();
 
-            if (pieceStatistics != null)
+            if (pieceStatistics != null) {
                 addBoostStatistics(statistics, slot, pieceStatistics);
+            }
 
             if (piece.isEnchantable())
             {
                 for (Enchantment enchantment : piece.getEnchantments())
                 {
-                    if (enchantment.getType() == EnchantmentType.GROWTH)
+                    if (enchantment.getType() == EnchantmentType.GROWTH) {
                         health.add(slot, 15.0 * enchantment.getLevel());
+                    }
                 }
             }
             TickingMaterial tickingMaterial = piece.getType().getTickingInstance();
-            if (tickingMaterial != null)
+            if (tickingMaterial != null) {
                 statistics.tickItem(slot, tickingMaterial.getInterval(), () -> tickingMaterial.tick(piece, Bukkit.getPlayer(statistics.getUuid())));
+            }
         }
         updateHealth(Bukkit.getPlayer(statistics.getUuid()), statistics);
         return statistics;
@@ -174,8 +178,9 @@ public final class PlayerUtils
             magicFind.set(PlayerStatistic.PET, pet.getPerMagicFind() * level);
             trueDefense.set(PlayerStatistic.PET, pet.getPerTrueDefense() * level);
         }
-        else
+        else {
             statistics.zeroAll(PlayerStatistic.PET);
+        }
         updateHealth(player, statistics);
         return statistics;
     }
@@ -246,23 +251,30 @@ public final class PlayerUtils
             int slot = PlayerStatistic.ADD_FOR_INVENTORY + i;
             if (sItem != null)
             {
-                if (materials.contains(sItem.getType())) continue;
-                if (sItem.getType().getStatistics().getType() != GenericItemType.ACCESSORY) continue;
+                if (materials.contains(sItem.getType())) {
+                    continue;
+                }
+                if (sItem.getType().getStatistics().getType() != GenericItemType.ACCESSORY) {
+                    continue;
+                }
                 materials.add(sItem.getType());
-                if (sItem.getType().getFunction() instanceof AccessoryFunction)
+                if (sItem.getType().getFunction() instanceof AccessoryFunction) {
                     ((AccessoryFunction) sItem.getType().getFunction()).update(sItem, player, slot);
+                }
             }
             statistics.zeroAll(slot);
-            if (sItem == null)
+            if (sItem == null) {
                 continue;
+            }
             Reforge reforge = sItem.getReforge() == null ? Reforge.blank() : sItem.getReforge();
             strength.set(slot, reforge.getStrength().getForRarity(sItem.getRarity()));
             critDamage.set(slot, reforge.getCritDamage().getForRarity(sItem.getRarity()));
             critChance.set(slot, reforge.getCritChance().getForRarity(sItem.getRarity()));
             intelligence.set(slot, reforge.getIntelligence().getForRarity(sItem.getRarity()));
             PlayerBoostStatistics sItemStatistics = sItem.getType().getBoostStatistics();
-            if (sItemStatistics != null)
+            if (sItemStatistics != null) {
                 addBoostStatistics(statistics, slot, sItemStatistics);
+            }
         }
         updateHealth(player, statistics);
         return statistics;
@@ -291,11 +303,13 @@ public final class PlayerUtils
             magicFind.zero(slot);
             if (!effect.getEffect().getType().isInstant())
             {
-                if (effect.getRemaining() > 0 && effect.getEffect().getType().getStatsUpdate() != null)
+                if (effect.getRemaining() > 0 && effect.getEffect().getType().getStatsUpdate() != null) {
                     effect.getEffect().getType().getStatsUpdate().accept(statistics, slot, effect.getEffect().getLevel());
+                }
             }
-            else
+            else {
                 effect.setRemaining(0);
+            }
         }
         user.getEffects().removeIf(effect -> effect.getRemaining() <= 0);
         return statistics;
@@ -303,7 +317,9 @@ public final class PlayerUtils
 
     public static PlayerStatistics boostPlayer(PlayerStatistics statistics, PlayerBoostStatistics boostStatistics, long ticks)
     {
-        if (statistics == null) return null;
+        if (statistics == null) {
+            return null;
+        }
         DoublePlayerStatistic health = statistics.getMaxHealth(),
                 defense = statistics.getDefense(),
                 strength = statistics.getStrength(),
@@ -322,6 +338,7 @@ public final class PlayerUtils
         updateHealth(Bukkit.getPlayer(statistics.getUuid()), statistics);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 health.sub(PlayerStatistic.BOOST, boostStatistics.getBaseHealth());
@@ -351,40 +368,51 @@ public final class PlayerUtils
             if (sItem.getType().getStatistics().getType() != GenericItemType.RANGED_WEAPON || arrowHit)
             {
                 PlayerBoostStatistics playerBoostStatistics = sItem.getType().getBoostStatistics();
-                if (playerBoostStatistics != null)
+                if (playerBoostStatistics != null) {
                     damage = playerBoostStatistics.getBaseDamage();
-                if (sItem.getType() == SMaterial.EMERALD_BLADE)
+                }
+                if (sItem.getType() == SMaterial.EMERALD_BLADE) {
                     damage += SUtil.roundTo(2.5 * SUtil.quadrt(User.getUser(player.getUniqueId()).getCoins()), 1);
+                }
                 if (sItem.getType() != SMaterial.ENCHANTED_BOOK && sItem.isEnchantable())
                 {
                     for (Enchantment enchantment : sItem.getEnchantments())
                     {
                         EnchantmentType type = enchantment.getType();
                         int level = enchantment.getLevel();
-                        if (type == EnchantmentType.SHARPNESS && !arrowHit)
+                        if (type == EnchantmentType.SHARPNESS && !arrowHit) {
                             enchantBonus += (double) (level * 5) / 100.0;
-                        if (type == EnchantmentType.FIRE_ASPECT && sItem.getType().getStatistics().getType() == GenericItemType.WEAPON)
+                        }
+                        if (type == EnchantmentType.FIRE_ASPECT && sItem.getType().getStatistics().getType() == GenericItemType.WEAPON) {
                             damaged.setFireTicks((2 + level) * 20);
-                        if (type == EnchantmentType.POWER && arrowHit)
+                        }
+                        if (type == EnchantmentType.POWER && arrowHit) {
                             enchantBonus += (double) (level * 8) / 100.0;
-                        if (type == EnchantmentType.FLAME && arrowHit)
+                        }
+                        if (type == EnchantmentType.FLAME && arrowHit) {
                             damaged.setFireTicks(level * 3 * 20);
-                        if (type == EnchantmentType.SUPERS_BLESSING)
+                        }
+                        if (type == EnchantmentType.SUPERS_BLESSING) {
                             enchantBonus += (double) level * 2.0;
-                        if (type == EnchantmentType.SMITE && !arrowHit && Groups.UNDEAD_MOBS.contains(damaged.getType()))
+                        }
+                        if (type == EnchantmentType.SMITE && !arrowHit && Groups.UNDEAD_MOBS.contains(damaged.getType())) {
                             enchantBonus += (double) (level * 8) / 100.0;
-                        if (type == EnchantmentType.BANE_OF_ARTHROPODS && !arrowHit && Groups.ARTHROPODS.contains(damaged.getType()))
+                        }
+                        if (type == EnchantmentType.BANE_OF_ARTHROPODS && !arrowHit && Groups.ARTHROPODS.contains(damaged.getType())) {
                             enchantBonus += (double) (level * 8) / 100.0;
-                        if (type == EnchantmentType.CRITICAL)
+                        }
+                        if (type == EnchantmentType.CRITICAL) {
                             critDamage += (double) (level * 10) / 100.0;
+                        }
                     }
                 }
                 for (ActivePotionEffect effect : User.getUser(player.getUniqueId()).getEffects())
                 {
                     PotionEffectType type = effect.getEffect().getType();
                     int level = effect.getEffect().getLevel();
-                    if (type == PotionEffectType.ARCHERY && arrowHit)
+                    if (type == PotionEffectType.ARCHERY && arrowHit) {
                         potionBonus += SUtil.getOrDefault(Arrays.asList(12.5, 25.0, 50.0, 75.0), level - 1, (level * 25.0) - 25.0) / 100.0;
+                    }
                 }
             }
         }
@@ -394,11 +422,12 @@ public final class PlayerUtils
         double armorBonus = 1.0; // TEMPORARY
         int critChanceMul = (int) (statistics.getCritChance().addAll() * 100);
         int chance = SUtil.random(0, 100);
-        if (chance > critChanceMul)
+        if (chance > critChanceMul) {
             critDamage = 0.0;
+        }
 
-        double baseDamage = (5 + damage +
-                ((double) statistics.getStrength().addAll() / 5.0)) * (1 + ((double) statistics.getStrength().addAll() / 100.0));
+        double baseDamage = (5 + damage
+                + ((double) statistics.getStrength().addAll() / 5.0)) * (1 + ((double) statistics.getStrength().addAll() / 100.0));
 
         double damageMultiplier = 1 + (combatLevel * 0.04) + enchantBonus + weaponBonus;
         double finalCritDamage = critDamage;
@@ -428,8 +457,9 @@ public final class PlayerUtils
             if (activation != AbilityActivation.NO_ACTIVATION)
             {
                 UUID uuid = player.getUniqueId();
-                if (COOLDOWN_MAP.containsKey(uuid) && COOLDOWN_MAP.get(uuid).contains(sItem.getType()))
+                if (COOLDOWN_MAP.containsKey(uuid) && COOLDOWN_MAP.get(uuid).contains(sItem.getType())) {
                     player.sendMessage(ChatColor.RED + "You currently have a cooldown for this ability!");
+                }
                 else
                 {
                     int mana = Repeater.MANA_MAP.get(uuid);
@@ -467,18 +497,21 @@ public final class PlayerUtils
                         }
                         if (ability.getAbilityCooldownTicks() != 0)
                         {
-                            if (COOLDOWN_MAP.containsKey(uuid))
+                            if (COOLDOWN_MAP.containsKey(uuid)) {
                                 COOLDOWN_MAP.get(uuid).add(sItem.getType());
-                            else
+                            }
+                            else {
                                 COOLDOWN_MAP.put(uuid, new ArrayList<>(Arrays.asList(sItem.getType())));
+                            }
                             new BukkitRunnable()
                             {
                                 @Override
                                 public void run()
                                 {
                                     COOLDOWN_MAP.get(uuid).remove(sItem.getType());
-                                    if (COOLDOWN_MAP.get(uuid).size() == 0)
+                                    if (COOLDOWN_MAP.get(uuid).size() == 0) {
                                         COOLDOWN_MAP.remove(uuid);
+                                    }
                                 }
                             }.runTaskLater(Spectaculation.getPlugin(), ability.getAbilityCooldownTicks());
                         }
@@ -495,11 +528,14 @@ public final class PlayerUtils
 
     public static void updateHealth(Player player, PlayerStatistics statistics)
     {
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         boolean fill = player.getHealth() == player.getMaxHealth();
         player.setMaxHealth(statistics.getMaxHealth().addAll());
-        if (fill)
+        if (fill) {
             player.setHealth(player.getMaxHealth());
+        }
     }
 
     public static List<SItem> getAccessories(Player player)
@@ -509,9 +545,15 @@ public final class PlayerUtils
         for (ItemStack stack : player.getInventory())
         {
             SItem sItem = SItem.find(stack);
-            if (sItem == null) continue;
-            if (sItem.getType().getStatistics().getType() != GenericItemType.ACCESSORY) continue;
-            if (types.contains(sItem.getType())) continue;
+            if (sItem == null) {
+                continue;
+            }
+            if (sItem.getType().getStatistics().getType() != GenericItemType.ACCESSORY) {
+                continue;
+            }
+            if (types.contains(sItem.getType())) {
+                continue;
+            }
             accessories.add(sItem);
             types.add(sItem.getType());
         }
@@ -523,9 +565,12 @@ public final class PlayerUtils
         for (ItemStack stack : player.getInventory())
         {
             SItem sItem = SItem.find(stack);
-            if (sItem == null) continue;
-            if (sItem.getType() == material)
+            if (sItem == null) {
+                continue;
+            }
+            if (sItem.getType() == material) {
                 return true;
+            }
         }
         return false;
     }
@@ -533,28 +578,32 @@ public final class PlayerUtils
     public static void sendToIsland(Player player)
     {
         World world = Bukkit.getWorld("islands");
-        if (world == null)
+        if (world == null) {
             world = new BlankWorldCreator("islands").createWorld();
+        }
         User user = User.getUser(player.getUniqueId());
         if (user.getIslandX() == null)
         {
             Config config = Spectaculation.getPlugin().config;
             double xOffset = config.getDouble("islands.x");
             double zOffset = config.getDouble("islands.z");
-            if (xOffset < -25000000.0 || xOffset > 25000000.0)
+            if (xOffset < -25000000.0 || xOffset > 25000000.0) {
                 zOffset += User.ISLAND_SIZE * 2.0;
+            }
             File file = new File(config.getString("islands.schematic"));
             SUtil.pasteSchematic(file, new Location(world, 7.0 + xOffset, 100.0, 7.0 + zOffset), true);
             SUtil.setBlocks(new Location(world, 7.0 + xOffset, 104.0, 44.0 + zOffset),
                     new Location(world, 5.0 + xOffset, 100.0, 44.0 + zOffset), Material.PORTAL, false);
             user.setIslandLocation(7.5 + xOffset, 7.5 + zOffset);
             user.save();
-            if (xOffset > 0)
+            if (xOffset > 0) {
                 xOffset = xOffset * -1.0;
+            }
             else if (xOffset <= 0)
             {
-                if (xOffset != 0)
+                if (xOffset != 0) {
                     xOffset = xOffset * -1.0;
+                }
                 xOffset += User.ISLAND_SIZE * 2.0;
             }
             config.set("islands.x", xOffset);
@@ -571,8 +620,9 @@ public final class PlayerUtils
     {
         for (PotionEffect effect : player.getActivePotionEffects())
         {
-            if (effect.getType().getName().equals(type.getName()))
+            if (effect.getType().getName().equals(type.getName())) {
                 return effect;
+            }
         }
         return null;
     }
@@ -580,8 +630,9 @@ public final class PlayerUtils
     public static void replacePotionEffect(Player player, PotionEffect add)
     {
         PotionEffect effect = getPotionEffect(player, add.getType());
-        if (effect != null && effect.getAmplifier() > add.getAmplifier())
+        if (effect != null && effect.getAmplifier() > add.getAmplifier()) {
             return;
+        }
         player.removePotionEffect(add.getType());
         player.addPotionEffect(add);
     }
@@ -592,25 +643,27 @@ public final class PlayerUtils
         if (sEntity != null)
         {
             EntityFunction function = sEntity.getFunction();
-            if (damager != null)
+            if (damager != null) {
                 sEntity.addDamageFor(damager, finalDamage.get());
+            }
             if (((LivingEntity) entity).getHealth() - finalDamage.get() <= 0.0)
             {
-                if (damager != null)
+                if (damager != null) {
                     damager.playSound(damager.getLocation(), Sound.SUCCESSFUL_HIT, 1f, 1f);
+                }
                 User user = User.getUser(damager.getUniqueId());
                 Skill.reward(CombatSkill.INSTANCE, sEntity.getStatistics().getXPDropped(), damager);
                 SlayerQuest quest = user.getSlayerQuest();
                 if (quest != null && sEntity.getSpecType().getCraftType() == quest.getType().getType().getEntityType())
                 {
-                    if (sEntity.getGenericInstance() instanceof SlayerBoss &&
-                            ((SlayerBoss) sEntity.getGenericInstance()).getSpawnerUUID().equals(damager.getUniqueId()))
+                    if (sEntity.getGenericInstance() instanceof SlayerBoss
+                            && ((SlayerBoss) sEntity.getGenericInstance()).getSpawnerUUID().equals(damager.getUniqueId()))
                     {
                         quest.setKilled(System.currentTimeMillis());
                         damager.playSound(damager.getLocation(), Sound.LEVEL_UP, 1f, 2f);
                         damager.sendMessage("  " + ChatColor.GOLD + ChatColor.BOLD + "NICE! SLAYER BOSS SLAIN!");
-                        damager.sendMessage("   " + ChatColor.DARK_PURPLE + ChatColor.BOLD + "→ " + ChatColor.GRAY +
-                                "Talk to Maddox to claim your " + quest.getType().getType().getName() + " Slayer XP!");
+                        damager.sendMessage("   " + ChatColor.DARK_PURPLE + ChatColor.BOLD + "→ " + ChatColor.GRAY
+                                + "Talk to Maddox to claim your " + quest.getType().getType().getName() + " Slayer XP!");
                     }
                     else
                     {
@@ -632,42 +685,52 @@ public final class PlayerUtils
                     double r = SUtil.random(0.0, 1.0);
                     double magicFind = STATISTICS_CACHE.get(damager.getUniqueId()).getMagicFind().addAll() / 100.0;
                     double c = drop.getDropChance() + magicFind;
-                    if (r > c) continue;
-                    if (rare && type != EntityDropType.GUARANTEED) continue;
+                    if (r > c) {
+                        continue;
+                    }
+                    if (rare && type != EntityDropType.GUARANTEED) {
+                        continue;
+                    }
                     ItemStack stack = drop.getStack();
                     SItem sItem = SItem.find(stack);
-                    if (sItem == null)
+                    if (sItem == null) {
                         sItem = SItem.of(stack);
+                    }
                     sItem.setOrigin(ItemOrigin.MOB);
                     MaterialStatistics s = sItem.getType().getStatistics();
                     String name = sItem.getRarity().getColor() + sItem.getType().getDisplayName(sItem.getVariant());
                     MaterialFunction f = sItem.getType().getFunction();
                     if (f != null)
                     {
-                        if (s.getType() != GenericItemType.ACCESSORY)
+                        if (s.getType() != GenericItemType.ACCESSORY) {
                             f.onKill(entity, damager, sItem);
+                        }
                     }
                     if (damager != null)
                     {
                         for (SItem accessory : PlayerUtils.getAccessories(damager))
                         {
-                            if (accessory.getType().getStatistics().getType() == GenericItemType.ACCESSORY)
+                            if (accessory.getType().getStatistics().getType() == GenericItemType.ACCESSORY) {
                                 accessory.getType().getFunction().onKill(entity, damager, sItem);
+                            }
                         }
                     }
                     if (type != EntityDropType.GUARANTEED && type != EntityDropType.COMMON && damager != null)
                     {
-                        damager.sendMessage(type.getColor() + "" + ChatColor.BOLD +
-                                (type == EntityDropType.CRAZY_RARE ? "CRAZY " : "") + "RARE DROP!  " +
-                                ChatColor.GRAY + "(" + name + ChatColor.GRAY + ")" + (magicFind != 0.0 ? ChatColor.AQUA +
-                                " (+" + (int) (magicFind * 10000) + "% Magic Find!)" : ""));
+                        damager.sendMessage(type.getColor() + "" + ChatColor.BOLD
+                                + (type == EntityDropType.CRAZY_RARE ? "CRAZY " : "") + "RARE DROP!  "
+                                + ChatColor.GRAY + "(" + name + ChatColor.GRAY + ")" + (magicFind != 0.0 ? ChatColor.AQUA
+                                + " (+" + (int) (magicFind * 10000) + "% Magic Find!)" : ""));
                     }
-                    if (drop.getOwner() == null)
+                    if (drop.getOwner() == null) {
                         entity.getWorld().dropItem(entity.getLocation(), stack);
-                    else
+                    }
+                    else {
                         SUtil.spawnPersonalItem(stack, entity.getLocation(), drop.getOwner());
-                    if (type != EntityDropType.GUARANTEED)
+                    }
+                    if (type != EntityDropType.GUARANTEED) {
                         rare = true;
+                    }
                 }
                 function.onDeath(sEntity, entity, damager);
             }
@@ -677,8 +740,9 @@ public final class PlayerUtils
     public static boolean takeMana(Player player, int amount)
     {
         int n = Repeater.MANA_MAP.get(player.getUniqueId()) - amount;
-        if (n < 0)
+        if (n < 0) {
             return false;
+        }
         Repeater.MANA_MAP.put(player.getUniqueId(), n);
         return true;
     }
@@ -691,16 +755,20 @@ public final class PlayerUtils
         ArmorSet set = PlayerUtils.STATISTICS_CACHE.get(player.getUniqueId()).getArmorSet();
         if (set != null)
         {
-            if (set.equals(SMaterial.WISE_DRAGON_SET))
+            if (set.equals(SMaterial.WISE_DRAGON_SET)) {
                 updated /= 2;
+            }
         }
         Enchantment ultimateWise = sItem.getEnchantment(EnchantmentType.ULTIMATE_WISE);
-        if (ultimateWise != null)
+        if (ultimateWise != null) {
             updated = Math.max(0, ((Long) Math.round(updated - updated * (((double) ultimateWise.getLevel()) / 10.0))).intValue());
-        if (cost == -1)
+        }
+        if (cost == -1) {
             updated = manaPool;
-        if (cost == -2)
+        }
+        if (cost == -2) {
             updated = manaPool / 2;
+        }
         return updated;
     }
 
@@ -710,16 +778,18 @@ public final class PlayerUtils
         for (int i = 0; i < inventory.getSize(); i++)
         {
             SItem item = SItem.find(inventory.getItem(i));
-            if (item != null && item.getType() == type)
+            if (item != null && item.getType() == type) {
                 return i;
+            }
         }
         return -1;
     }
 
     public static void addBoostStatistics(PlayerStatistics statistics, int slot, PlayerBoostStatistics boostStatistics)
     {
-        if (boostStatistics == null)
+        if (boostStatistics == null) {
             return;
+        }
         DoublePlayerStatistic health = statistics.getMaxHealth(),
                 defense = statistics.getDefense(),
                 strength = statistics.getStrength(),
@@ -741,5 +811,8 @@ public final class PlayerUtils
     {
         double getFinalDamage();
         boolean didCritDamage();
+    }
+
+    private PlayerUtils() {
     }
 }

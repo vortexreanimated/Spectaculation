@@ -38,6 +38,7 @@ import java.util.List;
 
 public abstract class FloatingCrystal extends VelocityArmorStand
 {
+    @Override
     public void onSpawn(LivingEntity entity, SEntity sEntity)
     {
         ArmorStand stand = (ArmorStand) entity;
@@ -47,6 +48,7 @@ public abstract class FloatingCrystal extends VelocityArmorStand
         stand.setMetadata("specUnbreakableArmorStand", new FixedMetadataValue(Spectaculation.getPlugin(), true));
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (stand.isDead())
@@ -60,6 +62,7 @@ public abstract class FloatingCrystal extends VelocityArmorStand
         }.runTaskTimer(Spectaculation.getPlugin(), 15, 15);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (stand.isDead())
@@ -76,6 +79,7 @@ public abstract class FloatingCrystal extends VelocityArmorStand
         }.runTaskTimer(Spectaculation.getPlugin(), 0, 1);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (stand.isDead())
@@ -84,17 +88,24 @@ public abstract class FloatingCrystal extends VelocityArmorStand
                     return;
                 }
                 List<Block> farmland = SUtil.getNearbyBlocks(stand.getEyeLocation(), 11, Material.SOIL);
-                if (farmland.size() == 0) return;
+                if (farmland.size() == 0) {
+                    return;
+                }
                 List<Block> possible = new ArrayList<>();
                 for (Block block : farmland)
                 {
                     Block a = block.getLocation().clone().add(0, 1, 0).getBlock();
-                    if (a.getType() == Material.AIR)
+                    if (a.getType() == Material.AIR) {
                         possible.add(a);
+                    }
                 }
-                if (possible.size() == 0) return;
+                if (possible.size() == 0) {
+                    return;
+                }
                 Block above = possible.get(SUtil.random(0, possible.size() - 1));
-                if (above == null) return;
+                if (above == null) {
+                    return;
+                }
                 above.setType(Material.CROPS);
                 BlockState state = above.getState();
                 state.setRawData((byte) 7);
@@ -112,6 +123,7 @@ public abstract class FloatingCrystal extends VelocityArmorStand
         }.runTaskTimer(Spectaculation.getPlugin(), 20, 20);
     }
 
+    @Override
     public double getXPDropped()
     {
         return 0.0;

@@ -95,14 +95,15 @@ public abstract class PowerOrb implements SkullStatistics, MaterialFunction, Abi
         });
         stand.setVisible(false);
         AtomicInteger seconds = new AtomicInteger((int) (getOrbLifeTicks() / 20));
-        stand.setCustomName(sItem.getRarity().getColor() + (getCustomOrbName() == null ? getBuffName() : getCustomOrbName()) +
-                " " + ChatColor.YELLOW + seconds.get() + "s");
+        stand.setCustomName(sItem.getRarity().getColor() + (getCustomOrbName() == null ? getBuffName() : getCustomOrbName())
+                + " " + ChatColor.YELLOW + seconds.get() + "s");
         stand.setCustomNameVisible(true);
         stand.setHelmet(SUtil.getSkull(getURL(), null));
         stand.setVelocity(new Vector(0, 0.1, 0));
         stand.setMetadata("specUnbreakableArmorStand", new FixedMetadataValue(Spectaculation.getPlugin(), true));
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (stand.isDead())
@@ -116,6 +117,7 @@ public abstract class PowerOrb implements SkullStatistics, MaterialFunction, Abi
         }.runTaskTimer(Spectaculation.getPlugin(), 25, 25);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (stand.isDead())
@@ -131,6 +133,7 @@ public abstract class PowerOrb implements SkullStatistics, MaterialFunction, Abi
         }.runTaskTimer(Spectaculation.getPlugin(), 0, 1);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (stand.isDead())
@@ -141,32 +144,41 @@ public abstract class PowerOrb implements SkullStatistics, MaterialFunction, Abi
                 int c = 0;
                 for (Entity entity : stand.getNearbyEntities(18, 18, 18))
                 {
-                    if (!(entity instanceof Player)) continue;
+                    if (!(entity instanceof Player)) {
+                        continue;
+                    }
                     Player p = (Player) entity;
-                    if (c >= 5) break;
+                    if (c >= 5) {
+                        break;
+                    }
                     c++;
                     if (USING_POWER_ORB_MAP.containsKey(p.getUniqueId()))
                     {
-                        if (!USING_POWER_ORB_MAP.get(p.getUniqueId()).equals(stand)) continue;
+                        if (!USING_POWER_ORB_MAP.get(p.getUniqueId()).equals(stand)) {
+                            continue;
+                        }
                     }
                     USING_POWER_ORB_MAP.put(p.getUniqueId(), stand);
                     new BukkitRunnable()
                     {
+                        @Override
                         public void run()
                         {
                             USING_POWER_ORB_MAP.remove(p.getUniqueId());
                         }
                     }.runTaskLater(Spectaculation.getPlugin(), 20);
                     buff(p);
-                    for (int i = 0; i < 8; i++)
+                    for (int i = 0; i < 8; i++) {
                         playEffect(p.getLocation().add(SUtil.random(-0.5, 0.5), 0.1, SUtil.random(-0.5, 0.5)));
+                    }
                 }
-                stand.setCustomName(sItem.getRarity().getColor() + (getCustomOrbName() == null ? getBuffName() : getCustomOrbName()) +
-                        " " + ChatColor.YELLOW + Math.max(0, seconds.decrementAndGet()) + "s");
+                stand.setCustomName(sItem.getRarity().getColor() + (getCustomOrbName() == null ? getBuffName() : getCustomOrbName())
+                        + " " + ChatColor.YELLOW + Math.max(0, seconds.decrementAndGet()) + "s");
             }
         }.runTaskTimer(Spectaculation.getPlugin(), 20, 20);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 POWER_ORB_MAP.remove(player.getUniqueId());

@@ -108,8 +108,9 @@ public class MaddoxBatphone implements SkullStatistics, MaterialFunction, Abilit
     @Override
     public void onAbilityUse(Player player, SItem sItem)
     {
-        if (RING_COOLDOWN.contains(player.getUniqueId()))
+        if (RING_COOLDOWN.contains(player.getUniqueId())) {
             return;
+        }
         RING_COOLDOWN.add(player.getUniqueId());
         SUtil.delay(() -> RING_COOLDOWN.remove(player.getUniqueId()), 52);
         SoundSequenceType.MADDOX_BATPHONE.play(player);

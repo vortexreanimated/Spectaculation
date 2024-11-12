@@ -33,6 +33,7 @@ public class CreeperIgniteEvent extends EntityEvent implements Cancellable
         super(what);
     }
 
+    @Override
     public Creeper getEntity()
     {
         return (Creeper) entity;

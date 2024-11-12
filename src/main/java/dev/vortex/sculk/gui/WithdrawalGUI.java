@@ -50,8 +50,8 @@ public class WithdrawalGUI extends GUI
                 user.addCoins(coins);
                 user.subBankCoins(coins);
                 user.save();
-                player.sendMessage(ChatColor.GREEN + "You have withdrawn " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN +
-                        "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
+                player.sendMessage(ChatColor.GREEN + "You have withdrawn " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN
+                        + "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
                 GUIType.BANKER.getGUI().open(player);
             }
 
@@ -82,8 +82,8 @@ public class WithdrawalGUI extends GUI
                 user.addCoins(coins);
                 user.subBankCoins(coins);
                 user.save();
-                player.sendMessage(ChatColor.GREEN + "You have withdrawn " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN +
-                        "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
+                player.sendMessage(ChatColor.GREEN + "You have withdrawn " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN
+                        + "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
                 GUIType.BANKER.getGUI().open(player);
             }
 
@@ -114,8 +114,8 @@ public class WithdrawalGUI extends GUI
                 user.addCoins(coins);
                 user.subBankCoins(coins);
                 user.save();
-                player.sendMessage(ChatColor.GREEN + "You have withdrawn " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN +
-                        "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
+                player.sendMessage(ChatColor.GREEN + "You have withdrawn " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN
+                        + "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
                 GUIType.BANKER.getGUI().open(player);
             }
 
@@ -158,8 +158,8 @@ public class WithdrawalGUI extends GUI
                     user.addCoins(coins);
                     user.subBankCoins(coins);
                     user.save();
-                    player.sendMessage(ChatColor.GREEN + "You have withdrawn " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN +
-                            "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
+                    player.sendMessage(ChatColor.GREEN + "You have withdrawn " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN
+                            + "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
                 }
                 catch (NumberFormatException ex)
                 {

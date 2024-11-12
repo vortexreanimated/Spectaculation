@@ -41,12 +41,14 @@ public class AnimationSequence implements Sequence
         animations.add(sound);
     }
 
+    @Override
     public void play(Location location)
     {
         for (DelayedAnimation animation : animations)
             animation.play(location);
     }
 
+    @Override
     public void play(Entity entity)
     {
         for (DelayedAnimation animation : animations)
@@ -74,6 +76,7 @@ public class AnimationSequence implements Sequence
         {
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     location.getWorld().spigot().playEffect(location, effect, 1, data, 0.0f, 0.0f, 0.0f, speed, particleCount, 16);

@@ -23,7 +23,7 @@ import org.bukkit.event.Listener;
 
 public class PListener implements Listener
 {
-    private static int amount = 0;
+    private static int amount;
 
     protected Spectaculation plugin;
 

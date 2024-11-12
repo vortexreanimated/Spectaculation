@@ -27,14 +27,14 @@ import java.util.List;
 
 public class Sidebar
 {
-    private static ScoreboardManager manager = Bukkit.getScoreboardManager();
+    private static final ScoreboardManager manager = Bukkit.getScoreboardManager();
 
-    private String name;
-    private String identifier;
+    private final String name;
+    private final String identifier;
 
-    private Scoreboard board;
-    private Objective obj;
-    private List<Score> scores;
+    private final Scoreboard board;
+    private final Objective obj;
+    private final List<Score> scores;
 
     public Sidebar(String name, String identifier)
     {
@@ -55,8 +55,9 @@ public class Sidebar
 
     public void apply(Player player)
     {
-        for (int i = 0; i < scores.size(); i++)
+        for (int i = 0; i < scores.size(); i++) {
             scores.get(i).setScore(i);
+        }
         player.setScoreboard(board);
     }
 }

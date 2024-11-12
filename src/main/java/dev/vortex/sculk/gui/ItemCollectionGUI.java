@@ -63,11 +63,13 @@ public class ItemCollectionGUI extends GUI
         for (int i = 0, slot = 18; i < collection.getRewards().size(); i++, slot++)
         {
             int t = i + 1;
-            if (t == 28)
+            if (t == 28) {
                 break;
+            }
             ItemCollectionRewards rewards = collection.getRewards().get(i);
-            if (rewards == null)
+            if (rewards == null) {
                 continue;
+            }
             int finalSlot = slot;
             ChatColor color = ChatColor.RED;
             short data = 14;

@@ -32,7 +32,9 @@ public class EntitySpawnersCommand extends SCommand
     @Override
     public void run(CommandSource sender, String[] args)
     {
-        if (sender instanceof ConsoleCommandSender) throw new CommandFailException("Console senders cannot use this command!");
+        if (sender instanceof ConsoleCommandSender) {
+            throw new CommandFailException("Console senders cannot use this command!");
+        }
         Player player = sender.getPlayer();
         if (args.length == 0)
         {
@@ -47,14 +49,17 @@ public class EntitySpawnersCommand extends SCommand
             send(builder.toString());
             return;
         }
-        if (args.length != 2) throw new CommandArgumentException();
+        if (args.length != 2) {
+            throw new CommandArgumentException();
+        }
         switch (args[0].toLowerCase())
         {
             case "create":
             {
                 SEntityType type = SEntityType.getEntityType(args[1]);
-                if (type == null)
+                if (type == null) {
                     throw new CommandFailException("That is not a valid entity type!");
+                }
                 EntitySpawner spawner = new EntitySpawner(type, player.getLocation());
                 send("New entity spawner has been created at " + SUtil.prettify(spawner.getLocation()) + " with the type " + spawner.getType().getGenericInstance());
                 break;
@@ -63,8 +68,9 @@ public class EntitySpawnersCommand extends SCommand
             {
                 int index = Integer.parseInt(args[1]) - 1;
                 List<EntitySpawner> spawners = EntitySpawner.getSpawners();
-                if (index < 0 || index > spawners.size() - 1)
+                if (index < 0 || index > spawners.size() - 1) {
                     throw new CommandFailException("There is no spawner at that location!");
+                }
                 spawners.remove(index).delete();
                 send("Entity spawner deleted.");
                 break;

@@ -64,13 +64,16 @@ public class HighLevelSkeleton implements EntityStatistics, EntityFunction
         Item item = sEntity.getEntity().getWorld().dropItem(sEntity.getEntity().getLocation(), new ItemStack(Material.BONE, 2));
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
-                if (item.isDead())
+                if (item.isDead()) {
                     return;
+                }
                 Location spawn = item.getLocation().clone().add(0, 1, 0);
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 5; i++) {
                     item.getWorld().spigot().playEffect(spawn, Effect.PARTICLE_SMOKE, 0, 1, 0f, 0f, 0f, 0f, 1, 20);
+                }
                 new SEntity(spawn, SEntityType.HIGH_LEVEL_SKELETON);
                 item.remove();
             }

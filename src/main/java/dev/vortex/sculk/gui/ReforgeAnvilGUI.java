@@ -93,10 +93,14 @@ public class ReforgeAnvilGUI extends GUI
             public void run(InventoryClickEvent e)
             {
                 SItem sItem = SItem.find(e.getClickedInventory().getItem(13));
-                if (sItem == null) return;
-                if (!(sItem.getType().getGenericInstance() instanceof Reforgable)) return;
+                if (sItem == null) {
+                    return;
+                }
+                if (!(sItem.getType().getGenericInstance() instanceof Reforgable)) {
+                    return;
+                }
                 List<ReforgeType> possible = Arrays.stream(ReforgeType.values())
-                        .filter((type) -> type.getReforge().getCompatibleTypes().contains(sItem.getType().getStatistics().getType()) && type.isAccessible())
+                        .filter(type -> type.getReforge().getCompatibleTypes().contains(sItem.getType().getStatistics().getType()) && type.isAccessible())
                         .collect(Collectors.toList());
                 Player player = (Player) e.getWhoClicked();
                 if (possible.size() == 0)
@@ -124,6 +128,7 @@ public class ReforgeAnvilGUI extends GUI
                 COOLDOWN.add(player.getUniqueId());
                 new BukkitRunnable()
                 {
+                    @Override
                     public void run()
                     {
                         COOLDOWN.remove(player.getUniqueId());
@@ -139,6 +144,7 @@ public class ReforgeAnvilGUI extends GUI
     {
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 SItem sItem = SItem.find(inventory.getItem(13));

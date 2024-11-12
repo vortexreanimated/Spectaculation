@@ -71,6 +71,7 @@ public class ZombieVillager extends BaseZombie
         return 0.55;
     }
 
+    @Override
     public double getXPDropped()
     {
         return 7.0;

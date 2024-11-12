@@ -50,8 +50,9 @@ public class CreateAuctionGUI extends GUI
     public void early(Player player)
     {
         User user = User.getUser(player.getUniqueId());
-        if (user.isAuctionCreationBIN())
+        if (user.isAuctionCreationBIN()) {
             this.title = "Create BIN Auction";
+        }
     }
 
     @Override
@@ -68,7 +69,9 @@ public class CreateAuctionGUI extends GUI
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (user.getAuctionEscrow().getItem() == null) return;
+                if (user.getAuctionEscrow().getItem() == null) {
+                    return;
+                }
                 player.getInventory().addItem(user.getAuctionEscrow().getItem().getStack());
                 user.getAuctionEscrow().setItem(null);
                 new CreateAuctionGUI().open(player);
@@ -106,8 +109,9 @@ public class CreateAuctionGUI extends GUI
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (escrow.getItem() == null)
+                if (escrow.getItem() == null) {
                     return;
+                }
                 if (user.getCoins() < escrow.getCreationFee(bin))
                 {
                     player.sendMessage(ChatColor.RED + "You don't have enough coins to afford this!");
@@ -203,8 +207,8 @@ public class CreateAuctionGUI extends GUI
                     lore.add(ChatColor.GRAY + "to make a higher bid.");
                 }
                 lore.add(" ");
-                lore.add(ChatColor.GRAY + "Extra fee: " + ChatColor.GOLD + "+" + SUtil.commaify(escrow.getCreationFee(user.isAuctionCreationBIN())) + " coins " +
-                        ChatColor.YELLOW + "(" + (bin ? 1 : 5) + "%)");
+                lore.add(ChatColor.GRAY + "Extra fee: " + ChatColor.GOLD + "+" + SUtil.commaify(escrow.getCreationFee(user.isAuctionCreationBIN())) + " coins "
+                        + ChatColor.YELLOW + "(" + (bin ? 1 : 5) + "%)");
                 lore.add(" ");
                 lore.add(ChatColor.YELLOW + "Click to edit!");
                 return SUtil.getStack(ChatColor.WHITE + (bin ? "Item price: " : "Starting bid: ") + ChatColor.GOLD + SUtil.commaify(escrow.getStarter()) + " coins",
@@ -293,15 +297,22 @@ public class CreateAuctionGUI extends GUI
     public void onBottomClick(InventoryClickEvent e)
     {
         ItemStack current = e.getCurrentItem();
-        if (current == null) return;
-        if (current.getType() == Material.AIR) return;
+        if (current == null) {
+            return;
+        }
+        if (current.getType() == Material.AIR) {
+            return;
+        }
         SItem item = SItem.find(current);
-        if (item == null)
+        if (item == null) {
             item = SItem.convert(current);
+        }
         e.setCancelled(true);
         Player player = (Player) e.getWhoClicked();
         User user = User.getUser(player.getUniqueId());
-        if (user.getAuctionEscrow().getItem() != null) return;
+        if (user.getAuctionEscrow().getItem() != null) {
+            return;
+        }
         user.getAuctionEscrow().setItem(item);
         player.getInventory().setItem(e.getSlot(), new ItemStack(Material.AIR));
         new CreateAuctionGUI().open(player);

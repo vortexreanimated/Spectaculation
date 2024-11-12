@@ -54,8 +54,9 @@ public class AuctionSettings implements Cloneable, ConfigurationSerializable
         map.put("category", category.name());
         map.put("query", query);
         map.put("sort", sort.name());
-        if (tier != null)
+        if (tier != null) {
             map.put("tier", tier.name());
+        }
         map.put("type", type.name());
         return map;
     }
@@ -63,17 +64,19 @@ public class AuctionSettings implements Cloneable, ConfigurationSerializable
     @Override
     public String toString()
     {
-        return "AuctionSettings{category=" + category.name() +
-                ", query=" + query + ", sort=" + sort.name() + ", tier=" + tier.name() + ", type=" + type.name() + "}";
+        return "AuctionSettings{category=" + category.name()
+                + ", query=" + query + ", sort=" + sort.name() + ", tier=" + tier.name() + ", type=" + type.name() + "}";
     }
 
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof AuctionSettings)) return false;
+        if (!(o instanceof AuctionSettings)) {
+            return false;
+        }
         AuctionSettings settings = (AuctionSettings) o;
-        return category == settings.category && query.equals(settings.query) && sort == settings.sort &&
-                tier == settings.tier && type == settings.type;
+        return category == settings.category && query.equals(settings.query) && sort == settings.sort
+                && tier == settings.tier && type == settings.type;
     }
 
     @Override
@@ -160,16 +163,18 @@ public class AuctionSettings implements Cloneable, ConfigurationSerializable
         public Sort previous()
         {
             int prev = ordinal() - 1;
-            if (prev < 0)
+            if (prev < 0) {
                 return values()[values().length - 1];
+            }
             return values()[prev];
         }
 
         public Sort next()
         {
             int nex = ordinal() + 1;
-            if (nex > values().length - 1)
+            if (nex > values().length - 1) {
                 return values()[0];
+            }
             return values()[nex];
         }
     }
@@ -195,16 +200,18 @@ public class AuctionSettings implements Cloneable, ConfigurationSerializable
         public Type previous()
         {
             int prev = ordinal() - 1;
-            if (prev < 0)
+            if (prev < 0) {
                 return values()[values().length - 1];
+            }
             return values()[prev];
         }
 
         public Type next()
         {
             int nex = ordinal() + 1;
-            if (nex > values().length - 1)
+            if (nex > values().length - 1) {
                 return values()[0];
+            }
             return values()[nex];
         }
     }

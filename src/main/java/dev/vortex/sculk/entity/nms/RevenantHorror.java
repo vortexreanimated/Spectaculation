@@ -71,11 +71,14 @@ public class RevenantHorror extends EntityZombie implements SNMSEntity, EntityFu
         this.spawnerUUID = UUID.randomUUID();
     }
 
+    @Override
     public void t_()
     {
         super.t_();
         Player player = Bukkit.getPlayer(spawnerUUID);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         if (System.currentTimeMillis() > end)
         {
             User.getUser(player.getUniqueId()).failSlayerQuest();
@@ -92,6 +95,7 @@ public class RevenantHorror extends EntityZombie implements SNMSEntity, EntityFu
             player.setVelocity(new Vector(SUtil.random(-1.0, 1.0), SUtil.random(0.0, 0.5), SUtil.random(-1.0, 1.0)));
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     enraged = false;
@@ -110,6 +114,7 @@ public class RevenantHorror extends EntityZombie implements SNMSEntity, EntityFu
         hologram.getEntity().setCustomNameVisible(true);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (entity.isDead())
@@ -118,8 +123,9 @@ public class RevenantHorror extends EntityZombie implements SNMSEntity, EntityFu
                     return;
                 }
                 Player player = Bukkit.getPlayer(spawnerUUID);
-                if (player == null)
+                if (player == null) {
                     return;
+                }
                 player.damage(getDamageDealt() * 0.5, entity);
             }
         }.runTaskTimer(Spectaculation.getPlugin(), 60, 60);
@@ -127,6 +133,7 @@ public class RevenantHorror extends EntityZombie implements SNMSEntity, EntityFu
         {
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     if (entity.isDead())
@@ -135,8 +142,9 @@ public class RevenantHorror extends EntityZombie implements SNMSEntity, EntityFu
                         return;
                     }
                     Player player = Bukkit.getPlayer(spawnerUUID);
-                    if (player == null)
+                    if (player == null) {
                         return;
+                    }
                     player.damage(getDamageDealt(), entity);
                 }
             }.runTaskTimer(Spectaculation.getPlugin(), 20, 20);
@@ -173,6 +181,7 @@ public class RevenantHorror extends EntityZombie implements SNMSEntity, EntityFu
         return SPEED_VALUES.getByNumber(tier) * (enraged ? 1.05 : 1.0);
     }
 
+    @Override
     public SEntityEquipment getEntityEquipment()
     {
         return new SEntityEquipment(new ItemStack(Material.DIAMOND_HOE),
@@ -196,16 +205,26 @@ public class RevenantHorror extends EntityZombie implements SNMSEntity, EntityFu
     {
         List<EntityDrop> drops = new ArrayList<>();
         int revFlesh = SUtil.random(1, 3);
-        if (tier == 2) revFlesh = SUtil.random(9, 18);
-        if (tier == 3) revFlesh = SUtil.random(30, 50);
-        if (tier == 4) revFlesh = SUtil.random(50, 64);
+        if (tier == 2) {
+            revFlesh = SUtil.random(9, 18);
+        }
+        if (tier == 3) {
+            revFlesh = SUtil.random(30, 50);
+        }
+        if (tier == 4) {
+            revFlesh = SUtil.random(50, 64);
+        }
         drops.add(new EntityDrop(SUtil.setStackAmount(SItem.of(SMaterial.REVENANT_FLESH).getStack(), revFlesh),
                 EntityDropType.GUARANTEED, 1.0));
         if (tier >= 2)
         {
             int foulFlesh = 1;
-            if (tier == 3) foulFlesh = SUtil.random(1, 2);
-            if (tier == 4) foulFlesh = SUtil.random(2, 3);
+            if (tier == 3) {
+                foulFlesh = SUtil.random(1, 2);
+            }
+            if (tier == 4) {
+                foulFlesh = SUtil.random(2, 3);
+            }
             drops.add(new EntityDrop(SUtil.setStackAmount(SItem.of(SMaterial.FOUL_FLESH).getStack(), foulFlesh),
                     EntityDropType.OCCASIONAL, 0.2));
             drops.add(new EntityDrop(SMaterial.PESTILENCE_RUNE, EntityDropType.RARE, 0.05));
@@ -227,6 +246,7 @@ public class RevenantHorror extends EntityZombie implements SNMSEntity, EntityFu
         return drops;
     }
 
+    @Override
     public double getXPDropped()
     {
         return 0.0;

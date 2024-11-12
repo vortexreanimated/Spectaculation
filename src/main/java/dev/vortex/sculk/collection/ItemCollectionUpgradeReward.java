@@ -33,6 +33,7 @@ public class ItemCollectionUpgradeReward extends ItemCollectionReward
         this.color = color;
     }
 
+    @Override
     public String toRewardString()
     {
         return color + name + " Upgrade";

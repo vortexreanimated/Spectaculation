@@ -89,7 +89,9 @@ public class PaginationList<T> extends ArrayList<T>
      */
     public List<T> getPage(int page)
     {
-        if (page < 1 || page > getPageCount()) return null;
+        if (page < 1 || page > getPageCount()) {
+            return null;
+        }
         int startIndex = (page - 1) * elementsPerPage;
         int endIndex = Math.min(startIndex + elementsPerPage, this.size());
         return subList(startIndex, endIndex);
@@ -101,8 +103,9 @@ public class PaginationList<T> extends ArrayList<T>
     public List<List<T>> getPages()
     {
         List<List<T>> pages = new ArrayList<>();
-        for (int i = 1; i <= getPageCount(); i++)
+        for (int i = 1; i <= getPageCount(); i++) {
             pages.add(getPage(i));
+        }
         return pages;
     }
 

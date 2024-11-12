@@ -73,7 +73,9 @@ public class ShopGUI extends GUI
         border(BLACK_STAINED_GLASS_PANE);
         PaginationList<SItem> paged = new PaginationList<>(28);
         paged.addAll(items);
-        if (paged.size() == 0) page = 0;
+        if (paged.size() == 0) {
+            page = 0;
+        }
         int finalPage = page;
         if (page > 1)
         {
@@ -130,8 +132,9 @@ public class ShopGUI extends GUI
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (!BUYBACK_HISTORY.containsKey(uuid) || BUYBACK_HISTORY.get(player.getUniqueId()).size() == 0)
+                if (!BUYBACK_HISTORY.containsKey(uuid) || BUYBACK_HISTORY.get(player.getUniqueId()).size() == 0) {
                     return;
+                }
                 long value = buyback.last().getType().getStatistics().getValue() * buyback.last().getStack().getAmount();
                 if (value > user.getCoins())
                 {
@@ -146,8 +149,9 @@ public class ShopGUI extends GUI
                 }
                 player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f, 2f);
                 user.subCoins(value);
-                if (buyback.isEmpty())
+                if (buyback.isEmpty()) {
                     BUYBACK_HISTORY.remove(uuid);
+                }
                 new ShopGUI(title, page, items).open(player);
             }
 
@@ -175,14 +179,17 @@ public class ShopGUI extends GUI
             }
         });
         List<SItem> p = paged.getPage(page);
-        if (p == null) return;
+        if (p == null) {
+            return;
+        }
         for (int i = 0; i < p.size(); i++)
         {
             int slot = INTERIOR[i];
             SItem item = p.get(i).clone();
             ItemMeta meta = item.getStack().getItemMeta();
-            if (item.getStack().getAmount() != 1)
+            if (item.getStack().getAmount() != 1) {
                 meta.setDisplayName(meta.getDisplayName() + ChatColor.DARK_GRAY + " x" + item.getStack().getAmount());
+            }
             List<String> lore = meta.getLore();
             lore.add(" ");
             lore.add(ChatColor.GRAY + "Cost");
@@ -191,8 +198,9 @@ public class ShopGUI extends GUI
             lore.add(" ");
             lore.add(ChatColor.YELLOW + "Click to trade!");
             SpecificItemType type = item.getType().getStatistics().getSpecificType();
-            if (type == null || type.isStackable())
+            if (type == null || type.isStackable()) {
                 lore.add(ChatColor.YELLOW + "Right-Click for more trading options!");
+            }
             meta.setLore(lore);
             item.getStack().setItemMeta(meta);
             int finalI = i;
@@ -240,11 +248,16 @@ public class ShopGUI extends GUI
     public void onBottomClick(InventoryClickEvent e)
     {
         ItemStack current = e.getCurrentItem();
-        if (current == null) return;
-        if (current.getType() == Material.AIR) return;
+        if (current == null) {
+            return;
+        }
+        if (current.getType() == Material.AIR) {
+            return;
+        }
         SItem item = SItem.find(current);
-        if (item == null)
+        if (item == null) {
             item = SItem.convert(current);
+        }
         e.setCancelled(true);
         Player player = (Player) e.getWhoClicked();
         User user = User.getUser(player.getUniqueId());
@@ -258,9 +271,9 @@ public class ShopGUI extends GUI
         long value = item.getType().getStatistics().getValue() * item.getStack().getAmount();
         user.addCoins(value);
         player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f, 2f);
-        player.sendMessage(ChatColor.GREEN + "You sold " + item.getFullName() +
-                ChatColor.DARK_GRAY + " x" + item.getStack().getAmount() + ChatColor.GREEN + " for " + ChatColor.GOLD + value + " Coin" + (value != 1 ? "s" : "") +
-                ChatColor.GREEN + "!");
+        player.sendMessage(ChatColor.GREEN + "You sold " + item.getFullName()
+                + ChatColor.DARK_GRAY + " x" + item.getStack().getAmount() + ChatColor.GREEN + " for " + ChatColor.GOLD + value + " Coin" + (value != 1 ? "s" : "")
+                + ChatColor.GREEN + "!");
         player.getInventory().setItem(e.getSlot(), new ItemStack(Material.AIR));
         new ShopGUI(title, page, items).open(player);
     }

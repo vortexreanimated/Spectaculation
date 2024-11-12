@@ -61,17 +61,20 @@ public class EndermanPet extends Pet
             @Override
             public List<String> getDescription(SItem instance)
             {
-                return Arrays.asList("Take " + ChatColor.GREEN + enderian.toPlainString() +
-                        "%" + ChatColor.GRAY + " less damage", "from end monsters");
+                return Arrays.asList("Take " + ChatColor.GREEN + enderian.toPlainString()
+                        + "%" + ChatColor.GRAY + " less damage", "from end monsters");
             }
 
             @Override
             public void onHurt(EntityDamageByEntityEvent e, Entity damager)
             {
                 SEntity entity = SEntity.findSEntity(damager);
-                if (entity == null) return;
-                if (Groups.END_MOBS.contains(entity.getSpecType()))
+                if (entity == null) {
+                    return;
+                }
+                if (Groups.END_MOBS.contains(entity.getSpecType())) {
                     e.setDamage(e.getDamage() - ((e.getDamage() * enderian.doubleValue()) * 0.01));
+                }
             }
         }));
         if (instance.getRarity().isAtLeast(Rarity.RARE))

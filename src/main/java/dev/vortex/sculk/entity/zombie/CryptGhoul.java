@@ -70,6 +70,7 @@ public class CryptGhoul extends BaseZombie
         return 0.35;
     }
 
+    @Override
     public double getXPDropped()
     {
         return 30.0;

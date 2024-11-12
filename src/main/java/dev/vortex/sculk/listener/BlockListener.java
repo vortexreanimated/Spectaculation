@@ -36,9 +36,13 @@ public class BlockListener extends PListener
     public void onBlockInteract(PlayerInteractEvent e)
     {
         Block block = e.getClickedBlock();
-        if (block == null) return;
+        if (block == null) {
+            return;
+        }
         Player player = e.getPlayer();
-        if (!RegionCommand.REGION_GENERATION_MAP.containsKey(player)) return;
+        if (!RegionCommand.REGION_GENERATION_MAP.containsKey(player)) {
+            return;
+        }
         e.setCancelled(true);
         RegionGenerator generator = RegionCommand.REGION_GENERATION_MAP.get(player);
         switch (generator.getPhase())
@@ -54,8 +58,9 @@ public class BlockListener extends PListener
             case 2:
             {
                 generator.setSecondLocation(block.getLocation());
-                if (generator.getModificationType().equals("create"))
+                if (generator.getModificationType().equals("create")) {
                     Region.create(generator.getName(), generator.getFirstLocation(), generator.getSecondLocation(), generator.getType());
+                }
                 else
                 {
                     Region region = Region.get(generator.getName());

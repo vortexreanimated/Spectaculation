@@ -18,9 +18,9 @@
  */
 package dev.vortex.sculk.potion;
 
+import dev.vortex.sculk.util.SUtil;
 import lombok.Getter;
 import lombok.Setter;
-import dev.vortex.sculk.util.SUtil;
 
 @Getter
 public class ActivePotionEffect

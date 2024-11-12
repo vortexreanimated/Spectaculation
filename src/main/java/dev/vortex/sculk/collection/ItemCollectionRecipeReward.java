@@ -38,6 +38,7 @@ public class ItemCollectionRecipeReward extends ItemCollectionReward
         // TODO
     }
 
+    @Override
     public String toRewardString()
     {
         return ChatColor.GRAY + material.getDisplayName(material.getData()) + ChatColor.GRAY + " Recipe";

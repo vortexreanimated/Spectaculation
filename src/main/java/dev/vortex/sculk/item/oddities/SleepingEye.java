@@ -40,9 +40,9 @@ public class SleepingEye implements SkullStatistics, MaterialFunction
     @Override
     public String getLore()
     {
-        return "Keep this item in your inventory to recover your placed Summoning Eye when you leave" +
-                " or when you click the Ender Altar. This item becomes imbued with the magic of the Dragon" +
-                " when it spawns, turning it into a Remnant of the Eye.";
+        return "Keep this item in your inventory to recover your placed Summoning Eye when you leave"
+                + " or when you click the Ender Altar. This item becomes imbued with the magic of the Dragon"
+                + " when it spawns, turning it into a Remnant of the Eye.";
     }
 
     @Override

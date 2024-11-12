@@ -79,8 +79,9 @@ public class AuctionHouseGUI extends GUI
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (bids.size() == 0)
+                if (bids.size() == 0) {
                     return;
+                }
                 new YourBidsGUI().open(player);
             }
 
@@ -94,7 +95,7 @@ public class AuctionHouseGUI extends GUI
             public ItemStack getItem()
             {
                 List<String> lore = new ArrayList<>();
-                long held = bids.stream().filter((item) -> item.getTopBidder().getUuid().equals(user.getUuid())).count();
+                long held = bids.stream().filter(item -> item.getTopBidder().getUuid().equals(user.getUuid())).count();
                 ChatColor color = bids.size() == held ? ChatColor.GREEN : ChatColor.RED;
                 if (bids.size() == 0)
                 {
@@ -142,10 +143,12 @@ public class AuctionHouseGUI extends GUI
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (auctions.size() == 0)
+                if (auctions.size() == 0) {
                     new CreateAuctionGUI().open(player);
-                else
+                }
+                else {
                     new ManageAuctionsGUI().open(player);
+                }
             }
 
             @Override
@@ -168,8 +171,8 @@ public class AuctionHouseGUI extends GUI
                 }
                 else
                 {
-                    lore.add(ChatColor.GRAY + "You own " + ChatColor.YELLOW + auctions.size() + " auction" + (auctions.size() != 1 ? "s" : "") +
-                            ChatColor.GRAY + " in");
+                    lore.add(ChatColor.GRAY + "You own " + ChatColor.YELLOW + auctions.size() + " auction" + (auctions.size() != 1 ? "s" : "")
+                            + ChatColor.GRAY + " in");
                     lore.add(ChatColor.GRAY + "progress or which recently");
                     lore.add(ChatColor.GRAY + "ended.");
                     lore.add(" ");

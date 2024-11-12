@@ -18,10 +18,10 @@
  */
 package dev.vortex.sculk.entity;
 
-import lombok.Getter;
 import dev.vortex.sculk.item.ItemOrigin;
 import dev.vortex.sculk.item.SItem;
 import dev.vortex.sculk.item.SMaterial;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

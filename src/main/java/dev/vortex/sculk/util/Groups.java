@@ -195,4 +195,7 @@ public final class Groups
     public static final List<Material> EXCHANGEABLE_RECIPE_RESULTS = Arrays.asList(Material.WORKBENCH,
             Material.CHEST, Material.WOOD_HOE, Material.WOOD_PICKAXE, Material.WOOD_AXE,
             Material.WOOD_SWORD, Material.WOOD_SPADE, Material.WOOD_PLATE, Material.STICK);
+
+    private Groups() {
+    }
 }

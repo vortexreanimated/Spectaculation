@@ -59,13 +59,15 @@ public class YourBidsGUI extends GUI
     public void onOpen(GUIOpenEvent e)
     {
         Player player = e.getPlayer();
-        if (items == null)
+        if (items == null) {
             return;
+        }
         int ended = 0;
         for (AuctionItem item : items)
         {
-            if (item.isExpired())
+            if (item.isExpired()) {
                 ended++;
+            }
         }
         if (ended != 0)
         {
@@ -77,8 +79,9 @@ public class YourBidsGUI extends GUI
                 {
                     for (AuctionItem item : items)
                     {
-                        if (item.isExpired())
+                        if (item.isExpired()) {
                             item.claim(player);
+                        }
                     }
                     player.closeInventory();
                 }
@@ -95,8 +98,8 @@ public class YourBidsGUI extends GUI
                     List<String> lore = new ArrayList<>();
                     lore.add(ChatColor.DARK_GRAY + "Ended Auctions");
                     lore.add(" ");
-                    lore.add(ChatColor.GRAY + "You got " + ChatColor.GREEN + finalEnded + " item" + (finalEnded != 1 ? "s" : "") +
-                            ChatColor.GRAY + " to");
+                    lore.add(ChatColor.GRAY + "You got " + ChatColor.GREEN + finalEnded + " item" + (finalEnded != 1 ? "s" : "")
+                            + ChatColor.GRAY + " to");
                     lore.add(ChatColor.GRAY + "claim items/reclaim bids.");
                     lore.add(" ");
                     lore.add(ChatColor.YELLOW + "Click to claim!");
@@ -151,16 +154,18 @@ public class YourBidsGUI extends GUI
         public Sort previous()
         {
             int prev = ordinal() - 1;
-            if (prev < 0)
+            if (prev < 0) {
                 return values()[values().length - 1];
+            }
             return values()[prev];
         }
 
         public Sort next()
         {
             int nex = ordinal() + 1;
-            if (nex > values().length - 1)
+            if (nex > values().length - 1) {
                 return values()[0];
+            }
             return values()[nex];
         }
     }

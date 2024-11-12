@@ -45,8 +45,10 @@ public abstract class FloatingCrystal implements SkullStatistics, MaterialFuncti
     @Override
     public void onInteraction(PlayerInteractEvent e)
     {
-        if (e.getAction() == Action.LEFT_CLICK_AIR ||
-            e.getAction() == Action.LEFT_CLICK_BLOCK) return;
+        if (e.getAction() == Action.LEFT_CLICK_AIR
+            || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+            return;
+        }
         Player player = e.getPlayer();
         SEntity sEntity = new SEntity(player.getLocation().clone().add(player.getLocation().getDirection().multiply(1.5)), getCrystalType());
     }

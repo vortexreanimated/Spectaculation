@@ -68,11 +68,12 @@ public class MiningSkill extends Skill
     public List<String> getLevelUpInformation(int level, int lastLevel, boolean showOld)
     {
         String dropChance = (showOld ? ChatColor.DARK_GRAY + "" + lastLevel * 4 + "➜" : "") + ChatColor.GREEN + level * 4;
-        if (level > 25)
+        if (level > 25) {
             dropChance = (showOld ? ChatColor.DARK_GRAY + "" + (lastLevel - 25) * 4 + "➜" : "") + ChatColor.GREEN + (level - 25) * 4;
+        }
         return Arrays.asList(ChatColor.WHITE + " Grants " + dropChance + "%" + ChatColor.WHITE + " chance",
-                ChatColor.WHITE + " to drop " + (level > 25 ? "3" : "2") + "x ores.", ChatColor.DARK_GRAY + "+" +
-                        ChatColor.GREEN + (level >= 15 ? "2" : "1") + " " + ChatColor.GREEN + "❈ Defense");
+                ChatColor.WHITE + " to drop " + (level > 25 ? "3" : "2") + "x ores.", ChatColor.DARK_GRAY + "+"
+                        + ChatColor.GREEN + (level >= 15 ? "2" : "1") + " " + ChatColor.GREEN + "❈ Defense");
     }
 
     @Override

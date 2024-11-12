@@ -28,8 +28,12 @@ public class CoinsCommand extends SCommand
     @Override
     public void run(CommandSource sender, String[] args)
     {
-        if (args.length != 0 && args.length != 2) throw new CommandArgumentException();
-        if (sender instanceof ConsoleCommandSender) throw new CommandFailException("Console senders cannot use this command!");
+        if (args.length != 0 && args.length != 2) {
+            throw new CommandArgumentException();
+        }
+        if (sender instanceof ConsoleCommandSender) {
+            throw new CommandFailException("Console senders cannot use this command!");
+        }
         User user = sender.getUser();
         if (args.length == 0)
         {

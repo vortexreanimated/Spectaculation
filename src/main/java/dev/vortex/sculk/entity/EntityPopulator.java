@@ -18,12 +18,12 @@
  */
 package dev.vortex.sculk.entity;
 
-import lombok.Getter;
 import dev.vortex.sculk.Spectaculation;
 import dev.vortex.sculk.region.Region;
 import dev.vortex.sculk.region.RegionType;
 import dev.vortex.sculk.util.SLog;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -74,12 +74,14 @@ public class EntityPopulator
     {
         this.task = new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 spawned.removeIf(sEntity -> sEntity.getEntity().isDead());
                 List<Region> regions = Region.getRegionsOfType(regionType);
-                if (regions.isEmpty())
+                if (regions.isEmpty()) {
                     return;
+                }
                 if (Region.getPlayersWithinRegionType(regionType).isEmpty())
                 {
                     for (SEntity s : spawned)
@@ -87,10 +89,12 @@ public class EntityPopulator
                     spawned.clear();
                     return;
                 }
-                if (condition != null && !condition.test(SUtil.getRandom(regions).getFirstLocation().getWorld()))
+                if (condition != null && !condition.test(SUtil.getRandom(regions).getFirstLocation().getWorld())) {
                     return;
-                if (spawned.size() >= max)
+                }
+                if (spawned.size() >= max) {
                     return;
+                }
                 for (int i = 0; i < amount; i++)
                 {
                     Location available;
@@ -101,8 +105,9 @@ public class EntityPopulator
                         attempts++;
                     }
                     while (available == null && attempts <= 150);
-                    if (available != null)
+                    if (available != null) {
                         spawned.add(new SEntity(available.clone().add(0.5, 0.0, 0.5), type));
+                    }
                 }
             }
         }.runTaskTimer(Spectaculation.getPlugin(), 0, delay);
@@ -110,7 +115,9 @@ public class EntityPopulator
 
     public void stop()
     {
-        if (this.task == null) return;
+        if (this.task == null) {
+            return;
+        }
         this.task.cancel();
     }
 

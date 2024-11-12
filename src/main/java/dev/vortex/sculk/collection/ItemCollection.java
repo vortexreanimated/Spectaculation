@@ -18,10 +18,10 @@
  */
 package dev.vortex.sculk.collection;
 
-import lombok.Getter;
 import dev.vortex.sculk.item.SMaterial;
 import dev.vortex.sculk.user.User;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -99,8 +99,9 @@ public class ItemCollection
         this.material = material;
         this.data = data;
         this.rewards = new ArrayList<>();
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++) {
             rewards.add(null);
+        }
         this.temporary = true;
         COLLECTION_MAP.put(identifier, this);
     }
@@ -112,10 +113,12 @@ public class ItemCollection
         Collection<ItemCollection> collections = category != null ? getCategoryCollections(category) : getCollections();
         for (ItemCollection collection : collections)
         {
-            if (user.getCollection(collection) > 0)
+            if (user.getCollection(collection) > 0) {
                 found.incrementAndGet();
-            if (user.getCollection(collection) >= collection.getMaxAmount())
+            }
+            if (user.getCollection(collection) >= collection.getMaxAmount()) {
                 completed.incrementAndGet();
+            }
         }
         String title;
         String progress;
@@ -134,8 +137,9 @@ public class ItemCollection
 
     public int getMaxAmount()
     {
-        if (rewards.size() == 0 || rewards.getLast() == null)
+        if (rewards.size() == 0 || rewards.getLast() == null) {
             return 0;
+        }
         return rewards.getLast().getRequirement();
     }
 
@@ -149,9 +153,12 @@ public class ItemCollection
         int tier = 0;
         for (ItemCollectionRewards reward : rewards)
         {
-            if (reward == null) continue;
-            if (reward.getRequirement() > amount)
+            if (reward == null) {
+                continue;
+            }
+            if (reward.getRequirement() > amount) {
                 break;
+            }
             tier++;
         }
         return tier;
@@ -160,19 +167,22 @@ public class ItemCollection
     public int getRequirementForTier(int tier)
     {
         tier -= 1;
-        if (tier < 0 || tier > rewards.size() - 1)
+        if (tier < 0 || tier > rewards.size() - 1) {
             return -1;
+        }
         ItemCollectionRewards reward = rewards.get(tier);
-        if (reward == null)
+        if (reward == null) {
             return -1;
+        }
         return reward.getRequirement();
     }
 
     public ItemCollectionRewards getRewardsFor(int tier)
     {
         tier -= 1;
-        if (tier < 0 || tier > rewards.size())
+        if (tier < 0 || tier > rewards.size()) {
             return null;
+        }
         return rewards.get(tier);
     }
 
@@ -185,8 +195,9 @@ public class ItemCollection
     {
         for (ItemCollection collection : COLLECTION_MAP.values())
         {
-            if (collection.material == material && collection.data == data)
+            if (collection.material == material && collection.data == data) {
                 return collection;
+            }
         }
         return null;
     }

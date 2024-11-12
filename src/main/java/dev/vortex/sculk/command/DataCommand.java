@@ -34,16 +34,22 @@ public class DataCommand extends SCommand
     @Override
     public void run(CommandSource sender, String[] args)
     {
-        if (args.length < 3) throw new CommandArgumentException();
-        if (sender instanceof ConsoleCommandSender) throw new CommandFailException("Console senders cannot use this command!");
+        if (args.length < 3) {
+            throw new CommandArgumentException();
+        }
+        if (sender instanceof ConsoleCommandSender) {
+            throw new CommandFailException("Console senders cannot use this command!");
+        }
         Player player = sender.getPlayer();
         PlayerInventory inv = player.getInventory();
-        if (inv.getItemInHand() == null)
+        if (inv.getItemInHand() == null) {
             throw new CommandFailException("Get an item in your hand!");
+        }
         SItem sItem = SItem.find(inv.getItemInHand());
         String key = args[0];
-        if (!sItem.hasDataFor(key))
+        if (!sItem.hasDataFor(key)) {
             throw new CommandFailException("This item does not have data for '" + key + "'");
+        }
         String joined = StringUtils.join(args, " ", 1, args.length - 1);
         switch (args[args.length - 1].toLowerCase())
         {

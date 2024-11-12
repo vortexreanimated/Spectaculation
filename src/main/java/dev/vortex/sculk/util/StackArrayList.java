@@ -43,8 +43,9 @@ public class StackArrayList<T> extends ArrayList<T>
      */
     public T shift()
     {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new ArrayIndexOutOfBoundsException("Could not shift because the Collection is empty");
+        }
         T el = getFirst();
         removeFirst();
         return el;
@@ -56,8 +57,9 @@ public class StackArrayList<T> extends ArrayList<T>
      */
     public T pop()
     {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new ArrayIndexOutOfBoundsException("Could not pop off last element because the Collection is empty");
+        }
         T el = get(size() - 1);
         remove(size() - 1);
         return el;
@@ -69,8 +71,9 @@ public class StackArrayList<T> extends ArrayList<T>
      */
     public T first()
     {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new ArrayIndexOutOfBoundsException("Could not get the first element because the Collection is empty");
+        }
         return getFirst();
     }
 
@@ -80,8 +83,9 @@ public class StackArrayList<T> extends ArrayList<T>
      */
     public T last()
     {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new ArrayIndexOutOfBoundsException("Could not get the last element because the Collection is empty");
+        }
         return get(size() - 1);
     }
 }

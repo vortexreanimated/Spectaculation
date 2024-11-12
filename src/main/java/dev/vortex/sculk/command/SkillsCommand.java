@@ -27,8 +27,12 @@ public class SkillsCommand extends SCommand
     @Override
     public void run(CommandSource sender, String[] args)
     {
-        if (args.length != 0) throw new CommandArgumentException();
-        if (sender instanceof ConsoleCommandSender) throw new CommandFailException("Console senders cannot use this command!");
+        if (args.length != 0) {
+            throw new CommandArgumentException();
+        }
+        if (sender instanceof ConsoleCommandSender) {
+            throw new CommandFailException("Console senders cannot use this command!");
+        }
         send("Skills:");
         for (Skill skill : Skill.getSkills())
             send(" - " + skill.getName() + ": LVL " + Skill.getLevel(sender.getUser().getSkillXP(skill), skill.hasSixtyLevels()) + ", " + sender.getUser().getSkillXP(skill) + " XP");

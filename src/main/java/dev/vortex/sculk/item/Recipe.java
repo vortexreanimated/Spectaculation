@@ -58,8 +58,9 @@ public abstract class Recipe<T>
     public static Recipe<?> parseRecipe(ItemStack[] stacks)
     {
         ShapedRecipe shaped = ShapedRecipe.parseShapedRecipe(stacks);
-        if (shaped != null)
+        if (shaped != null) {
             return shaped;
+        }
         return ShapelessRecipe.parseShapelessRecipe(stacks);
     }
 
@@ -77,7 +78,9 @@ public abstract class Recipe<T>
                     break;
                 }
             }
-            if (!ex) continue;
+            if (!ex) {
+                continue;
+            }
             excluded.add(i);
         }
         int amountExcluded = excluded.size();
@@ -90,7 +93,7 @@ public abstract class Recipe<T>
                 continue;
             }
             MaterialQuantifiable[] line = grid[i];
-            int remaining = (int) Arrays.stream(line).filter((mat) -> mat.getMaterial() != SMaterial.AIR).count();
+            int remaining = (int) Arrays.stream(line).filter(mat -> mat.getMaterial() != SMaterial.AIR).count();
             g[i - b] = new MaterialQuantifiable[remaining];
             for (int j = 0, r = 0; j < line.length; j++)
             {
@@ -109,7 +112,9 @@ public abstract class Recipe<T>
         for (List<SMaterial> materials : EXCHANGEABLES)
         {
             int f = Collections.binarySearch(materials, material);
-            if (f < 0) continue;
+            if (f < 0) {
+                continue;
+            }
             return materials;
         }
         return null;

@@ -64,7 +64,9 @@ public class ActiveEffectsGUI extends GUI
         border(BLACK_STAINED_GLASS_PANE);
         PaginationList<ActivePotionEffect> paged = new PaginationList<>(28);
         paged.addAll(user.getEffects());
-        if (paged.size() == 0) page = 0;
+        if (paged.size() == 0) {
+            page = 0;
+        }
         int finalPage = page;
         this.title = "(" + page + "/" + paged.getPageCount() + ") Active Effects";
         if (page > 1)
@@ -121,7 +123,9 @@ public class ActiveEffectsGUI extends GUI
                 Material.ARROW, ChatColor.GRAY + "To SkyBlock Menu"));
         set(GUIClickableItem.getCloseItem(49));
         List<ActivePotionEffect> p = paged.getPage(page);
-        if (p == null) return;
+        if (p == null) {
+            return;
+        }
         for (int i = 0; i < p.size(); i++)
         {
             int slot = INTERIOR[i];
@@ -138,10 +142,12 @@ public class ActiveEffectsGUI extends GUI
         }
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
-                if (ActiveEffectsGUI.this != GUI.GUI_MAP.get(player.getUniqueId()))
+                if (ActiveEffectsGUI.this != GUI.GUI_MAP.get(player.getUniqueId())) {
                     return;
+                }
                 new ActiveEffectsGUI(page).open(player);
             }
         }.runTaskLater(Spectaculation.getPlugin(), 5);

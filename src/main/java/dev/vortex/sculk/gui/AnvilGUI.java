@@ -37,8 +37,8 @@ import java.util.Arrays;
 
 public class AnvilGUI extends GUI implements BlockBasedGUI
 {
-    private static final ItemStack ANVIL_BARRIER = SUtil.getSingleLoreStack(ChatColor.RED + "Anvil", Material.BARRIER, (short) 0, 1, "Place a target item" +
-            " in the left slot and a sacrifice item in the right slot to combine Enchantments!");
+    private static final ItemStack ANVIL_BARRIER = SUtil.getSingleLoreStack(ChatColor.RED + "Anvil", Material.BARRIER, (short) 0, 1, "Place a target item"
+            + " in the left slot and a sacrifice item in the right slot to combine Enchantments!");
     private static final ItemStack DEFAULT_COMBINE_ITEMS = SUtil.getStack(ChatColor.GREEN + "Combine Items", Material.ANVIL, (short) 0, 1,
             ChatColor.GRAY + "Combine the items in the slots",
             ChatColor.GRAY + "to the left and right below.");
@@ -68,7 +68,9 @@ public class AnvilGUI extends GUI implements BlockBasedGUI
             public void run(InventoryClickEvent e)
             {
                 ItemStack current = e.getCurrentItem();
-                if (current == null) return;
+                if (current == null) {
+                    return;
+                }
                 if (e.getCurrentItem().getType() == Material.BARRIER)
                 {
                     e.setCancelled(true);
@@ -82,6 +84,7 @@ public class AnvilGUI extends GUI implements BlockBasedGUI
                 }
                 new BukkitRunnable()
                 {
+                    @Override
                     public void run()
                     {
                         inventory.setItem(e.getSlot(), ANVIL_BARRIER);
@@ -171,26 +174,30 @@ public class AnvilGUI extends GUI implements BlockBasedGUI
     {
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 ItemStack select = inventory.getItem(13);
                 if (select != null)
                 {
-                    if (select.getType() != Material.BARRIER && SUtil.isAir(inventory.getItem(29)) && SUtil.isAir(inventory.getItem(33)))
+                    if (select.getType() != Material.BARRIER && SUtil.isAir(inventory.getItem(29)) && SUtil.isAir(inventory.getItem(33))) {
                         return;
+                    }
                 }
                 SItem specUpgrade = SItem.find(inventory.getItem(29));
                 SItem specSacrifice = SItem.find(inventory.getItem(33));
                 boolean upgradeGreen = false, sacrificeGreen = false;
                 if (specUpgrade != null)
                 {
-                    if (SUtil.isEnchantable(specUpgrade))
+                    if (SUtil.isEnchantable(specUpgrade)) {
                         upgradeGreen = true;
+                    }
                 }
                 if (specSacrifice != null)
                 {
-                    if (SUtil.isEnchantable(specSacrifice))
+                    if (SUtil.isEnchantable(specSacrifice)) {
                         sacrificeGreen = true;
+                    }
                 }
                 setItemTo(true, upgradeGreen, inventory);
                 setItemTo(false, sacrificeGreen, inventory);
@@ -254,8 +261,8 @@ public class AnvilGUI extends GUI implements BlockBasedGUI
         {
             inventory.setItem(i, SUtil.getSingleLoreStack(ChatColor.GOLD + "Item to " + (upgrade ? "Upgrade" : "Sacrifice"), Material.STAINED_GLASS_PANE,
                     green ? (short) 5 : (short) 14, 1,
-                    (upgrade ? "The item you want to upgrade should be placed in the slot on this side." :
-            "The item you are sacrificing in order to upgrade the item on the left should be placed in the slot on this side.")));
+                    (upgrade ? "The item you want to upgrade should be placed in the slot on this side."
+            : "The item you are sacrificing in order to upgrade the item on the left should be placed in the slot on this side.")));
         }
     }
 

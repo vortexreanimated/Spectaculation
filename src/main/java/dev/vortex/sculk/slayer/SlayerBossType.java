@@ -18,9 +18,9 @@
  */
 package dev.vortex.sculk.slayer;
 
-import lombok.Getter;
 import dev.vortex.sculk.entity.SEntityType;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -158,8 +158,9 @@ public class SlayerBossType
     {
         for (SlayerBossType type : TYPES)
         {
-            if (namespace.toLowerCase().equals(type.namespace.toLowerCase()))
+            if (namespace.toLowerCase().equals(type.namespace.toLowerCase())) {
                 return type;
+            }
         }
         return null;
     }
@@ -176,8 +177,9 @@ public class SlayerBossType
         lore.add("");
         lore.add(ChatColor.GRAY + "Health: " + ChatColor.RED + SUtil.commaify(health) + "❤");
         lore.add(ChatColor.GRAY + "Damage: " + ChatColor.RED + SUtil.commaify(dps) + ChatColor.GRAY + " per second");
-        if (tdps != 0)
+        if (tdps != 0) {
             lore.add(ChatColor.GRAY + "True Damage: " + ChatColor.WHITE + SUtil.commaify(tdps) + ChatColor.GRAY + " per second");
+        }
         for (SlayerAbility ability : abilities)
         {
             lore.add("");
@@ -266,35 +268,69 @@ public class SlayerBossType
 
         public int getLevelForXP(int xp)
         {
-            if (xp >= 1000000) return 9;
-            if (xp >= 400000) return 8;
-            if (xp >= 100000) return 7;
-            if (xp >= 20000) return 6;
-            if (xp >= 5000) return 5;
+            if (xp >= 1000000) {
+                return 9;
+            }
+            if (xp >= 400000) {
+                return 8;
+            }
+            if (xp >= 100000) {
+                return 7;
+            }
+            if (xp >= 20000) {
+                return 6;
+            }
+            if (xp >= 5000) {
+                return 5;
+            }
             switch (this)
             {
                 case ZOMBIE:
                 {
-                    if (xp >= 1000) return 4;
-                    if (xp >= 200) return 3;
-                    if (xp >= 15) return 2;
-                    if (xp >= 5) return 1;
+                    if (xp >= 1000) {
+                        return 4;
+                    }
+                    if (xp >= 200) {
+                        return 3;
+                    }
+                    if (xp >= 15) {
+                        return 2;
+                    }
+                    if (xp >= 5) {
+                        return 1;
+                    }
                     break;
                 }
                 case SPIDER:
                 {
-                    if (xp >= 1000) return 4;
-                    if (xp >= 200) return 3;
-                    if (xp >= 25) return 2;
-                    if (xp >= 5) return 1;
+                    if (xp >= 1000) {
+                        return 4;
+                    }
+                    if (xp >= 200) {
+                        return 3;
+                    }
+                    if (xp >= 25) {
+                        return 2;
+                    }
+                    if (xp >= 5) {
+                        return 1;
+                    }
                     break;
                 }
                 case WOLF:
                 {
-                    if (xp >= 1500) return 4;
-                    if (xp >= 250) return 3;
-                    if (xp >= 30) return 2;
-                    if (xp >= 10) return 1;
+                    if (xp >= 1500) {
+                        return 4;
+                    }
+                    if (xp >= 250) {
+                        return 3;
+                    }
+                    if (xp >= 30) {
+                        return 2;
+                    }
+                    if (xp >= 10) {
+                        return 1;
+                    }
                     break;
                 }
             }

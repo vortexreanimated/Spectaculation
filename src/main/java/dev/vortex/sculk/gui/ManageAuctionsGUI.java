@@ -70,10 +70,12 @@ public class ManageAuctionsGUI extends GUI
                 {
                     AuctionBid b1 = i1.getRecentBid();
                     AuctionBid b2 = i2.getRecentBid();
-                    if (b1 == null)
+                    if (b1 == null) {
                         return 1;
-                    if (b2 == null)
+                    }
+                    if (b2 == null) {
                         return -1;
+                    }
                     long t1 = b1.getTimestamp();
                     long t2 = b2.getTimestamp();
                     return Long.compare(t2, t1);
@@ -86,10 +88,12 @@ public class ManageAuctionsGUI extends GUI
                 {
                     AuctionBid b1 = i1.getTopBid();
                     AuctionBid b2 = i2.getTopBid();
-                    if (b1 == null)
+                    if (b1 == null) {
                         return 1;
-                    if (b2 == null)
+                    }
+                    if (b2 == null) {
                         return -1;
+                    }
                     return Long.compare(b1.getAmount(), b2.getAmount());
                 });
                 break;
@@ -104,8 +108,9 @@ public class ManageAuctionsGUI extends GUI
         int ended = 0;
         for (AuctionItem item : items)
         {
-            if (item.isExpired())
+            if (item.isExpired()) {
                 ended++;
+            }
         }
         if (ended != 0)
         {
@@ -117,8 +122,9 @@ public class ManageAuctionsGUI extends GUI
                 {
                     for (AuctionItem item : items)
                     {
-                        if (item.isExpired())
+                        if (item.isExpired()) {
                             item.claim(player);
+                        }
                     }
                     player.closeInventory();
                 }
@@ -135,8 +141,8 @@ public class ManageAuctionsGUI extends GUI
                     List<String> lore = new ArrayList<>();
                     lore.add(ChatColor.DARK_GRAY + "Ended Auctions");
                     lore.add(" ");
-                    lore.add(ChatColor.GRAY + "You got " + ChatColor.GREEN + finalEnded + " item" + (finalEnded != 1 ? "s" : "") +
-                            ChatColor.GRAY + " to");
+                    lore.add(ChatColor.GRAY + "You got " + ChatColor.GREEN + finalEnded + " item" + (finalEnded != 1 ? "s" : "")
+                            + ChatColor.GRAY + " to");
                     lore.add(ChatColor.GRAY + "collect sales/reclaim items.");
                     lore.add(" ");
                     lore.add(ChatColor.YELLOW + "Click to claim!");
@@ -150,10 +156,12 @@ public class ManageAuctionsGUI extends GUI
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (e.isRightClick())
+                if (e.isRightClick()) {
                     new ManageAuctionsGUI(sort.previous()).open(player);
-                else
+                }
+                else {
                     new ManageAuctionsGUI(sort.next()).open(player);
+                }
             }
 
             @Override
@@ -168,10 +176,12 @@ public class ManageAuctionsGUI extends GUI
                 List<String> lore = new ArrayList<>(Collections.singletonList(" "));
                 for (Sort s : Sort.values())
                 {
-                    if (sort == s)
+                    if (sort == s) {
                         lore.add(ChatColor.AQUA + "▶ " + s.getDisplay());
-                    else
+                    }
+                    else {
                         lore.add(ChatColor.GRAY + s.getDisplay());
+                    }
                 }
                 lore.add(" ");
                 lore.add(ChatColor.AQUA + "Right-Click to go backwards!");
@@ -256,16 +266,18 @@ public class ManageAuctionsGUI extends GUI
         public Sort previous()
         {
             int prev = ordinal() - 1;
-            if (prev < 0)
+            if (prev < 0) {
                 return values()[values().length - 1];
+            }
             return values()[prev];
         }
 
         public Sort next()
         {
             int nex = ordinal() + 1;
-            if (nex > values().length - 1)
+            if (nex > values().length - 1) {
                 return values()[0];
+            }
             return values()[nex];
         }
     }

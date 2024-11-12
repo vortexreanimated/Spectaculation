@@ -64,7 +64,8 @@ public class AutoRecombobulator implements AccessoryStatistics, MaterialFunction
     @Override
     public void onKill(Entity damaged, Player damager, SItem item)
     {
-        if (SUtil.random(1, 100) == 1)
+        if (SUtil.random(1, 100) == 1) {
             item.setRecombobulated(true);
+        }
     }
 }

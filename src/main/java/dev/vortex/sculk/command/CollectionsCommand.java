@@ -29,11 +29,16 @@ public class CollectionsCommand extends SCommand
     @Override
     public void run(CommandSource sender, String[] args)
     {
-        if (args.length != 3) throw new CommandArgumentException();
-        if (sender instanceof ConsoleCommandSender) throw new CommandFailException("Console senders cannot use this command!");
+        if (args.length != 3) {
+            throw new CommandArgumentException();
+        }
+        if (sender instanceof ConsoleCommandSender) {
+            throw new CommandFailException("Console senders cannot use this command!");
+        }
         ItemCollection collection = ItemCollection.getByIdentifier(args[0]);
-        if (collection == null)
+        if (collection == null) {
             throw new CommandFailException("Could not find the specified collection!");
+        }
         User user = sender.getUser();
         int amount = Integer.parseInt(args[2]);
         switch (args[1].toLowerCase())

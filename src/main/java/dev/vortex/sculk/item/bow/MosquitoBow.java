@@ -115,8 +115,12 @@ public class MosquitoBow implements ToolStatistics, BowFunction, Ability
     public void onBowShoot(SItem bow, EntityShootBowEvent e)
     {
         Player player = (Player) e.getEntity();
-        if (!player.isSneaking()) return;
-        if (e.getForce() != 1.0f) return;
+        if (!player.isSneaking()) {
+            return;
+        }
+        if (e.getForce() != 1.0f) {
+            return;
+        }
         int manaPool = SUtil.blackMagic(PlayerUtils.STATISTICS_CACHE.get(player.getUniqueId()).getIntelligence().addAll() + 100);
         int cost = PlayerUtils.getFinalManaCost(player, bow, (int) (manaPool * 0.11));
         boolean take = PlayerUtils.takeMana(player, cost);
@@ -148,7 +152,9 @@ public class MosquitoBow implements ToolStatistics, BowFunction, Ability
     @Override
     public void onBowHit(Entity hit, Player shooter, Arrow arrow, SItem weapon, AtomicDouble finalDamage)
     {
-        if (!arrow.hasMetadata("bite")) return;
+        if (!arrow.hasMetadata("bite")) {
+            return;
+        }
         finalDamage.set(finalDamage.get() + (finalDamage.get() * 0.19));
     }
 }

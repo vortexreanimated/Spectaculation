@@ -47,8 +47,9 @@ public class CollectionMenuGUI extends GUI
         Collection<ItemCollection> collections = ItemCollection.getCollections();
         for (ItemCollection collection : collections)
         {
-            if (user.getCollection(collection) > 0)
+            if (user.getCollection(collection) > 0) {
                 found.incrementAndGet();
+            }
         }
         set(GUIClickableItem.createGUIOpenerItem(GUIType.SKYBLOCK_MENU, player, ChatColor.GREEN + "Go Back", 48,
                 Material.ARROW, ChatColor.GRAY + "To SkyBlock Menu"));

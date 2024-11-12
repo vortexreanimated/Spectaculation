@@ -54,7 +54,9 @@ public class SpidersBoots implements ToolStatistics, TickingMaterial, FlightStat
     public void onAbilityUse(Player player, SItem sItem)
     {
         GameMode gameMode = player.getGameMode();
-        if (gameMode == GameMode.CREATIVE || gameMode == GameMode.SPECTATOR) return;
+        if (gameMode == GameMode.CREATIVE || gameMode == GameMode.SPECTATOR) {
+            return;
+        }
         player.setVelocity(player.getVelocity().clone().add(player.getLocation().getDirection().multiply(0.8)).setY(0.6));
     }
 

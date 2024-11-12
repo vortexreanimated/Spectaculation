@@ -35,12 +35,18 @@ public abstract class BaseSpider implements EntityStatistics, EntityFunction
     @Override
     public void onDeath(SEntity sEntity, Entity killed, Entity damager)
     {
-        if (!(damager instanceof Player)) return;
+        if (!(damager instanceof Player)) {
+            return;
+        }
         Player player = (Player) damager;
         User user = User.getUser(player.getUniqueId());
         SlayerQuest quest = user.getSlayerQuest();
-        if (quest == null) return;
-        if (quest.getSpawned() != 0) return;
+        if (quest == null) {
+            return;
+        }
+        if (quest.getSpawned() != 0) {
+            return;
+        }
         Location k = killed.getLocation().clone();
         if (SUtil.random(0, 10) == 0 && quest.getType().getTier() >= 3)
         {

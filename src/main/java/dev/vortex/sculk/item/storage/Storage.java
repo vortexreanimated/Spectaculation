@@ -60,7 +60,9 @@ public abstract class Storage implements MaterialStatistics, MaterialFunction, I
             try
             {
                 NBTTagCompound compound = MojangsonParser.parse(new String(SUtil.gzipUncompress(instance.getData().getCompound("storage_data").getByteArray(String.valueOf(i)))));
-                if (compound == null || compound.isEmpty()) continue;
+                if (compound == null || compound.isEmpty()) {
+                    continue;
+                }
                 inventory.setItem(i, SItem.of(compound).getStack());
             }
             catch (MojangsonParseException ex)

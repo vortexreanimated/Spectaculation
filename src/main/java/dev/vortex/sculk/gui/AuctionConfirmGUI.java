@@ -41,8 +41,9 @@ public class AuctionConfirmGUI extends GUI
         Player player = e.getPlayer();
         User user = User.getUser(e.getPlayer().getUniqueId());
         AuctionEscrow escrow = user.getAuctionEscrow();
-        if (escrow == null)
+        if (escrow == null) {
             return;
+        }
         set(new GUIClickableItem()
         {
             @Override

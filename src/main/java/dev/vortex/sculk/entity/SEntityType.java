@@ -18,7 +18,6 @@
  */
 package dev.vortex.sculk.entity;
 
-import lombok.Getter;
 import dev.vortex.sculk.entity.caverns.*;
 import dev.vortex.sculk.entity.den.*;
 import dev.vortex.sculk.entity.den.SpidersDenSkeleton;
@@ -32,6 +31,7 @@ import dev.vortex.sculk.entity.nms.*;
 import dev.vortex.sculk.entity.skeleton.HighLevelSkeleton;
 import dev.vortex.sculk.entity.wolf.*;
 import dev.vortex.sculk.entity.zombie.*;
+import lombok.Getter;
 import net.minecraft.server.v1_8_R3.EntityInsentient;
 import net.minecraft.server.v1_8_R3.EntityTypes;
 import org.bukkit.entity.EntityType;
@@ -126,8 +126,9 @@ public enum SEntityType
         this.craftType = craftType;
         this.clazz = clazz;
         this.specific = specific;
-        if (EntityInsentient.class.isAssignableFrom(clazz))
+        if (EntityInsentient.class.isAssignableFrom(clazz)) {
             registerEntity(name(), craftType.getTypeId(), (Class<? extends EntityInsentient>) clazz);
+        }
     }
 
     SEntityType(EntityType craftType, Class<?> clazz)
@@ -138,16 +139,18 @@ public enum SEntityType
     public EntityStatistics getStatistics()
     {
         Object generic = getGenericInstance();
-        if (generic instanceof EntityStatistics statistics)
+        if (generic instanceof EntityStatistics statistics) {
             return statistics;
+        }
         return null;
     }
 
     public EntityFunction getFunction()
     {
         Object generic = getGenericInstance();
-        if (generic instanceof EntityFunction function)
+        if (generic instanceof EntityFunction function) {
             return function;
+        }
         return null;
     }
 
@@ -156,8 +159,9 @@ public enum SEntityType
         try
         {
             Class<?>[] paramTypes = new Class[params.length];
-            for (int i = 0; i < paramTypes.length; i++)
+            for (int i = 0; i < paramTypes.length; i++) {
                 paramTypes[i] = params[i].getClass();
+            }
             return clazz.getConstructor(paramTypes).newInstance(params);
         }
         catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ex)

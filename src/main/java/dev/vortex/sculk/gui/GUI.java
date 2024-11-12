@@ -18,12 +18,12 @@
  */
 package dev.vortex.sculk.gui;
 
-import lombok.Getter;
-import lombok.Setter;
 import dev.vortex.sculk.Spectaculation;
 import dev.vortex.sculk.item.SItem;
 import dev.vortex.sculk.item.SMaterial;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -103,24 +103,29 @@ public abstract class GUI
     {
         for (GUIItem item : items)
         {
-            if (item.getSlot() == slot)
+            if (item.getSlot() == slot) {
                 return item;
+            }
         }
         return null;
     }
 
     public void fill(ItemStack stack, int cornerSlot, int cornerSlot2, boolean overwrite, boolean pickup)
     {
-        if (cornerSlot < 0 || cornerSlot > size)
+        if (cornerSlot < 0 || cornerSlot > size) {
             throw new IllegalArgumentException("Corner 1 of the border described is out of bounds");
-        if (cornerSlot2 < 0 || cornerSlot2 > size)
+        }
+        if (cornerSlot2 < 0 || cornerSlot2 > size) {
             throw new IllegalArgumentException("Corner 2 of the border described is out of bounds");
+        }
         int topLeft = Math.min(cornerSlot, cornerSlot2);
         int bottomRight = Math.max(cornerSlot, cornerSlot2);
         int topRight;
-        for (topRight = bottomRight; topRight > topLeft; topRight -= 9);
+        for (topRight = bottomRight; topRight > topLeft; topRight -= 9) {
+        }
         int bottomLeft;
-        for (bottomLeft = topLeft; bottomLeft < bottomRight; bottomLeft += 9);
+        for (bottomLeft = topLeft; bottomLeft < bottomRight; bottomLeft += 9) {
+        }
         topRight += 9;
         bottomLeft -= 9;
         for (int y = topLeft; y <= bottomLeft; y += 9)
@@ -128,7 +133,9 @@ public abstract class GUI
             for (int x = y; x <= topRight - topLeft + y; x++)
             {
                 int f = x;
-                if (items.stream().filter(item -> item.getSlot() == f).toArray().length != 0 && !overwrite) continue;
+                if (items.stream().filter(item -> item.getSlot() == f).toArray().length != 0 && !overwrite) {
+                    continue;
+                }
                 set(x, stack, pickup);
             }
         }
@@ -156,16 +163,20 @@ public abstract class GUI
 
     public void border(ItemStack stack, int cornerSlot, int cornerSlot2, boolean overwrite, boolean pickup)
     {
-        if (cornerSlot < 0 || cornerSlot > size)
+        if (cornerSlot < 0 || cornerSlot > size) {
             throw new IllegalArgumentException("Corner 1 of the border described is out of bounds");
-        if (cornerSlot2 < 0 || cornerSlot2 > size)
+        }
+        if (cornerSlot2 < 0 || cornerSlot2 > size) {
             throw new IllegalArgumentException("Corner 2 of the border described is out of bounds");
+        }
         int topLeft = Math.min(cornerSlot, cornerSlot2);
         int bottomRight = Math.max(cornerSlot, cornerSlot2);
         int topRight;
-        for (topRight = bottomRight; topRight > topLeft; topRight -= 9);
+        for (topRight = bottomRight; topRight > topLeft; topRight -= 9) {
+        }
         int bottomLeft;
-        for (bottomLeft = topLeft; bottomLeft < bottomRight; bottomLeft += 9);
+        for (bottomLeft = topLeft; bottomLeft < bottomRight; bottomLeft += 9) {
+        }
         topRight += 9;
         bottomLeft -= 9;
         for (int y = topLeft; y <= bottomLeft; y += 9)
@@ -173,11 +184,15 @@ public abstract class GUI
             for (int x = y; x <= topRight - topLeft + y; x++)
             {
                 int f = x;
-                if (items.stream().filter(item -> item.getSlot() == f).toArray().length != 0 && !overwrite) continue;
-                if (y == topLeft || y == bottomLeft)
+                if (items.stream().filter(item -> item.getSlot() == f).toArray().length != 0 && !overwrite) {
+                    continue;
+                }
+                if (y == topLeft || y == bottomLeft) {
                     set(x, stack, pickup);
-                if (x == y || x == topRight - topLeft + y)
+                }
+                if (x == y || x == topRight - topLeft + y) {
                     set(x, stack, pickup);
+                }
             }
         }
     }
@@ -202,13 +217,15 @@ public abstract class GUI
         for (int i = 0; i < (amount / 64); i++)
         {
             int first = firstEmpty();
-            if (first == -1)
+            if (first == -1) {
                 return;
+            }
             set(first, SUtil.setStackAmount(SItem.of(material, variant).getStack(), 64), pickup);
         }
         int first = firstEmpty();
-        if (first == -1)
+        if (first == -1) {
             return;
+        }
         set(first, SUtil.setStackAmount(SItem.of(material, variant).getStack(), amount % 64), pickup);
     }
 
@@ -217,9 +234,10 @@ public abstract class GUI
         for (int i = 0; i < size; i++)
         {
             int finalI = i;
-            long found = items.stream().filter((item) -> item.getSlot() == finalI).count();
-            if (found == 0)
+            long found = items.stream().filter(item -> item.getSlot() == finalI).count();
+            if (found == 0) {
                 return i;
+            }
         }
         return -1;
     }
@@ -230,8 +248,9 @@ public abstract class GUI
         Inventory inventory = Bukkit.createInventory(player, size, title);
         GUIOpenEvent openEvent = new GUIOpenEvent(player, this, inventory);
         Spectaculation.getPlugin().getServer().getPluginManager().callEvent(openEvent);
-        if (openEvent.isCancelled())
+        if (openEvent.isCancelled()) {
             return;
+        }
         for (GUIItem item : items)
             inventory.setItem(item.getSlot(), item.getItem());
         player.openInventory(inventory);

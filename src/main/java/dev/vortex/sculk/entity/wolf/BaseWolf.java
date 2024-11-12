@@ -44,19 +44,24 @@ public abstract class BaseWolf implements WolfStatistics, EntityFunction
     {
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
-                if (entity.isDead())
+                if (entity.isDead()) {
                     return;
-                if (target == null || target.isDead())
+                }
+                if (target == null || target.isDead()) {
                     target = null;
-                if (target != null)
+                }
+                if (target != null) {
                     return;
+                }
                 Player found = (Player) SUtil.getRandom(entity.getNearbyEntities(16, 4, 16)
-                        .stream().filter(e -> e instanceof Player p &&
-                                (p.getGameMode() == GameMode.SURVIVAL || p.getGameMode() == GameMode.ADVENTURE)).collect(Collectors.toList()));
-                if (found == null)
+                        .stream().filter(e -> e instanceof Player p
+                                && (p.getGameMode() == GameMode.SURVIVAL || p.getGameMode() == GameMode.ADVENTURE)).collect(Collectors.toList()));
+                if (found == null) {
                     return;
+                }
                 target = found;
                 ((Wolf) entity).setTarget(target);
             }
@@ -66,12 +71,18 @@ public abstract class BaseWolf implements WolfStatistics, EntityFunction
     @Override
     public void onDeath(SEntity sEntity, Entity killed, Entity damager)
     {
-        if (!(damager instanceof Player)) return;
+        if (!(damager instanceof Player)) {
+            return;
+        }
         Player player = (Player) damager;
         User user = User.getUser(player.getUniqueId());
         SlayerQuest quest = user.getSlayerQuest();
-        if (quest == null) return;
-        if (quest.getSpawned() != 0) return;
+        if (quest == null) {
+            return;
+        }
+        if (quest.getSpawned() != 0) {
+            return;
+        }
         Location k = killed.getLocation().clone();
         if (SUtil.random(0, 8) == 0 && quest.getType().getTier() >= 3)
         {

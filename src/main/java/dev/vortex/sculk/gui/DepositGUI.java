@@ -50,8 +50,8 @@ public class DepositGUI extends GUI
                 user.subCoins(coins);
                 user.addBankCoins(coins);
                 user.save();
-                player.sendMessage(ChatColor.GREEN + "You have deposited " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN +
-                        "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
+                player.sendMessage(ChatColor.GREEN + "You have deposited " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN
+                        + "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
                 GUIType.BANKER.getGUI().open(player);
             }
 
@@ -82,8 +82,8 @@ public class DepositGUI extends GUI
                 user.subCoins(coins);
                 user.addBankCoins(coins);
                 user.save();
-                player.sendMessage(ChatColor.GREEN + "You have deposited " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN +
-                        "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
+                player.sendMessage(ChatColor.GREEN + "You have deposited " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN
+                        + "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
                 GUIType.BANKER.getGUI().open(player);
             }
 
@@ -127,8 +127,8 @@ public class DepositGUI extends GUI
                     user.subCoins(coins);
                     user.addBankCoins(coins);
                     user.save();
-                    player.sendMessage(ChatColor.GREEN + "You have deposited " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN +
-                            "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
+                    player.sendMessage(ChatColor.GREEN + "You have deposited " + ChatColor.GOLD + SUtil.commaify(coins) + " coins" + ChatColor.GREEN
+                            + "! You now have " + ChatColor.GOLD + SUtil.commaify(user.getBankCoins()) + " coins " + ChatColor.GREEN + "in your account!");
                 }
                 catch (NumberFormatException ex)
                 {

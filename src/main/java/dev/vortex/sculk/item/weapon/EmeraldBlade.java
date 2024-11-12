@@ -74,9 +74,13 @@ public class EmeraldBlade implements ToolStatistics, MaterialFunction, Ownable
     @Override
     public List<String> getDataLore(String key, Object value)
     {
-        if (!key.equals("owner")) return null;
+        if (!"owner".equals(key)) {
+            return null;
+        }
         Player player = Bukkit.getPlayer(UUID.fromString(String.valueOf(value)));
-        if (player == null) return null;
+        if (player == null) {
+            return null;
+        }
         User user = User.getUser(player.getUniqueId());
         return Collections.singletonList(ChatColor.GRAY + "Current Damage Bonus: " + ChatColor.GREEN + SUtil.roundTo(2.5 * SUtil.quadrt(user.getCoins()), 1));
     }

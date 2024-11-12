@@ -47,8 +47,9 @@ public class BroodMother extends BaseSpider
     public void onDeath(SEntity sEntity, Entity killed, Entity damager)
     {
         int am = SUtil.random(4, 5);
-        for (int i = 0; i < am; i++)
+        for (int i = 0; i < am; i++) {
             new SEntity(sEntity.getEntity(), SEntityType.CAVE_SPIDER);
+        }
     }
 
     @Override

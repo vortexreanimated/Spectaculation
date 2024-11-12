@@ -18,9 +18,9 @@
  */
 package dev.vortex.sculk.entity.wolf;
 
-import lombok.Getter;
 import dev.vortex.sculk.entity.SEntity;
 import dev.vortex.sculk.entity.nms.SvenPackmaster;
+import lombok.Getter;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -72,6 +72,7 @@ public class SvenPup extends BaseWolf
         return true;
     }
 
+    @Override
     public boolean isBaby()
     {
         return true;

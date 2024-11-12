@@ -65,6 +65,7 @@ public class MutantTarantula extends BaseSpider
     {
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (entity.isDead())
@@ -74,7 +75,9 @@ public class MutantTarantula extends BaseSpider
                 }
                 for (Entity e : entity.getNearbyEntities(1, 1, 1))
                 {
-                    if (!(e instanceof Player)) return;
+                    if (!(e instanceof Player)) {
+                        return;
+                    }
                     ((Player) e).damage(getDamageDealt() * 0.5, entity);
                 }
             }

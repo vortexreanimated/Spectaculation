@@ -64,7 +64,9 @@ public interface GUIClickableItem extends GUIItem
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (gui == null) return;
+                if (gui == null) {
+                    return;
+                }
                 gui.open(player);
             }
 

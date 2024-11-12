@@ -52,9 +52,9 @@ public class CombatSkill extends Skill
     @Override
     public List<String> getLevelUpInformation(int level, int lastLevel, boolean showOld)
     {
-        return Arrays.asList(ChatColor.WHITE + " Deal " + (showOld ? ChatColor.DARK_GRAY + "" + lastLevel * 4 + "➜" : "") +
-                ChatColor.GREEN + level * 4 + "% " + ChatColor.WHITE +
-                "more damage to mobs.",
+        return Arrays.asList(ChatColor.WHITE + " Deal " + (showOld ? ChatColor.DARK_GRAY + "" + lastLevel * 4 + "➜" : "")
+                + ChatColor.GREEN + level * 4 + "% " + ChatColor.WHITE
+                + "more damage to mobs.",
                 ChatColor.DARK_GRAY + "+" + ChatColor.GREEN + "0.5% " + ChatColor.BLUE + "☣ Crit Chance");
     }
 

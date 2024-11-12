@@ -48,12 +48,14 @@ public class ItemBrowserGUI extends GUI
         PaginationList<SMaterial> pagedMaterials = new PaginationList<>(28);
         pagedMaterials.addAll(SMaterial.values());
         pagedMaterials.removeIf(mat -> Item.getById(mat.getCraftMaterial().getId()) == null);
-        if (!query.equals(""))
+        if (!"".equals(query))
         {
             pagedMaterials.removeIf(material ->
                     !material.name().toLowerCase().contains(query.replaceAll(" ", "_").toLowerCase()));
         }
-        if (pagedMaterials.size() == 0) page = 0;
+        if (pagedMaterials.size() == 0) {
+            page = 0;
+        }
         this.title = "Item Browser | Page " + page + "/" + pagedMaterials.getPageCount();
         int finalPage = page;
         if (page > 1)
@@ -120,7 +122,9 @@ public class ItemBrowserGUI extends GUI
         });
         set(GUIClickableItem.getCloseItem(50));
         List<SMaterial> p = pagedMaterials.getPage(page);
-        if (p == null) return;
+        if (p == null) {
+            return;
+        }
         for (int i = 0; i < p.size(); i++)
         {
             int slot = INTERIOR[i];

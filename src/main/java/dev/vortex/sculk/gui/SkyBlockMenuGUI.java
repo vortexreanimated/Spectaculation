@@ -196,10 +196,12 @@ public class SkyBlockMenuGUI extends GUI
         {
             Pet.PetItem active = user.getActivePet();
             String name;
-            if (active == null)
+            if (active == null) {
                 name = ChatColor.RED + "None";
-            else
+            }
+            else {
                 name = active.getRarity().getColor() + active.getType().getDisplayName(active.getType().getData());
+            }
             set(new GUIClickableItem()
             {
                 @Override

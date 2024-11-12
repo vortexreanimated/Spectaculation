@@ -71,8 +71,9 @@ public class YoungDragonSet implements ArmorSet
             @Override
             public double getBaseSpeed()
             {
-                if (player.getHealth() > player.getMaxHealth() / 2.0)
+                if (player.getHealth() > player.getMaxHealth() / 2.0) {
                     return 0.7;
+                }
                 return 0.0;
             }
 

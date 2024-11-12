@@ -18,8 +18,8 @@
  */
 package dev.vortex.sculk.enchantment;
 
-import lombok.Getter;
 import dev.vortex.sculk.item.SpecificItemType;
+import lombok.Getter;
 import org.bukkit.enchantments.Enchantment;
 
 import java.util.*;
@@ -119,7 +119,9 @@ public class EnchantmentType
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof EnchantmentType)) return false;
+        if (!(o instanceof EnchantmentType)) {
+            return false;
+        }
         return ((EnchantmentType) o).namespace.equals(namespace);
     }
 }

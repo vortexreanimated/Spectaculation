@@ -22,7 +22,6 @@ import net.minecraft.server.v1_8_R3.NBTBase;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
-import java.util.Entry;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,8 +67,9 @@ public class SerialNBTTagCompound extends NBTTagCompound implements Configuratio
                 NBTTagCompound track = compound;
                 for (int i = 0; i < dir.length - 1; i++)
                 {
-                    if (!track.hasKey(dir[i]))
+                    if (!track.hasKey(dir[i])) {
                         track.set(dir[i], new NBTTagCompound());
+                    }
                     track = track.getCompound(dir[i]);
                 }
                 track.set(key, SUtil.getBaseFromObject(entry.getValue()));

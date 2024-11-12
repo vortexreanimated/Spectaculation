@@ -73,8 +73,12 @@ public class Zealot implements EndermanStatistics, EntityFunction
         User user = User.getUser(player.getUniqueId());
         Pet pet = user.getActivePetClass();
         AtomicDouble chance = new AtomicDouble(420.0);
-        if (pet != null) pet.runAbilities(ability -> ability.onZealotAttempt(chance), user.getActivePet());
-        if (SUtil.random(1.0, chance.get()) != 1) return;
+        if (pet != null) {
+            pet.runAbilities(ability -> ability.onZealotAttempt(chance), user.getActivePet());
+        }
+        if (SUtil.random(1.0, chance.get()) != 1) {
+            return;
+        }
         player.playSound(player.getLocation(), Sound.WITHER_SPAWN, 1f, 1f);
         SUtil.sendTitle(player, ChatColor.RED + "SPECIAL ZEALOT");
         player.sendMessage(ChatColor.GREEN + "A special " + ChatColor.LIGHT_PURPLE + "Zealot" + ChatColor.GREEN + " has spawned nearby!");
@@ -171,8 +175,12 @@ public class Zealot implements EndermanStatistics, EntityFunction
             User user = User.getUser(player.getUniqueId());
             Pet pet = user.getActivePetClass();
             AtomicDouble chance = new AtomicDouble(420.0);
-            if (pet != null) pet.runAbilities(ability -> ability.onZealotAttempt(chance), user.getActivePet());
-            if (SUtil.random(1.0, chance.get()) != 1) return;
+            if (pet != null) {
+                pet.runAbilities(ability -> ability.onZealotAttempt(chance), user.getActivePet());
+            }
+            if (SUtil.random(1.0, chance.get()) != 1) {
+                return;
+            }
             player.playSound(player.getLocation(), Sound.WITHER_SPAWN, 1f, 1f);
             SUtil.sendTitle(player, ChatColor.RED + "SPECIAL ZEALOT");
             player.sendMessage(ChatColor.GREEN + "A special " + ChatColor.LIGHT_PURPLE + "Zealot" + ChatColor.GREEN + " has spawned nearby!");

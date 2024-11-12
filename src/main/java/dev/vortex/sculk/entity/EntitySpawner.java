@@ -18,10 +18,10 @@
  */
 package dev.vortex.sculk.entity;
 
-import lombok.Getter;
 import dev.vortex.sculk.Spectaculation;
 import dev.vortex.sculk.config.Config;
 import dev.vortex.sculk.util.SLog;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -102,8 +102,9 @@ public class EntitySpawner
 
     public static void startSpawnerTask()
     {
-        if (SPAWNER_TASK != null)
+        if (SPAWNER_TASK != null) {
             return;
+        }
         SPAWNER_TASK = Spectaculation.getPlugin().getServer().getScheduler().runTaskTimer(Spectaculation.getPlugin(), () ->
         {
             List<Location> locations = new ArrayList<>(Bukkit.getOnlinePlayers().size());
@@ -114,8 +115,9 @@ public class EntitySpawner
                 boolean sp = false;
                 for (Location location : locations)
                 {
-                    if (!location.getWorld().getUID().equals(spawner.location.getWorld().getUID()))
+                    if (!location.getWorld().getUID().equals(spawner.location.getWorld().getUID())) {
                         continue;
+                    }
                     if (location.distance(spawner.location) <= 60.0D)
                     {
                         sp = true;
@@ -124,8 +126,9 @@ public class EntitySpawner
                 }
                 if (!sp)
                 {
-                    if (spawner.active != null && !spawner.active.getEntity().isDead())
+                    if (spawner.active != null && !spawner.active.getEntity().isDead()) {
                         spawner.active.remove();
+                    }
                     continue;
                 }
                 if (spawner.active == null || spawner.active.getEntity().isDead())

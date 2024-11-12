@@ -137,9 +137,11 @@ public class HurricaneBow implements ToolStatistics, BowFunction, Ability
     @Override
     public void onBowHit(Entity hit, Player shooter, Arrow arrow, SItem weapon, AtomicDouble finalDamage)
     {
-        if (!(hit instanceof LivingEntity))
+        if (!(hit instanceof LivingEntity)) {
             return;
-        if (((LivingEntity) hit).getHealth() - finalDamage.get() <= 0.0)
+        }
+        if (((LivingEntity) hit).getHealth() - finalDamage.get() <= 0.0) {
             weapon.setKills(weapon.getDataInt("kills") + 1);
+        }
     }
 }

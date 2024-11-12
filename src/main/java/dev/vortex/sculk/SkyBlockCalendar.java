@@ -27,7 +27,7 @@ public final class SkyBlockCalendar
             "Late Spring", "Early Summer", "Summer", "Late Summer", "Early Autumn",
             "Autumn", "Late Autumn", "Early Winter", "Winter", "Late Winter");
 
-    public static long ELAPSED = 0L;
+    public static long ELAPSED;
     public static final int YEAR = 8928000;
     public static final int MONTH = 744000;
     public static final int DAY = 24000;
@@ -52,8 +52,9 @@ public final class SkyBlockCalendar
 
     public static String getMonthName(int month)
     {
-        if (month < 1 || month > 12)
+        if (month < 1 || month > 12) {
             return "Unknown Month";
+        }
         return MONTH_NAMES.get(month - 1);
     }
 

@@ -51,8 +51,12 @@ public class FarmingTalisman implements AccessoryStatistics, AccessoryFunction
     public void update(SItem instance, Player player, int accessorySlot)
     {
         Region region = Region.getQuickRegionOfEntity(player);
-        if (region == null) return;
-        if (region.getType() != RegionType.THE_BARN && region.getType() != RegionType.MUSHROOM_DESERT) return;
+        if (region == null) {
+            return;
+        }
+        if (region.getType() != RegionType.THE_BARN && region.getType() != RegionType.MUSHROOM_DESERT) {
+            return;
+        }
         PlayerUtils.addBoostStatistics(PlayerUtils.STATISTICS_CACHE.get(player.getUniqueId()), accessorySlot, new PlayerBoostStatistics()
         {
             @Override

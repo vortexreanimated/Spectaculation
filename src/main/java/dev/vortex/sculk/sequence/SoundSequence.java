@@ -41,12 +41,14 @@ public class SoundSequence implements Sequence
         sounds.add(sound);
     }
 
+    @Override
     public void play(Location location)
     {
         for (DelayedSound sound : sounds)
             sound.play(location);
     }
 
+    @Override
     public void play(Entity entity)
     {
         for (DelayedSound sound : sounds)
@@ -77,6 +79,7 @@ public class SoundSequence implements Sequence
         {
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     location.getWorld().playSound(location, sound, volume, pitch);

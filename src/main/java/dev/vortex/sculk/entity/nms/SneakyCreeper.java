@@ -83,8 +83,9 @@ public class SneakyCreeper extends EntityCreeper implements EntityStatistics, SN
             {
                 CreeperIgniteEvent ignite = new CreeperIgniteEvent((Creeper) this.getBukkitEntity());
                 Spectaculation.getPlugin().getServer().getPluginManager().callEvent(ignite);
-                if (ignite.isCancelled())
+                if (ignite.isCancelled()) {
                     return;
+                }
             }
         }
         catch (IllegalAccessException | NoSuchFieldException ignored) {}
@@ -97,10 +98,12 @@ public class SneakyCreeper extends EntityCreeper implements EntityStatistics, SN
         sEntity.setVisible(true);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
-                if (e.getEntity().isDead())
+                if (e.getEntity().isDead()) {
                     return;
+                }
                 sEntity.setVisible(false);
             }
         }.runTaskLater(Spectaculation.getPlugin(), 35);
@@ -115,6 +118,7 @@ public class SneakyCreeper extends EntityCreeper implements EntityStatistics, SN
         return (LivingEntity) this.getBukkitEntity();
     }
 
+    @Override
     public double getXPDropped()
     {
         return 8.0;

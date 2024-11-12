@@ -69,28 +69,35 @@ public class PlayerListener extends PListener
     {
         Player player = e.getPlayer();
         SBlock block = SBlock.getBlock(player.getLocation().clone().subtract(0, 0.3, 0));
-        if ((player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR) && e.getTo().getY() <= -20.0)
+        if ((player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR) && e.getTo().getY() <= -20.0) {
             User.getUser(player.getUniqueId()).kill(EntityDamageEvent.DamageCause.VOID, null);
-        if (block == null) return;
+        }
+        if (block == null) {
+            return;
+        }
         if (block.getType() == SMaterial.BOUNCER)
         {
             player.setVelocity(player.getVelocity().setY(block.getDataFloat("bounce")));
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     player.setVelocity(new Vector(block.getDataFloat("velX"), block.getDataFloat("velY"), block.getDataFloat("velZ")));
                 }
             }.runTaskLater(Spectaculation.getPlugin(), block.getDataLong("delay"));
         }
-        if (block.getType() != SMaterial.LAUNCHER && block.getType() != SMaterial.TELEPORTER_LAUNCHER) return;
+        if (block.getType() != SMaterial.LAUNCHER && block.getType() != SMaterial.TELEPORTER_LAUNCHER) {
+            return;
+        }
         SEntity stand = new SEntity(player.getLocation(), SEntityType.VELOCITY_ARMOR_STAND);
-        ArmorStand s = ((ArmorStand) stand.getEntity());
+        ArmorStand s = (ArmorStand) stand.getEntity();
         s.setPassenger(player);
         s.setGravity(true);
         s.setVisible(false);
         new BukkitRunnable()
         {
+            @Override
             public void run() // if the launch is longer than 10 seconds, boot off the passenger
             {
                 s.eject();
@@ -102,6 +109,7 @@ public class PlayerListener extends PListener
         {
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     player.setFallDistance(0.0f);
@@ -121,7 +129,9 @@ public class PlayerListener extends PListener
     {
         Player player = e.getPlayer();
         User user = User.getUser(player.getUniqueId());
-        if (!PlayerUtils.STATISTICS_CACHE.containsKey(player.getUniqueId())) PlayerUtils.STATISTICS_CACHE.put(player.getUniqueId(), PlayerUtils.getStatistics(player));
+        if (!PlayerUtils.STATISTICS_CACHE.containsKey(player.getUniqueId())) {
+            PlayerUtils.STATISTICS_CACHE.put(player.getUniqueId(), PlayerUtils.getStatistics(player));
+        }
         for (Skill skill : Skill.getSkills())
             skill.onSkillUpdate(user, user.getSkillXP(skill));
     }
@@ -134,8 +144,9 @@ public class PlayerListener extends PListener
         SlayerQuest quest = user.getSlayerQuest();
         if (quest != null && quest.getSpawned() != 0 && (quest.getKilled() != 0 || quest.getDied() != 0))
         {
-            if (quest.getEntity() != null)
+            if (quest.getEntity() != null) {
                 quest.getEntity().remove();
+            }
             quest.setDied(System.currentTimeMillis());
         }
         user.save();
@@ -144,9 +155,12 @@ public class PlayerListener extends PListener
     @EventHandler
     public void onPlayerDeath(EntityDamageEvent e)
     {
-        if (!(e.getEntity() instanceof Player)) return;
-        if (e instanceof EntityDamageByEntityEvent)
+        if (!(e.getEntity() instanceof Player)) {
             return;
+        }
+        if (e instanceof EntityDamageByEntityEvent) {
+            return;
+        }
         Player player = (Player) e.getEntity();
         User user = User.getUser(player.getUniqueId());
         if ((player.getHealth() + ((CraftHumanEntity) player).getHandle().getAbsorptionHearts()) - e.getDamage() <= 0.0)
@@ -181,8 +195,9 @@ public class PlayerListener extends PListener
             if (in instanceof Arrow arrow)
             {
                 ProjectileSource shooter = arrow.getShooter();
-                if (shooter instanceof Entity entity)
+                if (shooter instanceof Entity entity) {
                     in = entity;
+                }
             }
             sEntity = SEntity.findSEntity(in);
             if (sEntity != null)
@@ -197,13 +212,17 @@ public class PlayerListener extends PListener
         {
             User user = User.getUser(damagedPlayer.getUniqueId());
             PlayerStatistics statistics = PlayerUtils.STATISTICS_CACHE.get(damagedPlayer.getUniqueId());
-            if (statistics == null) return;
+            if (statistics == null) {
+                return;
+            }
             double defense = statistics.getDefense().addAll();
             double trueDefense = statistics.getTrueDefense().addAll();
-            if (sEntity != null && sEntity.getStatistics().dealsTrueDamage())
+            if (sEntity != null && sEntity.getStatistics().dealsTrueDamage()) {
                 e.setDamage(e.getDamage() - (e.getDamage() * (trueDefense / (trueDefense + 100))));
-            else
+            }
+            else {
                 e.setDamage(e.getDamage() - (e.getDamage() * (defense / (defense + 100))));
+            }
             EntityDamageEvent.DamageCause cause = e.getCause();
             if (damager instanceof Projectile projectile && ((Projectile) damager).getShooter() instanceof Entity)
             {
@@ -215,10 +234,10 @@ public class PlayerListener extends PListener
                 SEntity fb = (SEntity) damager.getMetadata("dragon").getFirst().value();
                 int d = SUtil.random(292, 713);
                 e.setDamage(d);
-                damagedPlayer.sendMessage(ChatColor.DARK_PURPLE + "☬ " + ChatColor.RED + fb.getStatistics().getEntityName() +
-                        ChatColor.LIGHT_PURPLE + " used " + ChatColor.YELLOW + "Fireball" +
-                        ChatColor.LIGHT_PURPLE + " on you for " + ChatColor.RED + d +
-                        " damage.");
+                damagedPlayer.sendMessage(ChatColor.DARK_PURPLE + "☬ " + ChatColor.RED + fb.getStatistics().getEntityName()
+                        + ChatColor.LIGHT_PURPLE + " used " + ChatColor.YELLOW + "Fireball"
+                        + ChatColor.LIGHT_PURPLE + " on you for " + ChatColor.RED + d
+                        + " damage.");
                 damager = fb.getEntity();
                 cause = EntityDamageEvent.DamageCause.ENTITY_ATTACK;
             }
@@ -239,16 +258,22 @@ public class PlayerListener extends PListener
             return;
         }
 
-        if (!(damager instanceof Player) && !(damager instanceof Arrow)) return;
+        if (!(damager instanceof Player) && !(damager instanceof Arrow)) {
+            return;
+        }
         Player player;
         ItemStack weapon;
         float bowForceReducer = 1.0f;
         if (damager instanceof Arrow arrow)
         {
             ProjectileSource shooter = arrow.getShooter();
-            if (!(shooter instanceof Player)) return;
+            if (!(shooter instanceof Player)) {
+                return;
+            }
             player = (Player) shooter;
-            if (!BOW_MAP.containsKey(player.getUniqueId())) return;
+            if (!BOW_MAP.containsKey(player.getUniqueId())) {
+                return;
+            }
             BowShooting shooting = BOW_MAP.get(player.getUniqueId());
             weapon = shooting.getBow();
             bowForceReducer = shooting.getForce();
@@ -265,37 +290,45 @@ public class PlayerListener extends PListener
         SItem sItem = SItem.find(weapon);
         if (sItem != null)
         {
-            if (sItem.getType().getFunction() != null)
+            if (sItem.getType().getFunction() != null) {
                 sItem.getType().getFunction().onDamage(damaged, player, finalDamage, sItem);
-            if (sItem.getType().getFunction() instanceof BowFunction && e.getDamager() instanceof Arrow)
+            }
+            if (sItem.getType().getFunction() instanceof BowFunction && e.getDamager() instanceof Arrow) {
                 ((BowFunction) sItem.getType().getFunction()).onBowHit(damaged, player, (Arrow) e.getDamager(), sItem, finalDamage);
+            }
         }
         for (SItem accessory : PlayerUtils.getAccessories(player))
         {
-            if (accessory.getType().getFunction() instanceof AccessoryFunction)
+            if (accessory.getType().getFunction() instanceof AccessoryFunction) {
                 ((AccessoryFunction) accessory.getType().getFunction()).onDamageInInventory(sItem, player, damaged, accessory, finalDamage);
+            }
         }
         User user = User.getUser(player.getUniqueId());
         Pet pet = user.getActivePetClass();
-        if (pet != null) pet.runAbilities((ability) -> ability.onDamage(e), user.getActivePet());
+        if (pet != null) {
+            pet.runAbilities(ability -> ability.onDamage(e), user.getActivePet());
+        }
         try { e.setDamage(EntityDamageEvent.DamageModifier.ARMOR, 0.0); } catch (UnsupportedOperationException ignored) {}
         SEntity s = SEntity.findSEntity(damaged);
-        if (s != null)
+        if (s != null) {
             s.getFunction().onDamage(s, damager, e, finalDamage);
-        if (e.isCancelled())
+        }
+        if (e.isCancelled()) {
             return;
+        }
         PlayerUtils.handleSpecEntity(damaged, player, finalDamage);
 
         COMBAT_MAP.put(player.getUniqueId(), createCombatAction(true, e.getDamage(), e.getDamager() instanceof Arrow, System.currentTimeMillis()));
 
         ArmorStand stand = (ArmorStand) new SEntity(damaged.getLocation().clone().add(SUtil.random(-1.5, 1.5), 2, SUtil.random(-1.5, 1.5)), SEntityType.UNCOLLIDABLE_ARMOR_STAND).getEntity();
-        stand.setCustomName(result.didCritDamage() ?
-                SUtil.rainbowize("✧" + ((int) e.getDamage()) + "✧") : "" + ChatColor.GRAY + (int) e.getDamage());
+        stand.setCustomName(result.didCritDamage()
+                ? SUtil.rainbowize("✧" + ((int) e.getDamage()) + "✧") : "" + ChatColor.GRAY + (int) e.getDamage());
         stand.setCustomNameVisible(true);
         stand.setGravity(false);
         stand.setVisible(false);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 stand.remove();
@@ -306,7 +339,9 @@ public class PlayerListener extends PListener
     @EventHandler
     public void onBowShoot(EntityShootBowEvent e)
     {
-        if (!(e.getEntity() instanceof Player)) return;
+        if (!(e.getEntity() instanceof Player)) {
+            return;
+        }
         BOW_MAP.put(e.getEntity().getUniqueId(), new BowShooting()
         {
             @Override
@@ -328,6 +363,7 @@ public class PlayerListener extends PListener
             int save = arrows.getStack().getAmount();
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     ItemStack last = player.getInventory().getItem(8);
@@ -337,7 +373,9 @@ public class PlayerListener extends PListener
                         player.getInventory().setItem(8, SItem.of(SMaterial.SKYBLOCK_MENU).getStack());
                         return;
                     }
-                    if (save == last.getAmount()) return;
+                    if (save == last.getAmount()) {
+                        return;
+                    }
                     user.subFromQuiver(SMaterial.ARROW);
                     player.getInventory().setItem(8, SUtil.setStackAmount(SItem.of(SMaterial.QUIVER_ARROW).getStack(), Math.min(64, user.getQuiver(SMaterial.ARROW))));
                 }
@@ -348,24 +386,30 @@ public class PlayerListener extends PListener
         {
             Enchantment aiming = sItem.getEnchantment(EnchantmentType.AIMING);
             SUtil.markAimingArrow((Projectile) e.getProjectile(), aiming);
-            if (sItem.getType().getFunction() instanceof BowFunction)
+            if (sItem.getType().getFunction() instanceof BowFunction) {
                 ((BowFunction) sItem.getType().getFunction()).onBowShoot(sItem, e);
+            }
         }
     }
 
     @EventHandler
     public void onArmorStandChange(PlayerArmorStandManipulateEvent e)
     {
-        if (e.getRightClicked().hasMetadata("specUnbreakableArmorStand"))
+        if (e.getRightClicked().hasMetadata("specUnbreakableArmorStand")) {
             e.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void onPotionDrink(PlayerItemConsumeEvent e)
     {
         SItem sItem = SItem.find(e.getItem());
-        if (sItem == null) return;
-        if (sItem.getType() != SMaterial.WATER_BOTTLE) return;
+        if (sItem == null) {
+            return;
+        }
+        if (sItem.getType() != SMaterial.WATER_BOTTLE) {
+            return;
+        }
         e.setCancelled(true);
         List<PotionEffect> effects = sItem.getPotionEffects();
         User user = User.getUser(e.getPlayer().getUniqueId());
@@ -373,15 +417,17 @@ public class PlayerListener extends PListener
         {
             user.removePotionEffect(effect.getType());
             PlayerUtils.updatePotionEffects(user, PlayerUtils.STATISTICS_CACHE.get(user.getUuid()));
-            if (effect.getType().getOnDrink() != null)
+            if (effect.getType().getOnDrink() != null) {
                 effect.getType().getOnDrink().accept(effect, e.getPlayer());
+            }
             user.addPotionEffect(effect);
-            e.getPlayer().sendMessage((effect.getType().isBuff() ? ChatColor.GREEN + "" + ChatColor.BOLD + "BUFF!" :
-                    ChatColor.RED + "" + ChatColor.BOLD + "DEBUFF!") +
-                    ChatColor.RESET + ChatColor.WHITE + " You have gained " + effect.getDisplayName() + ChatColor.WHITE + "!");
+            e.getPlayer().sendMessage((effect.getType().isBuff() ? ChatColor.GREEN + "" + ChatColor.BOLD + "BUFF!"
+                    : ChatColor.RED + "" + ChatColor.BOLD + "DEBUFF!")
+                    + ChatColor.RESET + ChatColor.WHITE + " You have gained " + effect.getDisplayName() + ChatColor.WHITE + "!");
         }
-        if (e.getPlayer().getGameMode() != GameMode.CREATIVE && e.getPlayer().getGameMode() != GameMode.SPECTATOR)
+        if (e.getPlayer().getGameMode() != GameMode.CREATIVE && e.getPlayer().getGameMode() != GameMode.SPECTATOR) {
             e.getPlayer().setItemInHand(SItem.of(SMaterial.GLASS_BOTTLE).getStack());
+        }
     }
 
     @EventHandler
@@ -391,6 +437,7 @@ public class PlayerListener extends PListener
         {
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     e.getEntity().remove();
@@ -406,18 +453,22 @@ public class PlayerListener extends PListener
             e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.EXPLODE, 5f, 0f);
             for (Entity entity : e.getEntity().getNearbyEntities(2, 2, 2))
             {
-                if (!(entity instanceof LivingEntity)) continue;
-                int d = type.equals("dragon") ? SUtil.random(292, 713) : 125;
-                if (entity instanceof Player)
+                if (!(entity instanceof LivingEntity)) {
+                    continue;
+                }
+                int d = "dragon".equals(type) ? SUtil.random(292, 713) : 125;
+                if (entity instanceof Player) {
                     User.getUser(entity.getUniqueId()).damage(d, EntityDamageEvent.DamageCause.ENTITY_ATTACK, sEntity.getEntity());
-                else
+                }
+                else {
                     ((LivingEntity) entity).damage(d);
-                if (type.equals("dragon"))
+                }
+                if ("dragon".equals(type))
                 {
-                    entity.sendMessage(ChatColor.DARK_PURPLE + "☬ " + ChatColor.RED + sEntity.getStatistics().getEntityName() +
-                            ChatColor.LIGHT_PURPLE + " used " + ChatColor.YELLOW + "Fireball" +
-                            ChatColor.LIGHT_PURPLE + " on you for " + ChatColor.RED + d +
-                            " damage.");
+                    entity.sendMessage(ChatColor.DARK_PURPLE + "☬ " + ChatColor.RED + sEntity.getStatistics().getEntityName()
+                            + ChatColor.LIGHT_PURPLE + " used " + ChatColor.YELLOW + "Fireball"
+                            + ChatColor.LIGHT_PURPLE + " on you for " + ChatColor.RED + d
+                            + " damage.");
                 }
             }
         }

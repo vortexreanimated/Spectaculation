@@ -81,15 +81,23 @@ public class MinerSet implements TickingSet
             counters.getFirst().set(0);
         }
         Region region = Region.getRegionOfEntity(owner);
-        if (region == null) return;
-        if (!Groups.DEEP_CAVERNS_REGIONS.contains(region.getType())) return;
-        if (helmet != null)
+        if (region == null) {
+            return;
+        }
+        if (!Groups.DEEP_CAVERNS_REGIONS.contains(region.getType())) {
+            return;
+        }
+        if (helmet != null) {
             defense.add(PlayerStatistic.MINER_BUFF, 45.0);
-        if (chestplate != null)
+        }
+        if (chestplate != null) {
             defense.add(PlayerStatistic.MINER_BUFF, 95.0);
-        if (leggings != null)
+        }
+        if (leggings != null) {
             defense.add(PlayerStatistic.MINER_BUFF, 70.0);
-        if (boots != null)
+        }
+        if (boots != null) {
             defense.add(PlayerStatistic.MINER_BUFF, 45.0);
+        }
     }
 }

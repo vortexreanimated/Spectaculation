@@ -57,12 +57,15 @@ public class FarmingSkill extends Skill
     public double getHealth(int level)
     {
         int health = level * 2;
-        if (level >= 15)
-            health += (level - 14);
-        if (level >= 20)
-            health += (level - 19);
-        if (level >= 26)
-            health += (level - 25);
+        if (level >= 15) {
+            health += level - 14;
+        }
+        if (level >= 20) {
+            health += level - 19;
+        }
+        if (level >= 26) {
+            health += level - 25;
+        }
         return health;
     }
 
@@ -71,15 +74,18 @@ public class FarmingSkill extends Skill
     {
         String dropChance = (showOld ? ChatColor.DARK_GRAY + "" + lastLevel * 4 + "➜" : "") + ChatColor.GREEN + level * 4;
         int healthPlus = 2;
-        if (level >= 15)
+        if (level >= 15) {
             healthPlus = 3;
-        if (level >= 20)
+        }
+        if (level >= 20) {
             healthPlus = 4;
-        if (level >= 26)
+        }
+        if (level >= 26) {
             healthPlus = 5;
+        }
         return Arrays.asList(ChatColor.WHITE + " Grants " + dropChance + "%" + ChatColor.WHITE + " chance",
-                ChatColor.WHITE + " to drop 2x crops.", ChatColor.DARK_GRAY + "+" +
-                        ChatColor.GREEN + healthPlus + " " + ChatColor.RED + "❤ Health");
+                ChatColor.WHITE + " to drop 2x crops.", ChatColor.DARK_GRAY + "+"
+                        + ChatColor.GREEN + healthPlus + " " + ChatColor.RED + "❤ Health");
     }
 
     @Override

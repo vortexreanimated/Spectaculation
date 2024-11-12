@@ -50,24 +50,33 @@ public class BagOfCoins implements SkullStatistics, MaterialFunction, ItemData
     public void onInstanceUpdate(SItem instance)
     {
         long coins = instance.getDataLong("coins");
-        if (coins < 10000)
+        if (coins < 10000) {
             instance.setRarity(Rarity.COMMON, false);
-        else if (coins < 100000)
+        }
+        else if (coins < 100000) {
             instance.setRarity(Rarity.UNCOMMON, false);
-        else if (coins < 250000)
+        }
+        else if (coins < 250000) {
             instance.setRarity(Rarity.RARE, false);
-        else if (coins < 4000000)
+        }
+        else if (coins < 4000000) {
             instance.setRarity(Rarity.EPIC, false);
-        else if (coins < 10000000)
+        }
+        else if (coins < 10000000) {
             instance.setRarity(Rarity.LEGENDARY, false);
-        else if (coins < 25000000)
+        }
+        else if (coins < 25000000) {
             instance.setRarity(Rarity.MYTHIC, false);
-        else if (coins < 100000000)
+        }
+        else if (coins < 100000000) {
             instance.setRarity(Rarity.SUPREME, false);
-        else if (coins < 500000000)
+        }
+        else if (coins < 500000000) {
             instance.setRarity(Rarity.SPECIAL, false);
-        else
+        }
+        else {
             instance.setRarity(Rarity.VERY_SPECIAL, false);
+        }
     }
 
     @Override
@@ -81,7 +90,9 @@ public class BagOfCoins implements SkullStatistics, MaterialFunction, ItemData
     @Override
     public List<String> getDataLore(String key, Object value)
     {
-        if (!key.equals("coins")) return null;
+        if (!"coins".equals(key)) {
+            return null;
+        }
         return Collections.singletonList(ChatColor.GOLD + "Contents: " + ChatColor.YELLOW + SUtil.commaify((long) value) + " coins");
     }
 

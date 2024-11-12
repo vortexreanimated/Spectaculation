@@ -67,8 +67,9 @@ public enum ReforgeType
     {
         for (ReforgeType type : values())
         {
-            if (type.clazz == clazz)
+            if (type.clazz == clazz) {
                 return type;
+            }
         }
         return null;
     }

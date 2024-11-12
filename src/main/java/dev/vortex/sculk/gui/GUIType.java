@@ -79,8 +79,9 @@ public enum GUIType
     {
         for (GUIType type : values())
         {
-            if (type.getGUI().getTitle().contains(title))
+            if (type.getGUI().getTitle().contains(title)) {
                 return type.getGUI();
+            }
         }
         return null;
     }

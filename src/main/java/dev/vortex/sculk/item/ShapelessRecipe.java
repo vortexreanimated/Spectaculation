@@ -18,9 +18,9 @@
  */
 package dev.vortex.sculk.item;
 
-import lombok.Getter;
 import dev.vortex.sculk.util.SLog;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
@@ -78,6 +78,7 @@ public class ShapelessRecipe extends Recipe<ShapelessRecipe>
         return ingredientList;
     }
 
+    @Override
     public String toString()
     {
         return "ShapelessRecipe{" + ingredientList.toString() + "}";
@@ -85,8 +86,9 @@ public class ShapelessRecipe extends Recipe<ShapelessRecipe>
 
     protected static ShapelessRecipe parseShapelessRecipe(ItemStack[] stacks)
     {
-        if (stacks.length != 9)
+        if (stacks.length != 9) {
             throw new UnsupportedOperationException("Recipe parsing requires a 9 element array!");
+        }
         MaterialQuantifiable[] materials = SUtil.unnest(airless(new MaterialQuantifiable[][]
                 {
                         MaterialQuantifiable.of(Arrays.copyOfRange(stacks, 0, 3)),
@@ -96,8 +98,9 @@ public class ShapelessRecipe extends Recipe<ShapelessRecipe>
         for (ShapelessRecipe recipe : CACHED_RECIPES)
         {
             List<MaterialQuantifiable> ingredients = recipe.getIngredientList();
-            if (materials.length != ingredients.size())
+            if (materials.length != ingredients.size()) {
                 continue;
+            }
             boolean found = true;
             MaterialQuantifiable[] copy = Arrays.copyOf(materials, materials.length);
             for (MaterialQuantifiable ingredient : ingredients)
@@ -108,7 +111,9 @@ public class ShapelessRecipe extends Recipe<ShapelessRecipe>
                     break;
                 }
             }
-            if (!found) continue;
+            if (!found) {
+                continue;
+            }
             return recipe;
         }
         return null;
@@ -120,8 +125,9 @@ public class ShapelessRecipe extends Recipe<ShapelessRecipe>
         for (int i = 0; i < grid.length; i++)
         {
             MaterialQuantifiable material = grid[i];
-            if (material == null)
+            if (material == null) {
                 continue;
+            }
             if (usesExchangeables && exchangeables != null && exchangeables.contains(material.getMaterial()) && material.getAmount() >= test.getAmount())
             {
                 grid[i] = null;

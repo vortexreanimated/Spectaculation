@@ -27,13 +27,15 @@ import java.util.*;
 
 public final class StaticDragonManager
 {
-    public static boolean ACTIVE = false;
+    public static boolean ACTIVE;
     public static Map<UUID, List<Location>> EYES = new HashMap<>();
-    public static SEntity DRAGON = null;
+    public static SEntity DRAGON;
 
     public static void endFight()
     {
-        if (DRAGON == null) return;
+        if (DRAGON == null) {
+            return;
+        }
         ACTIVE = false;
         for (List<Location> locations : StaticDragonManager.EYES.values())
         {
@@ -48,5 +50,8 @@ public final class StaticDragonManager
         }
         EYES.clear();
         DRAGON = null;
+    }
+
+    private StaticDragonManager() {
     }
 }

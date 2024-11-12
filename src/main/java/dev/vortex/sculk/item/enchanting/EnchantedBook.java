@@ -23,7 +23,6 @@ import dev.vortex.sculk.item.*;
 
 public class EnchantedBook implements MaterialStatistics, MaterialFunction, Enchantable
 {
-    private static final MaterialQuantifiable PAPER_16 = new MaterialQuantifiable(SMaterial.PAPER, 16);
 
     @Override
     public String getDisplayName()
@@ -55,8 +54,9 @@ public class EnchantedBook implements MaterialStatistics, MaterialFunction, Ench
         int max = 1;
         for (Enchantment enchantment : instance.getEnchantments())
         {
-            if (enchantment.getLevel() > max)
+            if (enchantment.getLevel() > max) {
                 max = enchantment.getLevel();
+            }
         }
         switch (max)
         {

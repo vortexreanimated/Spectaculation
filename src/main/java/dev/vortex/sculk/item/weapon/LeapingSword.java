@@ -97,7 +97,9 @@ public class LeapingSword implements ToolStatistics, MaterialFunction, Ability
             @Override
             public void run()
             {
-                if (player.getLocation().subtract(0, 0.5, 0).getBlock().getType() == Material.AIR) return;
+                if (player.getLocation().subtract(0, 0.5, 0).getBlock().getType() == Material.AIR) {
+                    return;
+                }
                 player.getWorld().playSound(player.getLocation(), Sound.EXPLODE, 2f, 1f);
                 player.playEffect(player.getLocation(), Effect.EXPLOSION_LARGE, Effect.EXPLOSION_LARGE.getData());
                 //for (Entity entity : player.getNearbyEntities(5, 5, 5))

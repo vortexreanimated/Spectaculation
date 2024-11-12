@@ -30,6 +30,7 @@ import net.minecraft.server.v1_8_R3.*;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.*;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -130,8 +131,9 @@ public class SUtil
             }
             stringUUID = plugin.heads.getString(material.name().toLowerCase());
         }
-        else
+        else {
             stringUUID = UUID.randomUUID().toString();
+        }
         GameProfile profile = new GameProfile(UUID.fromString(stringUUID), null);
         byte[] ed = Base64.getEncoder().encode("{textures:{SKIN:{url:\"http://textures.minecraft.net/texture/%s\"}}}".formatted(texture).getBytes());
         profile.getProperties().put("textures", new Property("textures", new String(ed)));
@@ -157,14 +159,17 @@ public class SUtil
         List<String> result = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\G" + separator + "*(.{1," + splitLength + "})(?=\\s|$)", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(string);
-        while (matcher.find())
+        while (matcher.find()) {
             result.add(matcher.group(1));
+        }
         return result;
     }
 
     public static ItemStack applyColorToLeatherArmor(ItemStack stack, Color color)
     {
-        if (!(stack.getItemMeta() instanceof LeatherArmorMeta)) return stack;
+        if (!(stack.getItemMeta() instanceof LeatherArmorMeta)) {
+            return stack;
+        }
         LeatherArmorMeta meta = (LeatherArmorMeta) stack.getItemMeta();
         meta.setColor(color);
         stack.setItemMeta(meta);
@@ -181,10 +186,10 @@ public class SUtil
     {
         StringBuilder sb = new StringBuilder();
         int times;
-        String[] romans = new String[] { "I", "IV", "V", "IX", "X", "XL", "L",
-                "XC", "C", "CD", "D", "CM", "M" };
-        int[] ints = new int[] { 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500,
-                900, 1000 };
+        String[] romans = new String[]{"I", "IV", "V", "IX", "X", "XL", "L",
+                "XC", "C", "CD", "D", "CM", "M"};
+        int[] ints = new int[]{1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500,
+                900, 1000};
         for (int i = ints.length - 1; i >= 0; i--)
         {
             times = num / ints[i];
@@ -204,7 +209,9 @@ public class SUtil
         int i = 0;
         for (String c : string.split(""))
         {
-            if (i > CRIT_SPECTRUM.size() - 1) i = 0;
+            if (i > CRIT_SPECTRUM.size() - 1) {
+                i = 0;
+            }
             builder.append(CRIT_SPECTRUM.get(i)).append(c);
             i++;
         }
@@ -213,11 +220,16 @@ public class SUtil
 
     public static String getMaterialDisplayName(Material material, short variant)
     {
-        if (variant != 0)
+        if (variant != 0) {
             return SMaterial.getSpecEquivalent(material, variant).getBaseName();
+        }
         net.minecraft.server.v1_8_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(new ItemStack(material));
-        if (nmsStack == null) return material.name();
-        if (nmsStack.getItem() == null) return material.name();
+        if (nmsStack == null) {
+            return material.name();
+        }
+        if (nmsStack.getItem() == null) {
+            return material.name();
+        }
         return nmsStack.getName();
     }
 
@@ -229,16 +241,24 @@ public class SUtil
 
     public static GenericItemType getItemType(Material material)
     {
-        if (material == Material.BOW) return GenericItemType.RANGED_WEAPON;
-        if (Groups.SWORDS.contains(material)) return GenericItemType.WEAPON;
-        if (Groups.PICKAXES.contains(material) ||
-            Groups.HOES.contains(material) ||
-            Groups.AXES.contains(material) ||
-            Groups.SHOVELS.contains(material)) return GenericItemType.TOOL;
-        if (Groups.LEATHER_ARMOR.contains(material) ||
-            Groups.IRON_ARMOR.contains(material) ||
-            Groups.GOLD_ARMOR.contains(material) ||
-            Groups.DIAMOND_ARMOR.contains(material)) return GenericItemType.ARMOR;
+        if (material == Material.BOW) {
+            return GenericItemType.RANGED_WEAPON;
+        }
+        if (Groups.SWORDS.contains(material)) {
+            return GenericItemType.WEAPON;
+        }
+        if (Groups.PICKAXES.contains(material)
+            || Groups.HOES.contains(material)
+            || Groups.AXES.contains(material)
+            || Groups.SHOVELS.contains(material)) {
+            return GenericItemType.TOOL;
+        }
+        if (Groups.LEATHER_ARMOR.contains(material)
+            || Groups.IRON_ARMOR.contains(material)
+            || Groups.GOLD_ARMOR.contains(material)
+            || Groups.DIAMOND_ARMOR.contains(material)) {
+            return GenericItemType.ARMOR;
+        }
         return material.isBlock() ? GenericItemType.BLOCK : GenericItemType.ITEM;
     }
 
@@ -263,16 +283,20 @@ public class SUtil
 
     public static void border(Inventory inventory, GUI gui, ItemStack stack, int cornerSlot, int cornerSlot2, boolean overwrite, boolean pickup)
     {
-        if (cornerSlot < 0 || cornerSlot > inventory.getSize())
+        if (cornerSlot < 0 || cornerSlot > inventory.getSize()) {
             throw new IllegalArgumentException("Corner 1 of the border described is out of bounds");
-        if (cornerSlot2 < 0 || cornerSlot2 > inventory.getSize())
+        }
+        if (cornerSlot2 < 0 || cornerSlot2 > inventory.getSize()) {
             throw new IllegalArgumentException("Corner 2 of the border described is out of bounds");
+        }
         int topLeft = Math.min(cornerSlot, cornerSlot2);
         int bottomRight = Math.max(cornerSlot, cornerSlot2);
         int topRight;
-        for (topRight = bottomRight; topRight > topLeft; topRight -= 9);
+        for (topRight = bottomRight; topRight > topLeft; topRight -= 9) {
+        }
         int bottomLeft;
-        for (bottomLeft = topLeft; bottomLeft < bottomRight; bottomLeft += 9);
+        for (bottomLeft = topLeft; bottomLeft < bottomRight; bottomLeft += 9) {
+        }
         topRight += 9;
         bottomLeft -= 9;
         for (int y = topLeft; y <= bottomLeft; y += 9)
@@ -280,7 +304,9 @@ public class SUtil
             for (int x = y; x <= topRight - topLeft + y; x++)
             {
                 int f = x;
-                if (gui.getItems().stream().filter(item -> item.getSlot() == f).toArray().length != 0 && !overwrite) continue;
+                if (gui.getItems().stream().filter(item -> item.getSlot() == f).toArray().length != 0 && !overwrite) {
+                    continue;
+                }
                 if (y == topLeft || y == bottomLeft)
                 {
                     gui.set(x, stack, pickup);
@@ -321,12 +347,15 @@ public class SUtil
     {
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
-                if (effect)
+                if (effect) {
                     location.getWorld().strikeLightningEffect(location);
-                else
+                }
+                else {
                     location.getWorld().strikeLightning(location);
+                }
             }
         }.runTaskLater(Spectaculation.getPlugin(), delay);
     }
@@ -336,6 +365,7 @@ public class SUtil
         AtomicBoolean stop = new AtomicBoolean(false);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (stop.get())
@@ -348,6 +378,7 @@ public class SUtil
         }.runTaskTimer(Spectaculation.getPlugin(), 0, interval);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 stop.set(true);
@@ -384,8 +415,9 @@ public class SUtil
 
     public static <T> boolean addIf(T t, List<T> list, boolean test)
     {
-        if (test)
+        if (test) {
             list.add(t);
+        }
         return test;
     }
 
@@ -403,12 +435,14 @@ public class SUtil
 
     public static double roundTo(double d, int decimalPlaces)
     {
-        if (decimalPlaces < 1)
+        if (decimalPlaces < 1) {
             throw new IllegalArgumentException();
+        }
         StringBuilder builder = new StringBuilder()
                 .append("#.");
-        for (int i = 0; i < decimalPlaces; i++)
+        for (int i = 0; i < decimalPlaces; i++) {
             builder.append("#");
+        }
         DecimalFormat df = new DecimalFormat(builder.toString());
         df.setRoundingMode(RoundingMode.CEILING);
         return Double.parseDouble(df.format(d));
@@ -417,9 +451,13 @@ public class SUtil
     public static void toggleAllowFlightNoCreative(UUID uuid, boolean flight)
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         GameMode gameMode = player.getGameMode();
-        if (gameMode == GameMode.CREATIVE || gameMode == GameMode.SPECTATOR) return;
+        if (gameMode == GameMode.CREATIVE || gameMode == GameMode.SPECTATOR) {
+            return;
+        }
         player.setAllowFlight(flight);
     }
 
@@ -434,8 +472,9 @@ public class SUtil
                 for (int z = location.getBlockZ() - radius; z <= location.getBlockZ() + radius; z++)
                 {
                     Block block = location.getWorld().getBlockAt(x, y, z);
-                    if (block.getType() == type || type == null)
+                    if (block.getType() == type || type == null) {
                         blocks.add(block);
+                    }
                 }
             }
         }
@@ -444,10 +483,13 @@ public class SUtil
 
     public static void markAimingArrow(Projectile projectile, Enchantment aiming)
     {
-        if (aiming == null) return;
+        if (aiming == null) {
+            return;
+        }
         AtomicReference<LivingEntity> target = new AtomicReference<>(null);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (projectile.isDead())
@@ -461,13 +503,17 @@ public class SUtil
                     List<LivingEntity> possible = new ArrayList<>();
                     for (Entity entity : projectile.getNearbyEntities(2 * aiming.getLevel(), 2 * aiming.getLevel(), 2 * aiming.getLevel()))
                     {
-                        if (entity instanceof Player)
+                        if (entity instanceof Player) {
                             continue;
-                        if (entity instanceof LivingEntity livingEntity && !(entity instanceof ArmorStand) && !(entity instanceof NPC) && !entity.isDead())
+                        }
+                        if (entity instanceof LivingEntity livingEntity && !(entity instanceof ArmorStand) && !(entity instanceof NPC) && !entity.isDead()) {
                             possible.add(livingEntity);
+                        }
                     }
                     setTarget = SUtil.getRandom(possible);
-                    if (setTarget == null) return;
+                    if (setTarget == null) {
+                        return;
+                    }
                     target.set(setTarget);
                 }
                 Location location = projectile.getLocation().clone();
@@ -479,6 +525,7 @@ public class SUtil
         }.runTaskTimer(Spectaculation.getPlugin(), 0, 1);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 projectile.remove();
@@ -491,8 +538,9 @@ public class SUtil
         ItemStack stack = new ItemStack(material, data);
         stack.setDurability(data);
         ItemMeta meta = stack.getItemMeta();
-        if (name != null)
+        if (name != null) {
             meta.setDisplayName(name);
+        }
         stack.setAmount(amount);
         meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
@@ -529,15 +577,19 @@ public class SUtil
 
     public static boolean isEnchantable(SItem sItem)
     {
-        if (sItem.getType() == SMaterial.ENCHANTED_BOOK) return true;
+        if (sItem.getType() == SMaterial.ENCHANTED_BOOK) {
+            return true;
+        }
         GenericItemType type = sItem.getType().getStatistics().getType();
-        return type == GenericItemType.WEAPON || type == GenericItemType.TOOL ||
-                type == GenericItemType.RANGED_WEAPON || type == GenericItemType.ARMOR;
+        return type == GenericItemType.WEAPON || type == GenericItemType.TOOL
+                || type == GenericItemType.RANGED_WEAPON || type == GenericItemType.ARMOR;
     }
 
     public static boolean isAir(ItemStack is)
     {
-        if (is == null) return true;
+        if (is == null) {
+            return true;
+        }
         return is.getType() == Material.AIR;
     }
 
@@ -549,8 +601,9 @@ public class SUtil
             StringBuilder builder = new StringBuilder();
             for (int j = 0; j < perElement; j++)
             {
-                if (i + j > list.size() - 1)
+                if (i + j > list.size() - 1) {
                     break;
+                }
                 builder.append(j != 0 ? separator : "").append(list.get(i + j));
             }
             n.add(builder.toString());
@@ -566,15 +619,16 @@ public class SUtil
 
     public static void setBlocks(Location c1, Location c2, Material material, boolean applyPhysics)
     {
-        if (!c1.getWorld().getName().equals(c1.getWorld().getName()))
+        if (!c1.getWorld().getName().equals(c1.getWorld().getName())) {
             return;
+        }
         int sy = Math.min(c1.getBlockY(), c2.getBlockY()),
                 ey = Math.max(c1.getBlockY(), c2.getBlockY()),
                 sx = Math.min(c1.getBlockX(), c2.getBlockX()),
                 ex = Math.max(c1.getBlockX(), c2.getBlockX()),
                 sz = Math.min(c1.getBlockZ(), c2.getBlockZ()),
                 ez = Math.max(c1.getBlockZ(), c2.getBlockZ());
-        org.bukkit.World world = c1.getWorld();
+        World world = c1.getWorld();
         for (int y = sy; y <= ey; y++)
         {
             for (int x = sx; x <= ex; x++)
@@ -590,8 +644,9 @@ public class SUtil
     public static <T> T instance(Class<T> clazz, Object... params)
     {
         Class<?>[] paramClasses = new Class[params.length];
-        for (int i = 0; i < paramClasses.length; i++)
+        for (int i = 0; i < paramClasses.length; i++) {
             paramClasses[i] = params[i].getClass();
+        }
         try
         {
             Constructor<T> constructor = clazz.getConstructor(paramClasses);
@@ -659,20 +714,27 @@ public class SUtil
 
     public static NBTBase getBaseFromObject(Object o)
     {
-        if (o instanceof Byte byte1)
+        if (o instanceof Byte byte1) {
             return new NBTTagByte(byte1);
-        else if (o instanceof Short short1)
+        }
+        else if (o instanceof Short short1) {
             return new NBTTagShort(short1);
-        else if (o instanceof Integer integer)
+        }
+        else if (o instanceof Integer integer) {
             return new NBTTagInt(integer);
-        else if (o instanceof Long long1)
+        }
+        else if (o instanceof Long long1) {
             return new NBTTagLong(long1);
-        else if (o instanceof Float float1)
+        }
+        else if (o instanceof Float float1) {
             return new NBTTagFloat(float1);
-        else if (o instanceof Double double1)
+        }
+        else if (o instanceof Double double1) {
             return new NBTTagDouble(double1);
-        else if (o instanceof String string)
+        }
+        else if (o instanceof String string) {
             return new NBTTagString(string);
+        }
         return null;
     }
 
@@ -688,8 +750,9 @@ public class SUtil
 
     public static <T> T getRandom(List<T> list)
     {
-        if (list.size() == 0)
+        if (list.size() == 0) {
             return null;
+        }
         return list.get(SUtil.random(0, list.size() - 1));
     }
 
@@ -697,8 +760,9 @@ public class SUtil
     {
         for (Player p : Bukkit.getOnlinePlayers())
         {
-            if (p.getUniqueId().equals(player.getUniqueId()))
+            if (p.getUniqueId().equals(player.getUniqueId())) {
                 continue;
+            }
             p.sendMessage(message);
         }
         SLog.info(message);
@@ -784,15 +848,17 @@ public class SUtil
 
     public static <T> T getOrDefault(List<T> list, int index, T def)
     {
-        if (index < 0 || index >= list.size())
+        if (index < 0 || index >= list.size()) {
             return def;
+        }
         return list.get(index);
     }
 
     public static <T> T getOrDefault(T[] array, int index, T def)
     {
-        if (index < 0 || index >= array.length)
+        if (index < 0 || index >= array.length) {
             return def;
+        }
         return array[index];
     }
 
@@ -835,6 +901,7 @@ public class SUtil
     {
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 runnable.run();
@@ -858,10 +925,12 @@ public class SUtil
         double yaw = 0.0D;
         if (dx != 0.0D)
         {
-            if (dx < 0.0D)
+            if (dx < 0.0D) {
                 yaw = 4.71238898038469D;
-            else
+            }
+            else {
                 yaw = 1.5707963267948966D;
+            }
             yaw -= Math.atan(dz / dx);
         }
         else if (dz < 0.0D)
@@ -873,8 +942,9 @@ public class SUtil
 
     public static String ntify(int i)
     {
-        if (i == 11 || i == 12 || i == 13)
+        if (i == 11 || i == 12 || i == 13) {
             return i + "th";
+        }
         String s = String.valueOf(i);
         char last = s.charAt(s.length() - 1);
         switch (last)
@@ -918,8 +988,9 @@ public class SUtil
         T[] array = (T[]) Array.newInstance(clazz, deepLength(array2d));
         for (int i = 0, c = 0; i < array2d.length; i++)
         {
-            for (int j = 0; j < array2d[i].length; j++, c++)
+            for (int j = 0; j < array2d[i].length; j++, c++) {
                 array[c] = array2d[i][j];
+            }
         }
         return array;
     }
@@ -927,10 +998,12 @@ public class SUtil
     public static String createProgressText(String text, int current, int max)
     {
         double percent;
-        if (max != 0)
+        if (max != 0) {
             percent = ((double) current / (double) max) * 100.0;
-        else
+        }
+        else {
             percent = 0.0;
+        }
         percent = roundTo(percent, 1);
         return ChatColor.GRAY + text + ": " + (percent < 100.0 ? ChatColor.YELLOW + "" + SUtil.commaify(percent)
                 + ChatColor.GOLD + "%" : ChatColor.GREEN + "100.0%");
@@ -939,10 +1012,12 @@ public class SUtil
     public static String createProgressText(String text, double current, double max)
     {
         double percent;
-        if (max != 0)
+        if (max != 0) {
             percent = (current / max) * 100.0;
-        else
+        }
+        else {
             percent = 0.0;
+        }
         percent = roundTo(percent, 1);
         return ChatColor.GRAY + text + ": " + (percent < 100.0 ? ChatColor.YELLOW + "" + SUtil.commaify(percent)
                 + ChatColor.GOLD + "%" : ChatColor.GREEN + "100.0%");
@@ -953,11 +1028,13 @@ public class SUtil
         double percent = Math.min(current, (double) max) / (double) max;
         long completed = Math.round((double) length * percent);
         StringBuilder builder = new StringBuilder().append(progressColor);
-        for (int i = 0; i < completed; i++)
+        for (int i = 0; i < completed; i++) {
             builder.append("-");
+        }
         builder.append(ChatColor.WHITE);
-        for (int i = 0; i < length - completed; i++)
+        for (int i = 0; i < length - completed; i++) {
             builder.append("-");
+        }
         builder.append(" ").append(ChatColor.YELLOW).append(SUtil.commaify(current)).append(ChatColor.GOLD).append("/")
                 .append(ChatColor.YELLOW).append(SUtil.commaify(max));
         return builder.toString();
@@ -968,11 +1045,13 @@ public class SUtil
         double percent = Math.min(current, max) / max;
         long completed = Math.round((double) length * percent);
         StringBuilder builder = new StringBuilder().append(progressColor);
-        for (int i = 0; i < completed; i++)
+        for (int i = 0; i < completed; i++) {
             builder.append("-");
+        }
         builder.append(ChatColor.WHITE);
-        for (int i = 0; i < length - completed; i++)
+        for (int i = 0; i < length - completed; i++) {
             builder.append("-");
+        }
         builder.append(" ").append(ChatColor.YELLOW).append(SUtil.commaify(current)).append(ChatColor.GOLD).append("/")
                 .append(ChatColor.YELLOW).append(SUtil.commaify(max));
         return builder.toString();
@@ -981,8 +1060,9 @@ public class SUtil
     public static <T> T[] toArray(List<T> list, Class<T> clazz)
     {
         T[] array = (T[]) Array.newInstance(clazz, list.size());
-        for (int i = 0; i < list.size(); i++)
+        for (int i = 0; i < list.size(); i++) {
             array[i] = list.get(i);
+        }
         return array;
     }
 
@@ -1022,7 +1102,9 @@ public class SUtil
 
     public static PotionColor getTopColor(SItem item)
     {
-        if (!item.isPotion()) return null;
+        if (!item.isPotion()) {
+            return null;
+        }
         int topLevel = 0;
         PotionColor color = null;
         for (PotionEffect effect : item.getPotionEffects())
@@ -1040,12 +1122,15 @@ public class SUtil
     {
         for (ItemStack stack : inventory)
         {
-            if (stack == null)
+            if (stack == null) {
                 continue;
-            if (!fit.equals(stack))
+            }
+            if (!fit.equals(stack)) {
                 continue;
-            if (stack.getAmount() + fit.getAmount() > 64)
+            }
+            if (stack.getAmount() + fit.getAmount() > 64) {
                 continue;
+            }
             return true;
         }
         return false;
@@ -1062,8 +1147,8 @@ public class SUtil
         if (clazz == Location.class)
         {
             Location location = (Location) obj;
-            return location.getX() + ", " + location.getY() + ", " + location.getZ() + ", " + location.getWorld().getName() + ", " +
-                    location.getYaw() + ", " + location.getPitch();
+            return location.getX() + ", " + location.getY() + ", " + location.getZ() + ", " + location.getWorld().getName() + ", "
+                    + location.getYaw() + ", " + location.getPitch();
         }
         return "No pretty!";
     }
@@ -1075,8 +1160,9 @@ public class SUtil
         for (int i = 0; i < spl.length; i++)
         {
             String s = spl[i];
-            if (s.length() == 0)
+            if (s.length() == 0) {
                 continue;
+            }
             if (s.length() == 1)
             {
                 spl[i] = s.toUpperCase();
@@ -1089,20 +1175,24 @@ public class SUtil
 
     public static String getAuctionFormattedTime(long millis)
     {
-        if (millis == 0)
+        if (millis == 0) {
             return "Ended!";
-        if (millis >= 8.64E7)
+        }
+        if (millis >= 8.64E7) {
             return Math.round(millis / 8.64E7) + "d";
-        if (millis >= 2.16E7)
+        }
+        if (millis >= 2.16E7) {
             return Math.round(millis / 3.6E6) + "h";
+        }
         long seconds = millis / 1000; // 86400
         long hours = seconds / 3600; // 24
         seconds -= hours * 3600; // 86400 - 84600 = 0
         long minutes = seconds / 60; // 0
         seconds -= minutes * 60; // 59 * 60 = 3540
         StringBuilder builder = new StringBuilder();
-        if (hours > 0)
+        if (hours > 0) {
             builder.append(hours).append("h ");
+        }
         builder.append(minutes).append("m ").append(seconds).append("s");
         return builder.toString();
     }
@@ -1114,20 +1204,29 @@ public class SUtil
         {
             long days = Math.round(millis / 8.64E7);
             dur = days + " Day";
-            if (days != 1) dur += "s";
+            if (days != 1) {
+                dur += "s";
+            }
         }
         else if (millis >= 3600000)
         {
             long hours = Math.round(millis / 3600000.0);
             dur = hours + " Hour";
-            if (hours != 1) dur += "s";
+            if (hours != 1) {
+                dur += "s";
+            }
         }
         else
         {
             long minutes = Math.round(millis / 60000.0);
             dur = minutes + " Minute";
-            if (minutes != 1) dur += "s";
+            if (minutes != 1) {
+                dur += "s";
+            }
         }
         return dur;
+    }
+
+    private SUtil() {
     }
 }

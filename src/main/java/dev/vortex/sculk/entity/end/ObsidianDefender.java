@@ -93,15 +93,18 @@ public class ObsidianDefender implements EntityFunction, EntityStatistics
     @Override
     public void onAttack(EntityDamageByEntityEvent e)
     {
-        if (!(e.getEntity() instanceof LivingEntity)) return;
+        if (!(e.getEntity() instanceof LivingEntity)) {
+            return;
+        }
         if (e.getEntity() instanceof Player)
         {
             PlayerInventory inventory = ((Player) e.getEntity()).getInventory();
             SItem sItem = SItem.find(inventory.getChestplate());
             if (sItem != null)
             {
-                if (sItem.getType() == SMaterial.OBSIDIAN_CHESTPLATE)
+                if (sItem.getType() == SMaterial.OBSIDIAN_CHESTPLATE) {
                     return;
+                }
             }
         }
         ((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 80, 1));

@@ -19,13 +19,13 @@
 package dev.vortex.sculk.slayer;
 
 import com.google.common.util.concurrent.AtomicDouble;
-import lombok.Getter;
-import lombok.Setter;
 import dev.vortex.sculk.Spectaculation;
 import dev.vortex.sculk.entity.SEntity;
 import dev.vortex.sculk.entity.SEntityType;
 import dev.vortex.sculk.sequence.SoundSequenceType;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.*;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Entity;
@@ -100,10 +100,12 @@ public class SlayerQuest implements ConfigurationSerializable
     {
         Location clone = location.clone();
         World world = location.getWorld();
-        if (sound != null)
+        if (sound != null) {
             SoundSequenceType.SLAYER_MINIBOSS_SPAWN.play(sound);
-        else
+        }
+        else {
             SoundSequenceType.SLAYER_MINIBOSS_SPAWN.play(clone);
+        }
         AtomicDouble additive = new AtomicDouble();
         SUtil.runIntervalForTicks(() ->
                 world.spigot().playEffect(clone.clone().add(0.0, additive.getAndAdd(0.5), 0.0), Effect.EXPLOSION_LARGE, 1,
@@ -114,10 +116,12 @@ public class SlayerQuest implements ConfigurationSerializable
     {
         Location clone = location.clone();
         World world = location.getWorld();
-        if (sound != null)
+        if (sound != null) {
             SoundSequenceType.SLAYER_BOSS_SPAWN.play(sound);
-        else
+        }
+        else {
             SoundSequenceType.SLAYER_BOSS_SPAWN.play(clone);
+        }
         SUtil.runIntervalForTicks(() ->
         {
             for (int i = 0; i < 50; i++)
@@ -129,6 +133,7 @@ public class SlayerQuest implements ConfigurationSerializable
         }, 5, 28);
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 world.playEffect(clone, Effect.EXPLOSION_HUGE, Effect.EXPLOSION_HUGE.getData());

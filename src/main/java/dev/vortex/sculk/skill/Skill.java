@@ -47,14 +47,17 @@ public abstract class Skill
 
     public static int getLevel(double xp, boolean sixty)
     {
-        if (xp == 0.0)
+        if (xp == 0.0) {
             return 0;
-        if (xp >= 55172425.0 && !sixty)
+        }
+        if (xp >= 55172425.0 && !sixty) {
             return 50;
+        }
         for (int i = XP_GOALS.size() - 1; i >= 0; i--)
         {
-            if (XP_GOALS.get(i) < xp)
+            if (XP_GOALS.get(i) < xp) {
                 return i;
+            }
         }
         return 60;
     }
@@ -71,25 +74,29 @@ public abstract class Skill
 
     public static double getNextXPGoal(double xp, boolean sixty)
     {
-        if (xp >= 55172425.0 && !sixty)
+        if (xp >= 55172425.0 && !sixty) {
             return 0.0;
+        }
         for (int i = 0; i < XP_GOALS.size(); i++)
         {
             int goal = XP_GOALS.get(i);
-            if (goal > xp)
+            if (goal > xp) {
                 return goal - SUtil.getOrDefault(XP_GOALS, i - 1, 0);
+            }
         }
         return 0.0;
     }
 
     public static double getNextOverallXPGoal(double xp, boolean sixty)
     {
-        if (xp >= 55172425.0 && !sixty)
+        if (xp >= 55172425.0 && !sixty) {
             return 0.0;
+        }
         for (int goal : XP_GOALS)
         {
-            if (goal > xp)
+            if (goal > xp) {
                 return goal;
+            }
         }
         return 0.0;
     }
@@ -97,8 +104,9 @@ public abstract class Skill
     public static double getXPUntilLevelUp(double xp, boolean sixty)
     {
         double goal = getNextXPGoal(xp, sixty);
-        if (goal == 0.0)
+        if (goal == 0.0) {
             return Double.POSITIVE_INFINITY;
+        }
         return goal - xp;
     }
 
@@ -110,8 +118,8 @@ public abstract class Skill
             public String getReplacement()
             {
                 int next = (int) getNextXPGoal(xp, skill.hasSixtyLevels());
-                return ChatColor.DARK_AQUA + "+" + SUtil.commaify(additive) + " " + skill.getName() + " (" +
-                        SUtil.commaify(next - (getNextOverallXPGoal(xp, skill.hasSixtyLevels()) - xp)) + "/" + SUtil.commaify(next) + ")";
+                return ChatColor.DARK_AQUA + "+" + SUtil.commaify(additive) + " " + skill.getName() + " ("
+                        + SUtil.commaify(next - (getNextOverallXPGoal(xp, skill.hasSixtyLevels()) - xp)) + "/" + SUtil.commaify(next) + ")";
             }
 
             @Override
@@ -135,14 +143,15 @@ public abstract class Skill
             if (prevLevel != level)
             {
                 player.playSound(player.getLocation(), Sound.LEVEL_UP, 1f, 2f);
-                player.sendMessage(ChatColor.GREEN + "Your " + item.getRarity().getColor() + item.getType().getDisplayName(item.getType().getData()) +
-                        ChatColor.GREEN + " levelled up to level " + ChatColor.BLUE + level + ChatColor.GREEN + "!");
+                player.sendMessage(ChatColor.GREEN + "Your " + item.getRarity().getColor() + item.getType().getDisplayName(item.getType().getData())
+                        + ChatColor.GREEN + " levelled up to level " + ChatColor.BLUE + level + ChatColor.GREEN + "!");
             }
         }
         user.addSkillXP(rewarded, rewardXP);
         player.playSound(player.getLocation(), Sound.ORB_PICKUP, 1f, 2f);
-        if (rewardXP > 0.0)
+        if (rewardXP > 0.0) {
             Repeater.DEFENSE_REPLACEMENT_MAP.put(player.getUniqueId(), getProgressReplacement(rewarded, user.getSkillXP(rewarded), rewardXP, System.currentTimeMillis() + 6000));
+        }
     }
 
     public abstract String getName();
@@ -157,14 +166,16 @@ public abstract class Skill
         if (prevLevel != level)
         {
             Player player = Bukkit.getPlayer(user.getUuid());
-            if (player != null)
+            if (player != null) {
                 player.playSound(player.getLocation(), Sound.LEVEL_UP, 1f, 1f);
+            }
             StringBuilder builder = new StringBuilder();
             builder.append(ChatColor.DARK_AQUA).append(ChatColor.BOLD).append("------------------------------------------\n");
             builder.append(ChatColor.AQUA).append(ChatColor.BOLD).append("  SKILL LEVEL UP ").append(ChatColor.RESET)
                     .append(ChatColor.DARK_AQUA).append(getName()).append(" ");
-            if (prevLevel != 0)
+            if (prevLevel != 0) {
                 builder.append(ChatColor.DARK_GRAY).append(SUtil.toRomanNumeral(prevLevel)).append("➜");
+            }
             builder.append(ChatColor.DARK_AQUA).append(SUtil.toRomanNumeral(level)).append("\n");
             builder.append(" \n");
             builder.append(ChatColor.GREEN).append(ChatColor.BOLD).append("  REWARDS");

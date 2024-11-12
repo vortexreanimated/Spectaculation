@@ -78,10 +78,12 @@ public class ConfirmBidGUI extends GUI
                 }
                 item.bid(user, amount);
                 new AuctionViewGUI(item).open(player);
-                if (item.isBin())
+                if (item.isBin()) {
                     player.sendMessage(ChatColor.GREEN + "Purchased " + item.getItem().getFullName() + ChatColor.GREEN + " successfully!");
-                else
+                }
+                else {
                     player.sendMessage(ChatColor.GREEN + "Bid placed on " + item.getItem().getFullName() + ChatColor.GREEN + " successfully!");
+                }
             }
 
             @Override

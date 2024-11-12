@@ -53,6 +53,7 @@ public class SvenFollower extends BaseWolf
         return Collections.singletonList(new EntityDrop(SUtil.setStackAmount(SItem.of(SMaterial.WOLF_TOOTH).getStack(), 2), EntityDropType.GUARANTEED, 1.0));
     }
 
+    @Override
     public double getXPDropped()
     {
         return 250.0;

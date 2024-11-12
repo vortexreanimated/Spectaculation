@@ -56,30 +56,38 @@ public class CraftingTableGUI extends GUI implements BlockBasedGUI
             {
                 boolean shift = e.isShiftClick();
                 Inventory inventory = e.getClickedInventory();
-                if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.BARRIER || e.getCurrentItem().getType() == Material.AIR)
+                if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.BARRIER || e.getCurrentItem().getType() == Material.AIR) {
                     return;
+                }
                 ItemStack result = inventory.getItem(RESULT_SLOT);
-                if (result == null || result.getType() == Material.AIR)
+                if (result == null || result.getType() == Material.AIR) {
                     return;
+                }
                 SItem item = SItem.find(result);
                 if (!shift)
                 {
                     if (e.getCursor() != null && e.getCursor().getType() != Material.AIR)
                     {
                         SItem cursor = SItem.find(e.getCursor());
-                        if (cursor == null)
+                        if (cursor == null) {
                             cursor = SItem.convert(e.getCursor());
-                        if (!item.equals(cursor))
+                        }
+                        if (!item.equals(cursor)) {
                             return;
-                        if (e.getCursor().getAmount() + result.getAmount() > 64)
+                        }
+                        if (e.getCursor().getAmount() + result.getAmount() > 64) {
                             return;
+                        }
                         e.getCursor().setAmount(e.getCursor().getAmount() + result.getAmount());
                     }
-                    else
+                    else {
                         e.getWhoClicked().setItemOnCursor(result);
+                    }
                 }
                 Recipe<?> recipe = Recipe.parseRecipe(getCurrentRecipe(inventory));
-                if (recipe == null) return;
+                if (recipe == null) {
+                    return;
+                }
                 List<MaterialQuantifiable> ingredients = recipe.getIngredients();
                 List<MaterialQuantifiable> materials = new ArrayList<>(ingredients.size());
                 for (MaterialQuantifiable ingredient : ingredients)
@@ -91,24 +99,28 @@ public class CraftingTableGUI extends GUI implements BlockBasedGUI
                     {
                         ItemStack stack = inventory.getItem(slot);
                         int ind = indexOf(recipe, materials, MaterialQuantifiable.of(stack));
-                        if (ind == -1)
+                        if (ind == -1) {
                             continue;
+                        }
                         MaterialQuantifiable material = materials.get(ind);
                         int m = stack.getAmount() / material.getAmount();
-                        if (m < max)
+                        if (m < max) {
                             max = m;
+                        }
                     }
                 }
                 for (int slot : CRAFT_SLOTS)
                 {
                     ItemStack stack = inventory.getItem(slot);
                     int ind = indexOf(recipe, materials, MaterialQuantifiable.of(stack));
-                    if (ind == -1)
+                    if (ind == -1) {
                         continue;
+                    }
                     MaterialQuantifiable material = materials.get(ind);
                     int remaining = stack.getAmount() - material.getAmount();
-                    if (shift)
+                    if (shift) {
                         remaining = stack.getAmount() - (material.getAmount() * max);
+                    }
                     materials.remove(ind);
                     if (remaining <= 0)
                     {
@@ -150,6 +162,7 @@ public class CraftingTableGUI extends GUI implements BlockBasedGUI
     {
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 GUI gui = e.getOpened();
@@ -163,6 +176,7 @@ public class CraftingTableGUI extends GUI implements BlockBasedGUI
                 Inventory inventory = view.getTopInventory();
                 new BukkitRunnable()
                 {
+                    @Override
                     public void run()
                     {
                         Recipe<?> recipe = Recipe.parseRecipe(getCurrentRecipe(inventory));
@@ -192,8 +206,9 @@ public class CraftingTableGUI extends GUI implements BlockBasedGUI
     private ItemStack[] getCurrentRecipe(Inventory inventory)
     {
         ItemStack[] stacks = new ItemStack[9];
-        for (int i = 0; i < CRAFT_SLOTS.length; i++)
+        for (int i = 0; i < CRAFT_SLOTS.length; i++) {
             stacks[i] = inventory.getItem(CRAFT_SLOTS[i]);
+        }
         return stacks;
     }
 
@@ -203,10 +218,12 @@ public class CraftingTableGUI extends GUI implements BlockBasedGUI
         for (int i = 0; i < ingredients.size(); i++)
         {
             MaterialQuantifiable ingredient = ingredients.get(i);
-            if (recipe.isUseExchangeables() && exchangeables != null && exchangeables.contains(ingredient.getMaterial()) && search.getAmount() >= ingredient.getAmount())
+            if (recipe.isUseExchangeables() && exchangeables != null && exchangeables.contains(ingredient.getMaterial()) && search.getAmount() >= ingredient.getAmount()) {
                 return i;
-            if (ingredient.getMaterial() == search.getMaterial() && search.getAmount() >= ingredient.getAmount())
+            }
+            if (ingredient.getMaterial() == search.getMaterial() && search.getAmount() >= ingredient.getAmount()) {
                 return i;
+            }
         }
         return -1;
     }

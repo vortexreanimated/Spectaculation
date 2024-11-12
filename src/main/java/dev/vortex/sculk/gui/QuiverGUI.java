@@ -62,8 +62,9 @@ public class QuiverGUI extends GUI
             if (sItem == null)
             {
                 sItem = SItem.of(stack);
-                if (sItem == null)
+                if (sItem == null) {
                     continue;
+                }
             }
             user.addToQuiver(sItem.getType(), stack.getAmount());
         }

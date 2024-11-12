@@ -19,8 +19,6 @@
 package dev.vortex.sculk.entity.nms;
 
 import com.google.common.util.concurrent.AtomicDouble;
-import lombok.Getter;
-import lombok.Setter;
 import dev.vortex.sculk.enchantment.EnchantmentType;
 import dev.vortex.sculk.entity.*;
 import dev.vortex.sculk.entity.wolf.WolfStatistics;
@@ -28,6 +26,8 @@ import dev.vortex.sculk.item.SItem;
 import dev.vortex.sculk.item.SMaterial;
 import dev.vortex.sculk.user.User;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.server.v1_8_R3.EntityWolf;
 import net.minecraft.server.v1_8_R3.GenericAttributes;
 import net.minecraft.server.v1_8_R3.World;
@@ -80,11 +80,14 @@ public class SvenPackmaster extends EntityWolf implements SNMSEntity, EntityFunc
         this.pups = new ArrayList<>();
     }
 
+    @Override
     public void t_()
     {
         super.t_();
         Player player = Bukkit.getPlayer(spawnerUUID);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         if (System.currentTimeMillis() > end)
         {
             User.getUser(player.getUniqueId()).failSlayerQuest();
@@ -95,12 +98,15 @@ public class SvenPackmaster extends EntityWolf implements SNMSEntity, EntityFunc
             this.getBukkitEntity().teleport(player.getLocation());
             player.sendMessage(ChatColor.DARK_PURPLE + "The boss teleported to you using some really dark magic!");
         }
-        if (System.currentTimeMillis() > lastDamage && (pups.isEmpty() || !pupsSpawned)) // regeneration
+        if (System.currentTimeMillis() > lastDamage && (pups.isEmpty() || !pupsSpawned)) { // regeneration
             this.setHealth(Math.min(this.getMaxHealth(), this.getHealth() + (this.getHealth() * 0.0005f)));
-        if (pups.isEmpty())
+        }
+        if (pups.isEmpty()) {
             this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(getMovementSpeed());
-        else
+        }
+        else {
             this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.3);
+        }
         this.getBukkitEntity().getWorld().spigot().playEffect(this.getBukkitEntity().getLocation(),
                 Effect.FLAME, 0, 1, (float) SUtil.random(-1.0, 1.0), 0.0f, (float) SUtil.random(-1.0, 1.0), 0.0f, 1, 16);
         this.getBukkitEntity().getWorld().spigot().playEffect(this.getBukkitEntity().getLocation(), Effect.FIREWORKS_SPARK,
@@ -114,8 +120,9 @@ public class SvenPackmaster extends EntityWolf implements SNMSEntity, EntityFunc
     public void onSpawn(LivingEntity entity, SEntity sEntity)
     {
         Player player = Bukkit.getPlayer(spawnerUUID);
-        if (player != null)
+        if (player != null) {
             player.playSound(player.getLocation(), Sound.WOLF_HOWL, 1f, 5f);
+        }
         hologram = new SEntity(entity.getLocation().add(0, 1.3, 0), SEntityType.UNCOLLIDABLE_ARMOR_STAND);
         ((ArmorStand) hologram.getEntity()).setVisible(false);
         ((ArmorStand) hologram.getEntity()).setGravity(false);
@@ -157,11 +164,14 @@ public class SvenPackmaster extends EntityWolf implements SNMSEntity, EntityFunc
     @Override
     public void onAttack(EntityDamageByEntityEvent e)
     {
-        if (!(e.getEntity() instanceof Player)) return;
+        if (!(e.getEntity() instanceof Player)) {
+            return;
+        }
         Player player = (Player) e.getEntity();
         User.getUser(player.getUniqueId()).damage(TRUE_DAMAGE_VALUES.getByNumber(tier), EntityDamageEvent.DamageCause.ENTITY_ATTACK, this.getBukkitEntity());
-        if (player.getUniqueId().equals(spawnerUUID))
+        if (player.getUniqueId().equals(spawnerUUID)) {
             lastDamage = System.currentTimeMillis() + (15 * 1000);
+        }
     }
 
     @Override
@@ -173,6 +183,7 @@ public class SvenPackmaster extends EntityWolf implements SNMSEntity, EntityFunc
         return (LivingEntity) this.getBukkitEntity();
     }
 
+    @Override
     public void onDamage(SEntity sEntity, Entity damager, EntityDamageByEntityEvent e, AtomicDouble damage)
     {
         if (e.getDamager() instanceof Arrow)
@@ -181,7 +192,9 @@ public class SvenPackmaster extends EntityWolf implements SNMSEntity, EntityFunc
             return;
         }
         Player player = Bukkit.getPlayer(spawnerUUID);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         if (tier >= 3 && sEntity.getEntity().getHealth() - damage.get() < getEntityMaxHealth() / 2.0 && !pupsSpawned) // pups
         {
             pupsSpawned = true;
@@ -189,28 +202,40 @@ public class SvenPackmaster extends EntityWolf implements SNMSEntity, EntityFunc
             {
                 SUtil.delay(() ->
                 {
-                    if (bukkitEntity.isDead())
+                    if (bukkitEntity.isDead()) {
                         return;
+                    }
                     pups.add(new SEntity(sEntity.getEntity(), SEntityType.SVEN_PUP, getEntityMaxHealth() * 0.1, getDamageDealt() * 0.5, player, this));
                 }, i * 20);
             }
         }
     }
 
+    @Override
     public List<EntityDrop> drops()
     {
         List<EntityDrop> drops = new ArrayList<>();
         int teeth = SUtil.random(1, 3);
-        if (tier == 2) teeth = SUtil.random(9, 18);
-        if (tier == 3) teeth = SUtil.random(30, 50);
-        if (tier == 4) teeth = SUtil.random(50, 64);
+        if (tier == 2) {
+            teeth = SUtil.random(9, 18);
+        }
+        if (tier == 3) {
+            teeth = SUtil.random(30, 50);
+        }
+        if (tier == 4) {
+            teeth = SUtil.random(50, 64);
+        }
         drops.add(new EntityDrop(SUtil.setStackAmount(SItem.of(SMaterial.WOLF_TOOTH).getStack(), teeth),
                 EntityDropType.GUARANTEED, 1.0));
         if (tier >= 2)
         {
             int hamsterWheel = 1;
-            if (tier == 3) hamsterWheel = SUtil.random(2, 4);
-            if (tier == 4) hamsterWheel = SUtil.random(4, 5);
+            if (tier == 3) {
+                hamsterWheel = SUtil.random(2, 4);
+            }
+            if (tier == 4) {
+                hamsterWheel = SUtil.random(4, 5);
+            }
             drops.add(new EntityDrop(SUtil.setStackAmount(SItem.of(SMaterial.HAMSTER_WHEEL).getStack(), hamsterWheel),
                     EntityDropType.OCCASIONAL, 0.2));
             drops.add(new EntityDrop(SMaterial.SPIRIT_RUNE, EntityDropType.RARE, 0.05));
@@ -231,6 +256,7 @@ public class SvenPackmaster extends EntityWolf implements SNMSEntity, EntityFunc
         return drops;
     }
 
+    @Override
     public double getXPDropped()
     {
         return 0.0;
@@ -242,6 +268,7 @@ public class SvenPackmaster extends EntityWolf implements SNMSEntity, EntityFunc
         return false;
     }
 
+    @Override
     public boolean isAngry()
     {
         return true;

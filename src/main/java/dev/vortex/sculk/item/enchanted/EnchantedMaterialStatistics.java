@@ -39,8 +39,9 @@ public interface EnchantedMaterialStatistics extends MaterialStatistics
     @Override
     default void load()
     {
-        if (getBlockCraftingMaterial() != null && getBlockResult() != null)
+        if (getBlockCraftingMaterial() != null && getBlockResult() != null) {
             createRecipe(new MaterialQuantifiable(getBlockCraftingMaterial(), getCraftingRequiredAmount()), getBlockResult());
+        }
         createRecipe(new MaterialQuantifiable(getCraftingMaterial(), getCraftingRequiredAmount()), getResult());
     }
 

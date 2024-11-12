@@ -33,13 +33,13 @@ public abstract class SCommand implements CommandExecutor, TabCompleter
     public static final String COMMAND_SUFFIX = "Command";
     protected static final Spectaculation plugin = Spectaculation.getPlugin();
 
-    private CommandParameters params;
-    private String name;
-    private String description;
-    private String usage;
-    private List<String> aliases;
-    private String permission;
-    private SECommand command;
+    private final CommandParameters params;
+    private final String name;
+    private final String description;
+    private final String usage;
+    private final List<String> aliases;
+    private final String permission;
+    private final SECommand command;
 
     private CommandSource sender;
 
@@ -115,8 +115,9 @@ public abstract class SCommand implements CommandExecutor, TabCompleter
         public List<String> tabComplete(CommandSender sender, String alias, String[] args)
         {
             List<String> tc = sc.onTabComplete(sender, this, alias, args);
-            if (tc != null)
+            if (tc != null) {
                 return tc;
+            }
             return SUtil.getPlayerNameList();
         }
     }
@@ -138,15 +139,17 @@ public abstract class SCommand implements CommandExecutor, TabCompleter
 
     public void checkPermission(String permission)
     {
-        if (!sender.getSender().hasPermission(permission))
+        if (!sender.getSender().hasPermission(permission)) {
             throw new CommandPermissionException(permission);
+        }
     }
 
     public Player getNonNullPlayer(String name)
     {
         Player player = Bukkit.getPlayer(name);
-        if (player == null)
+        if (player == null) {
             throw new PlayerNotFoundException();
+        }
         return player;
     }
 }

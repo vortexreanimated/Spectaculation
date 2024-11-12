@@ -68,8 +68,9 @@ public class GungaPet extends Pet
             @Override
             public void onDamage(EntityDamageByEntityEvent e)
             {
-                if (SUtil.random(0, gingaCh.getForRarity(instance.getRarity())) == 0)
+                if (SUtil.random(0, gingaCh.getForRarity(instance.getRarity())) == 0) {
                     ((Player) e.getDamager()).chat("GUNGA GINGA!");
+                }
             }
         }));
         if (instance.getRarity().isAtLeast(Rarity.RARE))
@@ -91,8 +92,9 @@ public class GungaPet extends Pet
                 @Override
                 public void onHurt(EntityDamageByEntityEvent e, Entity damager)
                 {
-                    if (SUtil.random(0.0, 100.0) > annih.doubleValue())
+                    if (SUtil.random(0.0, 100.0) > annih.doubleValue()) {
                         return;
+                    }
                     Player player = (Player) e.getEntity();
                     player.setHealth(player.getMaxHealth() * 0.1);
                     player.playSound(player.getLocation(), Sound.EXPLODE, 2f, 1f);
@@ -122,8 +124,9 @@ public class GungaPet extends Pet
                 @Override
                 public void onDamage(EntityDamageByEntityEvent e)
                 {
-                    if (SUtil.random(0.0, 100.0) > pig.doubleValue())
+                    if (SUtil.random(0.0, 100.0) > pig.doubleValue()) {
                         return;
+                    }
                     ((Player) e.getDamager()).playSound(e.getDamager().getLocation(), Sound.ZOMBIE_METAL, 1f, 1f);
                     e.setDamage(e.getDamage() * 4.0);
                 }

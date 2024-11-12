@@ -41,6 +41,7 @@ public class IntegerPlayerStatistic implements PlayerStatistic<Integer>
         this(0);
     }
 
+    @Override
     public Integer addAll()
     {
         int result = defaultValue;
@@ -49,45 +50,56 @@ public class IntegerPlayerStatistic implements PlayerStatistic<Integer>
         return result;
     }
 
+    @Override
     public void add(int slot, Integer i)
     {
         set(slot, safeGet(slot) + i);
     }
 
+    @Override
     public void sub(int slot, Integer i)
     {
         set(slot, safeGet(slot) - i);
     }
 
+    @Override
     public void zero(int slot)
     {
         set(slot, 0);
     }
 
+    @Override
     public boolean contains(int slot)
     {
         return slot >= 0 && slot < values.size();
     }
 
+    @Override
     public Integer safeGet(int index)
     {
-        if (index < 0 || index > values.size() - 1) set(index, 0);
+        if (index < 0 || index > values.size() - 1) {
+            set(index, 0);
+        }
         return values.get(index);
     }
 
+    @Override
     public void set(int slot, Integer i)
     {
         values.ensureCapacity(slot + 1);
-        while (values.size() < slot + 1)
+        while (values.size() < slot + 1) {
             values.add(0);
+        }
         values.set(slot, i);
     }
 
+    @Override
     public int next()
     {
         return values.size();
     }
 
+    @Override
     public Integer getFor(int slot)
     {
         return safeGet(slot);
@@ -96,8 +108,9 @@ public class IntegerPlayerStatistic implements PlayerStatistic<Integer>
     public ArrayList<Integer> forInventory()
     {
         ArrayList<Integer> list = new ArrayList<>();
-        for (int i = 6; i < values.size(); i++)
+        for (int i = 6; i < values.size(); i++) {
             list.add(safeGet(i));
+        }
         return list;
     }
 }

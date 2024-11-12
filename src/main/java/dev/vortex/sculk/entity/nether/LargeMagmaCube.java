@@ -63,6 +63,7 @@ public class LargeMagmaCube implements SlimeStatistics, EntityFunction
         Entity found = e.getTarget();
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 if (entity.isDead())
@@ -80,6 +81,7 @@ public class LargeMagmaCube implements SlimeStatistics, EntityFunction
                 {
                     new BukkitRunnable()
                     {
+                        @Override
                         public void run()
                         {
                             if (entity.isDead())

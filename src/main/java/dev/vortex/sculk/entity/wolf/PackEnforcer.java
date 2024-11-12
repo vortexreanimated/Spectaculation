@@ -51,6 +51,7 @@ public class PackEnforcer extends BaseWolf
         return Collections.singletonList(new EntityDrop(SMaterial.WOLF_TOOTH, EntityDropType.GUARANTEED, 1.0));
     }
 
+    @Override
     public double getXPDropped()
     {
         return 150.0;

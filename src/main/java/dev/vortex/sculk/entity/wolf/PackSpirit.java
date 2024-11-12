@@ -53,6 +53,7 @@ public class PackSpirit extends BaseWolf
                 new EntityDrop(SMaterial.BIRCH_WOOD, EntityDropType.COMMON, 0.1));
     }
 
+    @Override
     public double getXPDropped()
     {
         return 15.0;

@@ -41,9 +41,9 @@ public class SummoningEye implements SkullStatistics, MaterialFunction
     @Override
     public String getLore()
     {
-        return "Use this at the " + ChatColor.DARK_PURPLE + "Ender Altar" +
-                ChatColor.GRAY + " in the " + ChatColor.DARK_PURPLE +
-                "Dragon's Nest" + ChatColor.GRAY + " to summon Ender Dragons!";
+        return "Use this at the " + ChatColor.DARK_PURPLE + "Ender Altar"
+                + ChatColor.GRAY + " in the " + ChatColor.DARK_PURPLE
+                + "Dragon's Nest" + ChatColor.GRAY + " to summon Ender Dragons!";
     }
 
     @Override

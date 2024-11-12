@@ -51,6 +51,7 @@ public class Wolf extends BaseWolf
         return Collections.singletonList(new EntityDrop(SMaterial.BONE, EntityDropType.GUARANTEED, 1.0));
     }
 
+    @Override
     public double getXPDropped()
     {
         return 10.0;

@@ -18,8 +18,8 @@
  */
 package dev.vortex.sculk.item;
 
-import lombok.Getter;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
@@ -100,16 +100,18 @@ public class ShapedRecipe extends Recipe<ShapedRecipe>
         for (int i = 0; i < ls.length; i++)
         {
             String[] lps = ls[i].split("");
-            for (int j = 0; j < lps.length; j++)
+            for (int j = 0; j < lps.length; j++) {
                 materials[i][j] = ingredientMap.getOrDefault(lps[j].charAt(0), new MaterialQuantifiable(SMaterial.AIR, 1));
+            }
         }
         return materials;
     }
 
     protected static ShapedRecipe parseShapedRecipe(ItemStack[] stacks)
     {
-        if (stacks.length != 9)
+        if (stacks.length != 9) {
             throw new UnsupportedOperationException("Recipe parsing requires a 9 element array!");
+        }
         MaterialQuantifiable[] l1 = MaterialQuantifiable.of(Arrays.copyOfRange(stacks, 0, 3));
         MaterialQuantifiable[] l2 = MaterialQuantifiable.of(Arrays.copyOfRange(stacks, 3, 6));
         MaterialQuantifiable[] l3 = MaterialQuantifiable.of(Arrays.copyOfRange(stacks, 6, 9));
@@ -120,8 +122,9 @@ public class ShapedRecipe extends Recipe<ShapedRecipe>
             MaterialQuantifiable[][] airRecipeGrid = recipe.toMQ2DArray();
             MaterialQuantifiable[][] recipeGrid = airless(airRecipeGrid);
             MaterialQuantifiable[] recipeSeg = segment(SUtil.unnest(airRecipeGrid, MaterialQuantifiable.class));
-            if (!recipeAccepted(recipe.useExchangeables, grid, recipeGrid) || !recipeAccepted(recipe.useExchangeables, seg, recipeSeg))
+            if (!recipeAccepted(recipe.useExchangeables, grid, recipeGrid) || !recipeAccepted(recipe.useExchangeables, seg, recipeSeg)) {
                 continue;
+            }
             return recipe;
         }
         return null;
@@ -143,20 +146,24 @@ public class ShapedRecipe extends Recipe<ShapedRecipe>
         for (int i = 0; i < materials.length; i++)
         {
             MaterialQuantifiable material = materials[i];
-            if (firstNonAir == -1 && material.getMaterial() != SMaterial.AIR)
+            if (firstNonAir == -1 && material.getMaterial() != SMaterial.AIR) {
                 firstNonAir = i;
-            if (material.getMaterial() != SMaterial.AIR)
+            }
+            if (material.getMaterial() != SMaterial.AIR) {
                 lastNonAir = i;
+            }
         }
-        if (firstNonAir == -1 || lastNonAir == -1)
+        if (firstNonAir == -1 || lastNonAir == -1) {
             return new MaterialQuantifiable[]{};
+        }
         return Arrays.copyOfRange(materials, firstNonAir, lastNonAir + 1);
     }
 
     private static boolean recipeAccepted(boolean usesExchangeables, MaterialQuantifiable[][] grid, MaterialQuantifiable[][] recipeGrid)
     {
-        if (!deepSameLength(grid, recipeGrid))
+        if (!deepSameLength(grid, recipeGrid)) {
             return false;
+        }
         boolean found = true;
         try
         {
@@ -166,16 +173,18 @@ public class ShapedRecipe extends Recipe<ShapedRecipe>
                 {
                     MaterialQuantifiable m1 = grid[i][j], m2 = recipeGrid[i][j];
                     List<SMaterial> exchangeables = getExchangeablesOf(m2.getMaterial());
-                    if (usesExchangeables && exchangeables != null && exchangeables.contains(m1.getMaterial()) && m1.getAmount() >= m2.getAmount())
+                    if (usesExchangeables && exchangeables != null && exchangeables.contains(m1.getMaterial()) && m1.getAmount() >= m2.getAmount()) {
                         continue;
+                    }
                     if (m1.getMaterial() != m2.getMaterial() || m1.getAmount() < m2.getAmount())
                     {
                         found = false;
                         break;
                     }
                 }
-                if (!found)
+                if (!found) {
                     break;
+                }
             }
         }
         catch (IndexOutOfBoundsException ex)
@@ -187,15 +196,17 @@ public class ShapedRecipe extends Recipe<ShapedRecipe>
 
     private static boolean recipeAccepted(boolean usesExchangeables, MaterialQuantifiable[] grid1d, MaterialQuantifiable[] recipeGrid1d)
     {
-        if (grid1d.length != recipeGrid1d.length)
+        if (grid1d.length != recipeGrid1d.length) {
             return false;
+        }
         boolean found = true;
         for (int i = 0; i < grid1d.length; i++)
         {
             MaterialQuantifiable m1 = grid1d[i], m2 = recipeGrid1d[i];
             List<SMaterial> exchangeables = getExchangeablesOf(m2.getMaterial());
-            if (usesExchangeables && exchangeables != null && exchangeables.contains(m1.getMaterial()) && m1.getAmount() >= m2.getAmount())
+            if (usesExchangeables && exchangeables != null && exchangeables.contains(m1.getMaterial()) && m1.getAmount() >= m2.getAmount()) {
                 continue;
+            }
             if (m1.getMaterial() != m2.getMaterial() || m1.getAmount() < m2.getAmount())
             {
                 found = false;

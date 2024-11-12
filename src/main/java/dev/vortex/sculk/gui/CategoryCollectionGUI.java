@@ -67,7 +67,9 @@ public class CategoryCollectionGUI extends GUI
         border(BLACK_STAINED_GLASS_PANE);
         PaginationList<ItemCollection> paged = new PaginationList<>(28);
         paged.addAll(ItemCollection.getCategoryCollections(category));
-        if (paged.size() == 0) page = 0;
+        if (paged.size() == 0) {
+            page = 0;
+        }
         int finalPage = page;
         if (page > 1)
         {
@@ -115,7 +117,9 @@ public class CategoryCollectionGUI extends GUI
                 Material.ARROW, ChatColor.GRAY + "To Collection"));
         set(GUIClickableItem.getCloseItem(49));
         List<ItemCollection> p = paged.getPage(page);
-        if (p == null) return;
+        if (p == null) {
+            return;
+        }
         for (int i = 0; i < p.size(); i++)
         {
             int slot = INTERIOR[i];

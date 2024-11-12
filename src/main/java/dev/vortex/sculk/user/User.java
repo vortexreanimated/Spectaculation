@@ -19,8 +19,6 @@
 package dev.vortex.sculk.user;
 
 import com.google.common.util.concurrent.AtomicDouble;
-import lombok.Getter;
-import lombok.Setter;
 import dev.vortex.sculk.Spectaculation;
 import dev.vortex.sculk.auction.AuctionBid;
 import dev.vortex.sculk.auction.AuctionEscrow;
@@ -42,6 +40,8 @@ import dev.vortex.sculk.skill.*;
 import dev.vortex.sculk.slayer.SlayerBossType;
 import dev.vortex.sculk.slayer.SlayerQuest;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.server.v1_8_R3.EntityHuman;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -133,7 +133,9 @@ public class User
         this.auctionSettings = new AuctionSettings();
         this.auctionCreationBIN = false;
         this.auctionEscrow = new AuctionEscrow();
-        if (!USER_FOLDER.exists()) USER_FOLDER.mkdirs();
+        if (!USER_FOLDER.exists()) {
+            USER_FOLDER.mkdirs();
+        }
         String path = uuid.toString() + ".yml";
         File configFile = new File(USER_FOLDER, path);
         boolean save = false;
@@ -151,7 +153,9 @@ public class User
         }
         this.config = new Config(USER_FOLDER, path);
         USER_CACHE.put(uuid, this);
-        if (save) save();
+        if (save) {
+            save();
+        }
         load();
     }
 
@@ -199,12 +203,14 @@ public class User
             this.pets = (List<Pet.PetItem>) config.getList("pets");
         }
         this.auctionSettings = (AuctionSettings) config.get("auction.settings");
-        if (this.auctionSettings == null)
+        if (this.auctionSettings == null) {
             this.auctionSettings = new AuctionSettings();
+        }
         this.auctionCreationBIN = config.getBoolean("auction.creationBIN");
         this.auctionEscrow = (AuctionEscrow) config.get("auction.escrow");
-        if (this.auctionEscrow == null)
+        if (this.auctionEscrow == null) {
             this.auctionEscrow = new AuctionEscrow();
+        }
     }
 
     public void save()
@@ -217,8 +223,9 @@ public class User
         config.set("bankCoins", bankCoins);
         config.set("island.x", islandX);
         config.set("island.z", islandZ);
-        if (lastRegion != null)
+        if (lastRegion != null) {
             config.set("lastRegion", lastRegion.getName());
+        }
         config.set("quiver", null);
         for (Map.Entry<SMaterial, Integer> entry : quiver.entrySet())
             config.set("quiver." + entry.getKey().name().toLowerCase(), entry.getValue());
@@ -323,22 +330,25 @@ public class User
         if (prevTier != tier)
         {
             Player player = Bukkit.getPlayer(uuid);
-            if (player != null)
+            if (player != null) {
                 player.playSound(player.getLocation(), Sound.LEVEL_UP, 1f, 2f);
+            }
             StringBuilder builder = new StringBuilder();
             builder.append(ChatColor.YELLOW).append(ChatColor.BOLD).append("------------------------------------------\n");
             builder.append(ChatColor.GOLD).append(ChatColor.BOLD).append("  COLLECTION LEVEL UP ").append(ChatColor.RESET)
                     .append(ChatColor.YELLOW).append(collection.getName()).append(" ");
-            if (prevTier != 0)
+            if (prevTier != 0) {
                 builder.append(ChatColor.DARK_GRAY).append(SUtil.toRomanNumeral(prevTier)).append("➜");
+            }
             builder.append(ChatColor.YELLOW).append(SUtil.toRomanNumeral(tier)).append("\n");
             ItemCollectionRewards rewards = collection.getRewardsFor(tier);
             if (rewards != null && rewards.size() != 0)
             {
                 builder.append(" \n");
                 builder.append(ChatColor.GREEN).append(ChatColor.BOLD).append("  REWARD");
-                if (rewards.size() != 1)
+                if (rewards.size() != 1) {
                     builder.append("S");
+                }
                 builder.append(ChatColor.RESET);
                 for (ItemCollectionReward reward : rewards)
                 {
@@ -389,7 +399,9 @@ public class User
 
     public void subFromQuiver(SMaterial material, int amount)
     {
-        if (!quiver.containsKey(material)) return;
+        if (!quiver.containsKey(material)) {
+            return;
+        }
         setQuiver(material, quiver.get(material) - amount);
     }
 
@@ -428,7 +440,7 @@ public class User
 
     public void removePet(Pet.PetItem pet)
     {
-        for (Iterator<Pet.PetItem> iter = pets.iterator(); iter.hasNext();)
+        for (Iterator<Pet.PetItem> iter = pets.iterator(); iter.hasNext(); )
         {
             Pet.PetItem p = iter.next();
             if (pet.equals(p))
@@ -443,8 +455,9 @@ public class User
     {
         for (Pet.PetItem pet : pets)
         {
-            if (pet.isActive())
+            if (pet.isActive()) {
                 return pet;
+            }
         }
         return null;
     }
@@ -452,20 +465,26 @@ public class User
     public Pet getActivePetClass()
     {
         Pet.PetItem item = getActivePet();
-        if (item == null) return null;
+        if (item == null) {
+            return null;
+        }
         return (Pet) item.getType().getGenericInstance();
     }
 
     public double getSkillXP(Skill skill)
     {
-        if (skill instanceof FarmingSkill)
+        if (skill instanceof FarmingSkill) {
             return farmingXP;
-        if (skill instanceof MiningSkill)
+        }
+        if (skill instanceof MiningSkill) {
             return miningXP;
-        if (skill instanceof CombatSkill)
+        }
+        if (skill instanceof CombatSkill) {
             return combatXP;
-        if (skill instanceof ForagingSkill)
+        }
+        if (skill instanceof ForagingSkill) {
             return foragingXP;
+        }
         return 0.0;
     }
 
@@ -574,27 +593,35 @@ public class User
     {
         int buff = 0;
         for (int highest : highestSlayers)
-            buff += (highest == 4 ? 5 : highest);
+            buff += highest == 4 ? 5 : highest;
         return buff;
     }
 
     public void startSlayerQuest(SlayerBossType type)
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         this.slayerQuest = new SlayerQuest(type, System.currentTimeMillis());
         player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 1f, 2f);
         player.sendMessage("  " + ChatColor.DARK_PURPLE + ChatColor.BOLD + "SLAYER QUEST STARTED!");
-        player.sendMessage("   " + ChatColor.DARK_PURPLE + ChatColor.BOLD + "→ " + ChatColor.GRAY + "Slay " + ChatColor.RED +
-                SUtil.commaify(type.getSpawnXP()) + " Combat XP" + ChatColor.GRAY + " worth of " + type.getType().getPluralName() + ".");
+        player.sendMessage("   " + ChatColor.DARK_PURPLE + ChatColor.BOLD + "→ " + ChatColor.GRAY + "Slay " + ChatColor.RED
+                + SUtil.commaify(type.getSpawnXP()) + " Combat XP" + ChatColor.GRAY + " worth of " + type.getType().getPluralName() + ".");
     }
 
     public void failSlayerQuest()
     {
-        if (slayerQuest == null) return;
-        if (slayerQuest.getDied() != 0) return;
+        if (slayerQuest == null) {
+            return;
+        }
+        if (slayerQuest.getDied() != 0) {
+            return;
+        }
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         slayerQuest.setDied(System.currentTimeMillis());
         if (slayerQuest.getEntity() != null)
         {
@@ -604,15 +631,17 @@ public class User
         SUtil.delay(() ->
         {
             player.sendMessage("  " + ChatColor.RED + ChatColor.BOLD + "SLAYER QUEST FAILED!");
-            player.sendMessage("   " + ChatColor.DARK_PURPLE + ChatColor.BOLD + "→ " + ChatColor.GRAY +
-                    "You died! What a noob!");
+            player.sendMessage("   " + ChatColor.DARK_PURPLE + ChatColor.BOLD + "→ " + ChatColor.GRAY
+                    + "You died! What a noob!");
         }, 2);
     }
 
     public void send(String message)
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         player.sendMessage(message);
     }
 
@@ -620,7 +649,9 @@ public class User
     public void damageEntity(LivingEntity entity, double damage)
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         entity.damage(0.00001);
         PlayerUtils.handleSpecEntity(entity, player, new AtomicDouble(damage));
         entity.setHealth(Math.max(0.0, entity.getHealth() - damage));
@@ -629,15 +660,21 @@ public class User
     public void damageEntity(LivingEntity entity)
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         entity.damage(0.0, player);
     }
 
     public void damage(double d, EntityDamageEvent.DamageCause cause, Entity entity)
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return;
-        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
+        if (player == null) {
+            return;
+        }
+        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) {
+            return;
+        }
         EntityHuman human = ((CraftHumanEntity) player).getHandle();
         PlayerStatistics statistics = PlayerUtils.STATISTICS_CACHE.get(player.getUniqueId());
         double trueDefense = statistics.getTrueDefense().addAll();
@@ -661,18 +698,23 @@ public class User
     public void kill(EntityDamageEvent.DamageCause cause, Entity entity)
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         player.setHealth(player.getMaxHealth());
         for (int i = 0; i < player.getInventory().getSize(); i++)
         {
             ItemStack stack = player.getInventory().getItem(i);
             SItem sItem = SItem.find(stack);
-            if (sItem == null) continue;
+            if (sItem == null) {
+                continue;
+            }
             if (sItem.getType() == SMaterial.REMNANT_OF_THE_EYE && (lastRegion.getType() == RegionType.THE_END || lastRegion.getType() == RegionType.DRAGONS_NEST))
             {
                 player.getInventory().setItem(i, new ItemStack(Material.AIR));
-                if (cause == EntityDamageEvent.DamageCause.VOID)
+                if (cause == EntityDamageEvent.DamageCause.VOID) {
                     sendToSpawn();
+                }
                 player.sendMessage(ChatColor.DARK_PURPLE + "Your Remnant of the Eye saved you from certain death!");
                 return;
             }
@@ -741,20 +783,23 @@ public class User
                 break;
             }
         }
-        if (slayerQuest != null && slayerQuest.getKilled() == 0)
+        if (slayerQuest != null && slayerQuest.getKilled() == 0) {
             failSlayerQuest();
+        }
         player.playSound(player.getLocation(), Sound.HURT_FLESH, 1f, 1f);
         player.sendMessage(ChatColor.RED + " ☠ " + ChatColor.GRAY + message);
         SUtil.broadcastExcept(ChatColor.RED + " ☠ " + ChatColor.GRAY + out.formatted(player.getName()), player);
-        if ((isOnIsland() && cause == EntityDamageEvent.DamageCause.VOID) || permanentCoins)
+        if ((isOnIsland() && cause == EntityDamageEvent.DamageCause.VOID) || permanentCoins) {
             return;
+        }
         int piggyIndex = PlayerUtils.getSpecItemIndex(player, SMaterial.PIGGY_BANK);
         if (piggyIndex != -1 && coins >= 20000)
         {
             SItem cracked = SItem.of(SMaterial.CRACKED_PIGGY_BANK);
             SItem piggy = SItem.find(player.getInventory().getItem(piggyIndex));
-            if (piggy.getReforge() != null)
+            if (piggy.getReforge() != null) {
                 cracked.setReforge(piggy.getReforge());
+            }
             player.getInventory().setItem(piggyIndex, cracked.getStack());
             player.sendMessage(ChatColor.RED + "You died and your piggy bank cracked!");
             return;
@@ -765,8 +810,9 @@ public class User
         {
             SItem broken = SItem.of(SMaterial.BROKEN_PIGGY_BANK);
             SItem crackedPiggy = SItem.find(player.getInventory().getItem(crackedPiggyIndex));
-            if (crackedPiggy.getReforge() != null)
+            if (crackedPiggy.getReforge() != null) {
                 broken.setReforge(crackedPiggy.getReforge());
+            }
             player.getInventory().setItem(crackedPiggyIndex, broken.getStack());
             long sub = (long) (coins * 0.25);
             player.sendMessage(ChatColor.RED + "You died, lost " + SUtil.commaify(sub) + " coins, and your piggy bank broke!");
@@ -789,8 +835,9 @@ public class User
     {
         for (ActivePotionEffect effect : effects)
         {
-            if (effect.getEffect().getType() == type)
+            if (effect.getEffect().getType() == type) {
                 effect.setRemaining(0);
+            }
         }
     }
 
@@ -798,8 +845,9 @@ public class User
     {
         for (ActivePotionEffect effect : effects)
         {
-            if (effect.getEffect().getType() == type)
+            if (effect.getEffect().getType() == type) {
                 return effect;
+            }
         }
         return null;
     }
@@ -824,8 +872,9 @@ public class User
     public boolean isOnIsland()
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null)
+        if (player == null) {
             return false;
+        }
         return isOnIsland(player.getLocation());
     }
 
@@ -837,36 +886,40 @@ public class User
     public boolean isOnIsland(Location location)
     {
         World world = Bukkit.getWorld("islands");
-        if (world == null)
+        if (world == null) {
             return false;
+        }
         double x = location.getX();
         double z = location.getZ();
-        return world.getUID().equals(location.getWorld().getUID()) &&
-                x >= islandX - ISLAND_SIZE && x <= islandX + ISLAND_SIZE && z >= islandZ - ISLAND_SIZE && z <= islandZ + ISLAND_SIZE;
+        return world.getUID().equals(location.getWorld().getUID())
+                && x >= islandX - ISLAND_SIZE && x <= islandX + ISLAND_SIZE && z >= islandZ - ISLAND_SIZE && z <= islandZ + ISLAND_SIZE;
     }
 
     public boolean isOnUserIsland()
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null)
+        if (player == null) {
             return false;
+        }
         World world = Bukkit.getWorld("islands");
-        if (world == null)
+        if (world == null) {
             return false;
+        }
         double x = player.getLocation().getX();
         double z = player.getLocation().getZ();
-        return world.getUID().equals(player.getWorld().getUID()) &&
-                x < islandX - ISLAND_SIZE && x > islandX + ISLAND_SIZE && z < islandZ - ISLAND_SIZE && z > islandZ + ISLAND_SIZE;
+        return world.getUID().equals(player.getWorld().getUID())
+                && x < islandX - ISLAND_SIZE && x > islandX + ISLAND_SIZE && z < islandZ - ISLAND_SIZE && z > islandZ + ISLAND_SIZE;
     }
 
     public List<AuctionItem> getBids()
     {
-        return AuctionItem.getAuctions().stream().filter((item) ->
+        return AuctionItem.getAuctions().stream().filter(item ->
         {
             for (AuctionBid bid : item.getBids())
             {
-                if (bid.getBidder().equals(uuid) && item.getParticipants().contains(uuid))
+                if (bid.getBidder().equals(uuid) && item.getParticipants().contains(uuid)) {
                     return true;
+                }
             }
             return false;
         }).collect(Collectors.toList());
@@ -874,13 +927,15 @@ public class User
 
     public List<AuctionItem> getAuctions()
     {
-        return AuctionItem.getAuctions().stream().filter((item) -> item.getOwner().getUuid().equals(uuid) && item.getParticipants().contains(uuid)).collect(Collectors.toList());
+        return AuctionItem.getAuctions().stream().filter(item -> item.getOwner().getUuid().equals(uuid) && item.getParticipants().contains(uuid)).collect(Collectors.toList());
     }
 
     public void sendToSpawn()
     {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         if (isOnIsland())
         {
             World world = Bukkit.getWorld("islands");
@@ -950,15 +1005,20 @@ public class User
                         break;
                 }
             }
-            else
+            else {
                 player.teleport(player.getWorld().getSpawnLocation());
+            }
         }
     }
 
     public static User getUser(UUID uuid)
     {
-        if (uuid == null) return null;
-        if (USER_CACHE.containsKey(uuid)) return USER_CACHE.get(uuid);
+        if (uuid == null) {
+            return null;
+        }
+        if (USER_CACHE.containsKey(uuid)) {
+            return USER_CACHE.get(uuid);
+        }
         return new User(uuid);
     }
 

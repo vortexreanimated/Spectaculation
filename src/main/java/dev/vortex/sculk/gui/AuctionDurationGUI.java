@@ -68,8 +68,9 @@ public class AuctionDurationGUI extends GUI
             @Override
             public void run(InventoryClickEvent e)
             {
-                if (e.isRightClick())
+                if (e.isRightClick()) {
                     right.set(true);
+                }
             }
 
             @Override
@@ -116,8 +117,9 @@ public class AuctionDurationGUI extends GUI
             {
                 ItemStack stack = SUtil.getStack(ChatColor.GREEN + SUtil.getAuctionSetupFormattedTime(millis), Material.STAINED_CLAY, color, 1,
                         ChatColor.YELLOW + "Click to pick!");
-                if (user.getAuctionEscrow().getDuration() == millis)
+                if (user.getAuctionEscrow().getDuration() == millis) {
                     SUtil.enchant(stack);
+                }
                 return stack;
             }
         };

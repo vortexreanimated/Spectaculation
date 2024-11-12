@@ -56,6 +56,7 @@ public class SpidersDenSlime implements SlimeStatistics, EntityFunction
     {
         new BukkitRunnable()
         {
+            @Override
             public void run()
             {
                 e.getEntity().setVelocity(e.getEntity().getVelocity().clone().setY(1.5));

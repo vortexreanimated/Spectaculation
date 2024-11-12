@@ -41,9 +41,9 @@ public class RemnantOfTheEye implements SkullStatistics, MaterialFunction
     @Override
     public String getLore()
     {
-        return "Keeps you alive when you are on death's door, granting a" +
-                "short period of invincibility. Consumed on use. " +
-                ChatColor.RED + "NOTE: ONLY WORKS ON THE END ISLAND";
+        return "Keeps you alive when you are on death's door, granting a"
+                + "short period of invincibility. Consumed on use. "
+                + ChatColor.RED + "NOTE: ONLY WORKS ON THE END ISLAND";
     }
 
     @Override

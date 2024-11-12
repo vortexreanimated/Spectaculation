@@ -18,12 +18,12 @@
  */
 package dev.vortex.sculk.potion;
 
-import lombok.Getter;
 import dev.vortex.sculk.Repeater;
 import dev.vortex.sculk.user.PlayerStatistics;
 import dev.vortex.sculk.user.PlayerUtils;
 import dev.vortex.sculk.util.SUtil;
 import dev.vortex.sculk.util.TriConsumer;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -42,9 +42,9 @@ public class PotionEffectType
 
     public static final PotionEffectType RABBIT = new PotionEffectType(ChatColor.GREEN + "Rabbit", "rabbit",
             "Grants Jump Boost %s and +%s Speed.", PotionColor.DARK_GREEN,
-            (((effect, player) ->
+            ((effect, player) ->
                 PlayerUtils.replacePotionEffect(player, new org.bukkit.potion.PotionEffect(org.bukkit.potion.PotionEffectType.JUMP, (int) effect.getDuration(),
-                        effect.getLevel() % 2 == 0 ? effect.getLevel() / 2 : (effect.getLevel() + 1) / 2)))),
+                        effect.getLevel() % 2 == 0 ? effect.getLevel() / 2 : (effect.getLevel() + 1) / 2))),
             ((statistics, slot, level) -> statistics.getSpeed().add(slot, level * 10.0 / 100.0)), false, true);
 
     public static final PotionEffectType HEALING = new PotionEffectType(ChatColor.RED + "Healing", "healing",
@@ -55,9 +55,9 @@ public class PotionEffectType
 
     public static final PotionEffectType JUMP_BOOST = new PotionEffectType(ChatColor.AQUA + "Jump Boost", "jump_boost",
             "Increases your jump height.", PotionColor.TWILIGHT_BLUE,
-            (((effect, player) ->
+            ((effect, player) ->
                     PlayerUtils.replacePotionEffect(player, new org.bukkit.potion.PotionEffect(org.bukkit.potion.PotionEffectType.JUMP, (int) effect.getDuration(),
-                            effect.getLevel() - 1)))), false, true);
+                            effect.getLevel() - 1))), false, true);
 
     public static final PotionEffectType SPEED = new PotionEffectType(ChatColor.BLUE + "Speed", "speed",
             "Grants a %s Speed boost.", PotionColor.LIGHT_BLUE,
@@ -70,8 +70,8 @@ public class PotionEffectType
             "Grants an instant %s Mana boost.", PotionColor.DARK_BLUE,
             ((effect, player) ->
             {
-                Repeater.MANA_MAP.put(player.getUniqueId(), Repeater.MANA_MAP.get(player.getUniqueId()) +
-                        SUtil.getOrDefault(Arrays.asList(25, 50, 75, 100, 150, 200, 300, 400), effect.getLevel() - 1,
+                Repeater.MANA_MAP.put(player.getUniqueId(), Repeater.MANA_MAP.get(player.getUniqueId())
+                        + SUtil.getOrDefault(Arrays.asList(25, 50, 75, 100, 150, 200, 300, 400), effect.getLevel() - 1,
                                 (effect.getLevel() - 4) * 100));
             }), true, true);
 
@@ -100,12 +100,12 @@ public class PotionEffectType
 
     public static final PotionEffectType HASTE = new PotionEffectType(ChatColor.YELLOW + "Haste", "haste",
             "Increases your mining speed.", PotionColor.ORANGE,
-            (((effect, player) ->
+            ((effect, player) ->
             {
                 player.removePotionEffect(org.bukkit.potion.PotionEffectType.FAST_DIGGING);
                 player.addPotionEffect(new org.bukkit.potion.PotionEffect(org.bukkit.potion.PotionEffectType.FAST_DIGGING, (int) effect.getDuration(),
                         effect.getLevel() - 1));
-            })), false, true);
+            }), false, true);
 
     public static final PotionEffectType RESISTANCE = new PotionEffectType(ChatColor.GREEN + "Resistance", "resistance",
             "Increases Defense by %s.", PotionColor.DARK_GREEN,
@@ -197,7 +197,9 @@ public class PotionEffectType
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof PotionEffectType)) return false;
+        if (!(o instanceof PotionEffectType)) {
+            return false;
+        }
         return ((PotionEffectType) o).namespace.equals(namespace);
     }
 }

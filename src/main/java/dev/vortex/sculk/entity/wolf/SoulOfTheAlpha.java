@@ -53,6 +53,7 @@ public class SoulOfTheAlpha extends BaseWolf
                 new EntityDrop(SMaterial.WEAK_WOLF_CATALYST, EntityDropType.VERY_RARE, 0.005));
     }
 
+    @Override
     public double getXPDropped()
     {
         return 50.0;

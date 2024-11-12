@@ -57,11 +57,11 @@ public class SlayerGUI extends GUI
                         int level = quest.getType().getType().getLevelForXP(user.getSlayerXP(quest.getType().getType()));
                         player.playSound(player.getLocation(), Sound.LEVEL_UP, 1f, 2f);
                         player.sendMessage("  " + ChatColor.GREEN + ChatColor.BOLD + "SLAYER QUEST COMPLETED!");
-                        player.sendMessage("   " + ChatColor.YELLOW + quest.getType().getType().getName() + " Slayer LVL " +
-                                level + ChatColor.DARK_RED + " - " +
-                                ChatColor.GRAY + "Next LVL in " + ChatColor.LIGHT_PURPLE +
-                                SUtil.commaify(quest.getType().getXPReqForLevel(level) - user.getSlayerXP(quest.getType().getType())) +
-                                " XP" + ChatColor.GRAY + "!");
+                        player.sendMessage("   " + ChatColor.YELLOW + quest.getType().getType().getName() + " Slayer LVL "
+                                + level + ChatColor.DARK_RED + " - "
+                                + ChatColor.GRAY + "Next LVL in " + ChatColor.LIGHT_PURPLE
+                                + SUtil.commaify(quest.getType().getXPReqForLevel(level) - user.getSlayerXP(quest.getType().getType()))
+                                + " XP" + ChatColor.GRAY + "!");
                         user.setSlayerQuest(null);
                         GUIType.SLAYER.getGUI().open(player);
                     }
@@ -274,17 +274,22 @@ public class SlayerGUI extends GUI
 
     public static String getTierText(int highest)
     {
-        if (highest == 0)
+        if (highest == 0) {
             return ChatColor.GREEN + "Not played!";
+        }
         ChatColor color = ChatColor.GREEN;
-        if (highest == 2)
+        if (highest == 2) {
             color = ChatColor.YELLOW;
-        if (highest == 3)
+        }
+        if (highest == 3) {
             color = ChatColor.RED;
-        if (highest == 4)
+        }
+        if (highest == 4) {
             color = ChatColor.DARK_RED;
-        if (highest == 5)
+        }
+        if (highest == 5) {
             color = ChatColor.DARK_PURPLE;
+        }
         return color + "Tier " + SUtil.toRomanNumeral(highest);
     }
 }

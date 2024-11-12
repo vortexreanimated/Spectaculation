@@ -18,11 +18,11 @@
  */
 package dev.vortex.sculk.region;
 
-import lombok.Getter;
-import lombok.Setter;
 import dev.vortex.sculk.Spectaculation;
 import dev.vortex.sculk.util.SLog;
 import dev.vortex.sculk.util.SUtil;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -84,8 +84,9 @@ public class Region
         List<Region> possible = new ArrayList<>();
         for (Region region : getRegions())
         {
-            if (region.insideRegion(entity))
+            if (region.insideRegion(entity)) {
                 possible.add(region);
+            }
         }
         possible.sort(Comparator.comparingInt(r -> r.getType().ordinal()));
         Collections.reverse(possible);
@@ -96,8 +97,9 @@ public class Region
     {
         for (Region region : getRegions())
         {
-            if (region.insideRegion(entity))
+            if (region.insideRegion(entity)) {
                 return region;
+            }
         }
         return null;
     }
@@ -107,8 +109,9 @@ public class Region
         List<Region> possible = new ArrayList<>();
         for (Region region : getRegions())
         {
-            if (region.insideRegion(block))
+            if (region.insideRegion(block)) {
                 possible.add(region);
+            }
         }
         possible.sort(Comparator.comparingInt(r -> r.getType().ordinal()));
         Collections.reverse(possible);
@@ -122,12 +125,13 @@ public class Region
         double x = location.getX();
         double y = location.getY();
         double z = location.getZ();
-        if (firstLocation == null || firstLocation.getWorld() == null)
+        if (firstLocation == null || firstLocation.getWorld() == null) {
             return false;
-        return firstLocation.getWorld().getUID().equals(location.getWorld().getUID()) &&
-                x >= (double) bounds.getFirst() && x <= (double) bounds.get(1) &&
-                y >= (double) bounds.get(2) && y <= (double) bounds.get(3) &&
-                z >= (double) bounds.get(4) && z <= (double) bounds.get(5);
+        }
+        return firstLocation.getWorld().getUID().equals(location.getWorld().getUID())
+                && x >= (double) bounds.getFirst() && x <= (double) bounds.get(1)
+                && y >= (double) bounds.get(2) && y <= (double) bounds.get(3)
+                && z >= (double) bounds.get(4) && z <= (double) bounds.get(5);
     }
 
     public boolean insideRegion(Block block)
@@ -137,12 +141,13 @@ public class Region
         double x = location.getX();
         double y = location.getY();
         double z = location.getZ();
-        if (firstLocation == null || firstLocation.getWorld() == null)
+        if (firstLocation == null || firstLocation.getWorld() == null) {
             return false;
-        return firstLocation.getWorld().getUID().equals(location.getWorld().getUID()) &&
-                x >= (double) bounds.getFirst() && x <= (double) bounds.get(1) &&
-                y >= (double) bounds.get(2) && y <= (double) bounds.get(3) &&
-                z >= (double) bounds.get(4) && z <= (double) bounds.get(5);
+        }
+        return firstLocation.getWorld().getUID().equals(location.getWorld().getUID())
+                && x >= (double) bounds.getFirst() && x <= (double) bounds.get(1)
+                && y >= (double) bounds.get(2) && y <= (double) bounds.get(3)
+                && z >= (double) bounds.get(4) && z <= (double) bounds.get(5);
     }
 
     public List<Location> getAvailableTeleportLocations()
@@ -151,13 +156,15 @@ public class Region
         for (Location location : getLocations())
         {
             Block block = location.getBlock();
-            if (block.getType() == Material.AIR || block.getType() == Material.WATER)
+            if (block.getType() == Material.AIR || block.getType() == Material.WATER) {
                 continue;
+            }
             Block above = location.clone().add(0, 1, 0).getBlock();
             Block top = location.clone().add(0, 2, 0).getBlock();
-            if ((above.getType() != Material.AIR && above.getType() != Material.WATER) ||
-                    (top.getType() != Material.AIR && top.getType() != Material.WATER))
+            if ((above.getType() != Material.AIR && above.getType() != Material.WATER)
+                || (top.getType() != Material.AIR && top.getType() != Material.WATER)) {
                 continue;
+            }
             locations.add(above.getLocation());
         }
         return locations;
@@ -165,8 +172,9 @@ public class Region
 
     public List<Location> getLocations()
     {
-        if (!firstLocation.getWorld().getName().equals(secondLocation.getWorld().getName()))
+        if (!firstLocation.getWorld().getName().equals(secondLocation.getWorld().getName())) {
             return null;
+        }
         List<Integer> bounds = getBounds();
         World world = firstLocation.getWorld();
         List<Location> locations = new ArrayList<>();
@@ -185,8 +193,9 @@ public class Region
 
     public void captureRegion()
     {
-        if (!firstLocation.getWorld().getName().equals(secondLocation.getWorld().getName()))
+        if (!firstLocation.getWorld().getName().equals(secondLocation.getWorld().getName())) {
             return;
+        }
         List<Integer> bounds = getBounds();
         World world = firstLocation.getWorld();
         List<BlockState> states = new ArrayList<>();
@@ -205,8 +214,9 @@ public class Region
 
     public void pasteRegionCapture()
     {
-        if (capture == null)
+        if (capture == null) {
             return;
+        }
         for (BlockState state : capture)
         {
             state.getBlock().setType(state.getType());
@@ -230,8 +240,8 @@ public class Region
         for (int y = getBounds().get(3); y >= getBounds().get(2); y--)
         {
             Block test = firstLocation.getWorld().getBlockAt(r.getBlockX(), y, r.getBlockZ());
-            if (test.getType() != Material.AIR && test.getLocation().clone().add(0, 1, 0).getBlock().getType() == Material.AIR &&
-                    test.getLocation().clone().add(0, 2, 0).getBlock().getType() == Material.AIR)
+            if (test.getType() != Material.AIR && test.getLocation().clone().add(0, 1, 0).getBlock().getType() == Material.AIR
+                    && test.getLocation().clone().add(0, 2, 0).getBlock().getType() == Material.AIR)
             {
                 possible.add(test.getLocation().clone().add(0, 1, 0));
             }
@@ -263,8 +273,9 @@ public class Region
 
     public static Region get(String name)
     {
-        if (REGION_CACHE.containsKey(name))
+        if (REGION_CACHE.containsKey(name)) {
             return REGION_CACHE.get(name);
+        }
         return plugin.regionData.get(name);
     }
 

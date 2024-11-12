@@ -79,11 +79,13 @@ public class ObsidianChestplate implements LeatherArmorStatistics, TickingMateri
        statistics.getSpeed().add(PlayerStatistic.OBSIDIAN_CHESTPLATE, ((obsidian / 20.0) / 100.0));
        new BukkitRunnable()
        {
+           @Override
            public void run()
            {
                SItem chestplate = SItem.find(owner.getInventory().getChestplate());
-               if (chestplate != null && chestplate.getType() == SMaterial.OBSIDIAN_CHESTPLATE)
+               if (chestplate != null && chestplate.getType() == SMaterial.OBSIDIAN_CHESTPLATE) {
                    return;
+               }
                statistics.getSpeed().zero(PlayerStatistic.OBSIDIAN_CHESTPLATE);
            }
        }.runTaskLater(Spectaculation.getPlugin(), 13);

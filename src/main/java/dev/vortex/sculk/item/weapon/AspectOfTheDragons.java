@@ -85,8 +85,12 @@ public class AspectOfTheDragons implements ToolStatistics, MaterialFunction, Abi
         player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 5f, 5f);
         for (Entity entity : player.getWorld().getNearbyEntities(player.getLocation().add(player.getLocation().getDirection().multiply(3.0)), 3.0, 3.0, 3.0))
         {
-            if (!(entity instanceof LivingEntity)) continue;
-            if (entity instanceof Player || entity instanceof EnderDragon || entity instanceof EnderDragonPart) continue;
+            if (!(entity instanceof LivingEntity)) {
+                continue;
+            }
+            if (entity instanceof Player || entity instanceof EnderDragon || entity instanceof EnderDragonPart) {
+                continue;
+            }
             User user = User.getUser(player.getUniqueId());
             entity.setVelocity(player.getLocation().toVector().subtract(entity.getLocation().toVector()).normalize().multiply(-1.0).multiply(50.0));
             user.damageEntity((LivingEntity) entity, 12000.0);

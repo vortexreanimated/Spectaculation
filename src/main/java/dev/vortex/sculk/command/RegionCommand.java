@@ -43,8 +43,12 @@ public class RegionCommand extends SCommand
             {
                 case "create":
                 {
-                    if (name.length() > 100) throw new CommandFailException("Name too long!");
-                    if (plugin.regionData.exists(name)) throw new CommandFailException("There is already a region named that!");
+                    if (name.length() > 100) {
+                        throw new CommandFailException("Name too long!");
+                    }
+                    if (plugin.regionData.exists(name)) {
+                        throw new CommandFailException("There is already a region named that!");
+                    }
                     REGION_GENERATION_MAP.put(sender.getSender(), new RegionGenerator("create", name, type));
                     send("Created a region named \"" + name + "\"");
                     send(ChatColor.DARK_AQUA + "Click the first corner of your region.");
@@ -54,11 +58,13 @@ public class RegionCommand extends SCommand
         }
         if (args.length == 2)
         {
-            if (args[0].equalsIgnoreCase("delete"))
+            if ("delete".equalsIgnoreCase(args[0]))
             {
                 String name = args[1];
                 Region region = Region.get(name);
-                if (region == null) throw new CommandFailException("There is no region named that!");
+                if (region == null) {
+                    throw new CommandFailException("There is no region named that!");
+                }
                 region.delete();
                 send("Deleted region \"" + name + "\" successfully.");
                 return;
@@ -68,17 +74,24 @@ public class RegionCommand extends SCommand
         {
             String name = args[1];
             Region region = Region.get(name);
-            if (region == null) throw new CommandFailException("There is no region named that!");
+            if (region == null) {
+                throw new CommandFailException("There is no region named that!");
+            }
             RegionType type = region.getType();
-            if (args.length == 3)
+            if (args.length == 3) {
                 type = RegionType.valueOf(args[2].toUpperCase());
-            if (!args[0].equalsIgnoreCase("update")) throw new CommandArgumentException();
+            }
+            if (!"update".equalsIgnoreCase(args[0])) {
+                throw new CommandArgumentException();
+            }
             REGION_GENERATION_MAP.put(sender.getSender(), new RegionGenerator("update", name, type));
             send("Updating \"" + name + "\"");
             send(ChatColor.DARK_AQUA + "Click the first corner of your region.");
             return;
         }
-        if (args.length != 0) throw new CommandArgumentException();
+        if (args.length != 0) {
+            throw new CommandArgumentException();
+        }
         StringBuilder result = new StringBuilder()
                 .append("Regions");
         for (Region region : Region.getRegions())

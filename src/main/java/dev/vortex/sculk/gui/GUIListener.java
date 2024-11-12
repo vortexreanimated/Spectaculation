@@ -41,15 +41,18 @@ public class GUIListener extends PListener
     public void onInventoryClick(InventoryClickEvent e)
     {
         GUI gui = GUI.GUI_MAP.get(e.getWhoClicked().getUniqueId());
-        if (gui == null) return;
+        if (gui == null) {
+            return;
+        }
         if (e.getClickedInventory() == e.getView().getTopInventory())
         {
             int slot = e.getSlot();
             GUIItem item = gui.get(slot);
             if (item != null)
             {
-                if (!item.canPickup())
+                if (!item.canPickup()) {
                     e.setCancelled(true);
+                }
                 if (item instanceof GUIClickableItem clickable)
                 {
                     clickable.run(e);
@@ -63,8 +66,9 @@ public class GUIListener extends PListener
                 }
             }
         }
-        else
+        else {
             gui.onBottomClick(e);
+        }
         gui.update(e.getView().getTopInventory());
     }
 
@@ -77,7 +81,9 @@ public class GUIListener extends PListener
     @EventHandler
     public void onBlockInteract(PlayerInteractEvent e)
     {
-        if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        if (e.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
         Block block = e.getClickedBlock();
         for (GUIType type : GUIType.values())
         {
@@ -98,23 +104,30 @@ public class GUIListener extends PListener
     public void onPlayerChat(AsyncPlayerChatEvent e)
     {
         Player player = e.getPlayer();
-        if (!QUERY_MAP.containsKey(player.getUniqueId())) return;
+        if (!QUERY_MAP.containsKey(player.getUniqueId())) {
+            return;
+        }
         e.setCancelled(true);
         GUIQueryItem item = QUERY_MAP.get(player.getUniqueId());
         player.sendMessage(ChatColor.GOLD + "Querying for: " + e.getMessage());
         GUI next = item.onQueryFinish(e.getMessage());
-        if (next != null)
+        if (next != null) {
             next.open(player);
+        }
         QUERY_MAP.remove(player.getUniqueId());
     }
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e)
     {
-        if (!(e.getPlayer() instanceof Player)) return;
+        if (!(e.getPlayer() instanceof Player)) {
+            return;
+        }
         Player player = (Player) e.getPlayer();
         GUI gui = GUI.GUI_MAP.get(player.getUniqueId());
-        if (gui == null) return;
+        if (gui == null) {
+            return;
+        }
         gui.onClose(e);
         GUI.GUI_MAP.remove(player.getUniqueId());
     }

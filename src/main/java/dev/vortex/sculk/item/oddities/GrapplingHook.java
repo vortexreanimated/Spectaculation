@@ -38,7 +38,9 @@ public class GrapplingHook implements ToolStatistics, FishingRodFunction
     public void onFish(SItem instance, PlayerFishEvent e)
     {
         PlayerFishEvent.State state = e.getState();
-        if (state != PlayerFishEvent.State.FAILED_ATTEMPT && state != PlayerFishEvent.State.IN_GROUND) return;
+        if (state != PlayerFishEvent.State.FAILED_ATTEMPT && state != PlayerFishEvent.State.IN_GROUND) {
+            return;
+        }
         Player player = e.getPlayer();
         if (COOLDOWN.contains(player.getUniqueId()))
         {
@@ -51,6 +53,7 @@ public class GrapplingHook implements ToolStatistics, FishingRodFunction
             COOLDOWN.add(player.getUniqueId());
             new BukkitRunnable()
             {
+                @Override
                 public void run()
                 {
                     COOLDOWN.remove(player.getUniqueId());

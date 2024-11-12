@@ -49,8 +49,9 @@ public class SkillMenuGUI extends GUI
         Collection<ItemCollection> collections = ItemCollection.getCollections();
         for (ItemCollection collection : collections)
         {
-            if (user.getCollection(collection) > 0)
+            if (user.getCollection(collection) > 0) {
                 found.incrementAndGet();
+            }
         }
         set(GUIClickableItem.createGUIOpenerItem(GUIType.SKYBLOCK_MENU, player, ChatColor.GREEN + "Go Back", 48,
                 Material.ARROW, ChatColor.GRAY + "To SkyBlock Menu"));
@@ -82,10 +83,12 @@ public class SkillMenuGUI extends GUI
             for (String line : skill.getDescription())
                 l.add(ChatColor.GRAY + line);
         }
-        if (l.size() == 0)
+        if (l.size() == 0) {
             l.add(ChatColor.GRAY + "Come back soon!");
-        else
+        }
+        else {
             l.add(" ");
+        }
         double xp = skill != null ? user.getSkillXP(skill) : 0.0;
         int level = skill != null ? Skill.getLevel(xp, skill.hasSixtyLevels()) : 0;
         String name = ChatColor.RED + "Not Finished";
@@ -103,8 +106,9 @@ public class SkillMenuGUI extends GUI
                 l.add("  " + line);
             l.add(" ");
         }
-        if (skill != null)
+        if (skill != null) {
             l.add(ChatColor.YELLOW + "Click to view!");
+        }
         return GUIClickableItem.createGUIOpenerItem(gui, player, ChatColor.GREEN + name + (level != 0 ? " " + SUtil.toRomanNumeral(level) : ""), slot,
                 icon, data, SUtil.toArray(l, String.class));
     }

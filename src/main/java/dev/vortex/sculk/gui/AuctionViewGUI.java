@@ -73,10 +73,12 @@ public class AuctionViewGUI extends GUI
             for (GUIItem item : getAuctionItems(player))
                 set(item);
         }
-        if (ret != null)
+        if (ret != null) {
             set(GUIClickableItem.createGUIOpenerItem(ret, player, ChatColor.GREEN + "Go Back", 49, Material.ARROW, (short) 0, ChatColor.GRAY + "To " + ret.getTitle()));
-        else
+        }
+        else {
             set(GUIClickableItem.getCloseItem(49));
+        }
     }
 
     private List<GUIItem> getBINItems(Player player)
@@ -109,10 +111,12 @@ public class AuctionViewGUI extends GUI
                     lore.add(" ");
                     if (item.getBids().size() == 0)
                     {
-                        if (item.isBin())
+                        if (item.isBin()) {
                             lore.add(ChatColor.GRAY + "No one has bought your item.");
-                        else
+                        }
+                        else {
                             lore.add(ChatColor.GRAY + "No one has bid on your item.");
+                        }
                         lore.add(ChatColor.GREEN + "You may pick it back up.");
                         lore.add(" ");
                         lore.add(ChatColor.YELLOW + "Click to pick up item!");
@@ -172,28 +176,35 @@ public class AuctionViewGUI extends GUI
                 {
                     List<String> lore = new ArrayList<>();
                     lore.add(" ");
-                    if (item.isBin())
+                    if (item.isBin()) {
                         lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + SUtil.commaify(item.getStarter()) + " coin" + (item.getStarter() != 1 ? "s" : ""));
+                    }
                     else
                     {
                         lore.add(ChatColor.GRAY + "New bid: " + ChatColor.GOLD + SUtil.commaify(bid) + " coin" + (bid != 1 ? "s" : ""));
                         AuctionBid bid = item.getBid(user);
-                        if (bid != null)
+                        if (bid != null) {
                             lore.add(ChatColor.GRAY + "Your previous bid: " + ChatColor.YELLOW + SUtil.commaify(bid.getAmount()) + " coin" + (bid.getAmount() != 1 ? "s" : ""));
+                        }
                     }
                     lore.add(" ");
                     User top = item.getTopBidder();
-                    if (personal)
+                    if (personal) {
                         lore.add(ChatColor.GREEN + "This is your own auction!");
-                    else if (top != null && top.getUuid().equals(user.getUuid()))
+                    }
+                    else if (top != null && top.getUuid().equals(user.getUuid())) {
                         lore.add(ChatColor.GREEN + "Already top bid!");
-                    else if (user.getCoins() < bid)
+                    }
+                    else if (user.getCoins() < bid) {
                         lore.add(ChatColor.RED + "Cannot afford bid!");
-                    else
+                    }
+                    else {
                         lore.add(ChatColor.YELLOW + "Click to " + (item.isBin() ? "buy" : "bid") + "!");
+                    }
                     Material icon = user.getCoins() < bid || personal ? Material.POTATO_ITEM : Material.GOLD_NUGGET;
-                    if (top != null && top.getUuid().equals(user.getUuid()))
+                    if (top != null && top.getUuid().equals(user.getUuid())) {
                         icon = Material.GOLD_BLOCK;
+                    }
                     return SUtil.getStack(ChatColor.GOLD + (item.isBin() ? "Buy Item Right Now" : "Submit Bid"), icon, (short) 0, 1, lore);
                 }
             });
@@ -272,10 +283,12 @@ public class AuctionViewGUI extends GUI
                     lore.add(" ");
                     if (item.getBids().size() == 0)
                     {
-                        if (item.isBin())
+                        if (item.isBin()) {
                             lore.add(ChatColor.GRAY + "No one has bought your item.");
-                        else
+                        }
+                        else {
                             lore.add(ChatColor.GRAY + "No one has bid on your item.");
+                        }
                         lore.add(ChatColor.GREEN + "You may pick it back up.");
                         lore.add(" ");
                         lore.add(ChatColor.YELLOW + "Click to pick up item!");
@@ -335,17 +348,22 @@ public class AuctionViewGUI extends GUI
                 {
                     List<String> lore = new ArrayList<>();
                     lore.add(" ");
-                    if (item.isBin())
+                    if (item.isBin()) {
                         lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + SUtil.commaify(item.getStarter()) + " coin" + (item.getStarter() != 1 ? "s" : ""));
-                    else
+                    }
+                    else {
                         lore.add(ChatColor.GRAY + "New bid: " + ChatColor.GOLD + SUtil.commaify(bid) + " coin" + (bid != 1 ? "s" : ""));
+                    }
                     lore.add(" ");
-                    if (personal)
+                    if (personal) {
                         lore.add(ChatColor.GREEN + "This is your own auction!");
-                    else if (user.getCoins() < bid)
+                    }
+                    else if (user.getCoins() < bid) {
                         lore.add(ChatColor.RED + "Cannot afford purchase!");
-                    else
+                    }
+                    else {
                         lore.add(ChatColor.YELLOW + "Click to " + (item.isBin() ? "buy" : "bid") + "!");
+                    }
                     return SUtil.getStack(ChatColor.GOLD + (item.isBin() ? "Buy Item Right Now" : "Submit Bid"),
                             user.getCoins() < bid || personal ? Material.POTATO_ITEM : Material.GOLD_NUGGET, (short) 0, 1, lore);
                 }

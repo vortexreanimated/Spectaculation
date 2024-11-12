@@ -53,6 +53,7 @@ public class HowlingSpirit extends BaseWolf
                 new EntityDrop(SMaterial.ACACIA_WOOD, EntityDropType.COMMON, 0.25));
     }
 
+    @Override
     public double getXPDropped()
     {
         return 15.0;

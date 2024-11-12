@@ -42,12 +42,15 @@ public class VelocityArmorStand extends EntityArmorStand implements EntityStatis
         this(((CraftWorld) Bukkit.getWorlds().getFirst()).getHandle());
     }
 
+    @Override
     public void g(float f, float f1)
     {
-        if (!hasGravity())
+        if (!hasGravity()) {
             super.g(f, f1);
-        else
+        }
+        else {
             move(motX, motY, motZ);
+        }
     }
 
     @Override
@@ -74,6 +77,7 @@ public class VelocityArmorStand extends EntityArmorStand implements EntityStatis
         return false;
     }
 
+    @Override
     public double getXPDropped()
     {
         return 0.0;

@@ -35,9 +35,8 @@ import java.util.UUID;
 
 public class ItemLore
 {
-    private static final String SPEC_ID = ChatColor.DARK_GRAY + "Spectaculation ID: %s";
 
-    private SItem parent;
+    private final SItem parent;
 
     public ItemLore(SItem parent)
     {
@@ -61,29 +60,34 @@ public class ItemLore
                 player = Bukkit.getPlayer(UUID.fromString(parent.getDataString("owner")));
             }
             catch (IllegalArgumentException ignored) {}
-            if (parent.getType() == SMaterial.EMERALD_BLADE && player != null &&
-                    SUtil.roundTo(2.5 * SUtil.quadrt(User.getUser(player.getUniqueId()).getCoins()), 1) != 0.0)
+            if (parent.getType() == SMaterial.EMERALD_BLADE && player != null
+                    && SUtil.roundTo(2.5 * SUtil.quadrt(User.getUser(player.getUniqueId()).getCoins()), 1) != 0.0)
             {
-                damage = addPossiblePropertyDouble("Damage", playerBoostStatistics.getBaseDamage() +
-                        SUtil.roundTo(2.5 * SUtil.quadrt(User.getUser(player.getUniqueId()).getCoins()), 1),
+                damage = addPossiblePropertyDouble("Damage", playerBoostStatistics.getBaseDamage()
+                        + SUtil.roundTo(2.5 * SUtil.quadrt(User.getUser(player.getUniqueId()).getCoins()), 1),
                         0, "", false, lore);
             }
-            else
+            else {
                 damage = addPossiblePropertyInt("Damage", playerBoostStatistics.getBaseDamage(), "", false, lore);
+            }
             boolean strength = addPossiblePropertyInt("Strength", playerBoostStatistics.getBaseStrength(),
                     SUtil.blackMagic(reforge.getStrength().getForRarity(parent.getRarity())), "", false, lore);
             boolean critChance = addPossiblePropertyInt("Crit Chance", (int) (playerBoostStatistics.getBaseCritChance() * 100),
                     (int) (reforge.getCritChance().getForRarity(parent.getRarity()) * 100), "%", false, lore);
             boolean critDamage = addPossiblePropertyInt("Crit Damage", (int) (playerBoostStatistics.getBaseCritDamage() * 100),
                     (int) (reforge.getCritDamage().getForRarity(parent.getRarity()) * 100), "%", false, lore);
-            if (damage || strength || critChance || critDamage) lore.add("");
+            if (damage || strength || critChance || critDamage) {
+                lore.add("");
+            }
             boolean health = addPossiblePropertyInt("Health", playerBoostStatistics.getBaseHealth(), " HP", true, lore);
             boolean defense = addPossiblePropertyInt("Defense", playerBoostStatistics.getBaseDefense(), "", true, lore);
             boolean speed = addPossiblePropertyInt("Speed", (int) (playerBoostStatistics.getBaseSpeed() * 100), "", true, lore);
             boolean intelligence = addPossiblePropertyInt("Intelligence", playerBoostStatistics.getBaseIntelligence(),
-                    SUtil.blackMagic(reforge.getIntelligence().getForRarity(parent.getRarity())),"", true, lore);
+                    SUtil.blackMagic(reforge.getIntelligence().getForRarity(parent.getRarity())), "", true, lore);
             boolean magicFind = addPossiblePropertyInt("Magic Find", (int) (playerBoostStatistics.getBaseMagicFind() * 100), "", true, lore);
-            if (health || defense || speed || intelligence || magicFind) lore.add("");
+            if (health || defense || speed || intelligence || magicFind) {
+                lore.add("");
+            }
         }
         if (enchantments != null && enchantments.size() != 0)
         {
@@ -105,10 +109,12 @@ public class ItemLore
                 for (Enchantment enchantment : enchantments)
                     lore.add(enchantment.getDisplayName());
             }
-            else if (amount <= 25)
+            else if (amount <= 25) {
                 lore.addAll(SUtil.combineElements(stringEnchantments, ", ", 2));
-            else
+            }
+            else {
                 lore.addAll(SUtil.combineElements(stringEnchantments, ", ", 3));
+            }
             lore.add("");
         }
         ArmorSet set = SMaterial.findArmorSet(material);
@@ -136,12 +142,15 @@ public class ItemLore
             lore.add(abilityTitle.toString());
             for (String line : SUtil.splitByWordAndLength(ability.getAbilityDescription(), 30, "\\s"))
                 lore.add(ChatColor.GRAY + line);
-            if (ability.getManaCost() > 0)
+            if (ability.getManaCost() > 0) {
                 lore.add(ChatColor.DARK_GRAY + "Mana Cost: " + ChatColor.DARK_AQUA + ability.getManaCost());
-            if (ability.getManaCost() == -1)
+            }
+            if (ability.getManaCost() == -1) {
                 lore.add(ChatColor.DARK_GRAY + "Mana Cost: " + ChatColor.DARK_AQUA + "All");
-            if (ability.getManaCost() == -2)
+            }
+            if (ability.getManaCost() == -2) {
                 lore.add(ChatColor.DARK_GRAY + "Mana Cost: " + ChatColor.DARK_AQUA + "Half");
+            }
             lore.add("");
         }
         OrbBuff buff = material.getOrbBuff();
@@ -163,19 +172,22 @@ public class ItemLore
         {
             for (String string : SUtil.splitByWordAndLength(l, 30, "\\s"))
                 lore.add(ChatColor.GRAY + string);
-            if (l.length() != 0)
+            if (l.length() != 0) {
                 lore.add("");
+            }
         }
         List<String> ll = this.parent.getType().getStatistics().getListLore();
         if (ll != null)
         {
             for (String line : ll)
                 lore.add(ChatColor.GRAY + line);
-            if (ll.size() != 0)
+            if (ll.size() != 0) {
                 lore.add("");
+            }
         }
-        if (parent.getDataInt("anvil") != 0)
+        if (parent.getDataInt("anvil") != 0) {
             lore.add(ChatColor.GRAY + "Anvil Uses: " + ChatColor.RED + parent.getDataInt("anvil"));
+        }
         if (material.getItemData() != null)
         {
             NBTTagCompound compound = parent.getData();
@@ -192,9 +204,9 @@ public class ItemLore
         SpecificItemType type = statistics.getSpecificType();
         if (statistics.displayRarity())
         {
-            lore.add((parent.isRecombobulated() ? parent.getRarity().getBoldedColor() + ChatColor.MAGIC + "D" + ChatColor.RESET + " " : "") +
-                    parent.getRarity().getDisplay() + (type != SpecificItemType.NONE ? " " + type.getName() : "") +
-                    (parent.isRecombobulated() ? parent.getRarity().getBoldedColor() + " " + ChatColor.MAGIC + "D" + ChatColor.RESET : ""));
+            lore.add((parent.isRecombobulated() ? parent.getRarity().getBoldedColor() + ChatColor.MAGIC + "D" + ChatColor.RESET + " " : "")
+                    + parent.getRarity().getDisplay() + (type != SpecificItemType.NONE ? " " + type.getName() : "")
+                    + (parent.isRecombobulated() ? parent.getRarity().getBoldedColor() + " " + ChatColor.MAGIC + "D" + ChatColor.RESET : ""));
         }
         //lore.add(String.format(SPEC_ID, parent.getType().name()));
         return lore;
@@ -203,7 +215,9 @@ public class ItemLore
     private boolean addPossiblePropertyInt(String name, double i, int r, String succeeding, boolean green, List<String> list)
     {
         i += r;
-        if (i == 0) return false;
+        if (i == 0) {
+            return false;
+        }
         StringBuilder builder = new StringBuilder();
         builder.append(ChatColor.GRAY).append(name).append(": ")
                 .append(green ? ChatColor.GREEN : ChatColor.RED)
@@ -225,7 +239,9 @@ public class ItemLore
     private boolean addPossiblePropertyDouble(String name, double d, int r, String succeeding, boolean green, List<String> list)
     {
         d += r;
-        if (d == 0.0) return false;
+        if (d == 0.0) {
+            return false;
+        }
         StringBuilder builder = new StringBuilder();
         builder.append(ChatColor.GRAY).append(name).append(": ")
                 .append(green ? ChatColor.GREEN : ChatColor.RED)

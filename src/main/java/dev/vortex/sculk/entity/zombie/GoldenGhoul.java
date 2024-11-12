@@ -67,6 +67,7 @@ public class GoldenGhoul extends BaseZombie
                 new EntityDrop(SMaterial.GOLDEN_POWDER, EntityDropType.CRAZY_RARE, 0.006));
     }
 
+    @Override
     public double getXPDropped()
     {
         return 50.0;

@@ -104,8 +104,9 @@ public class SoundSequenceType
     {
         for (SoundSequenceType type : TYPES)
         {
-            if (namespace.toLowerCase().equals(type.namespace.toLowerCase()))
+            if (namespace.toLowerCase().equals(type.namespace.toLowerCase())) {
                 return type;
+            }
         }
         return null;
     }

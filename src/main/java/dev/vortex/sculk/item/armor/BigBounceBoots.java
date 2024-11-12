@@ -54,7 +54,9 @@ public class BigBounceBoots implements LeatherArmorStatistics, TickingMaterial, 
     public void onAbilityUse(Player player, SItem sItem)
     {
         GameMode gameMode = player.getGameMode();
-        if (gameMode == GameMode.CREATIVE || gameMode == GameMode.SPECTATOR) return;
+        if (gameMode == GameMode.CREATIVE || gameMode == GameMode.SPECTATOR) {
+            return;
+        }
         player.setVelocity(player.getVelocity().clone().setY(1.5));
     }
 
