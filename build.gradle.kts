@@ -1,11 +1,21 @@
 plugins {
     java
     id("io.freefair.lombok") version "8.10.2"
+    id("org.openrewrite.rewrite") version("6.27.0")
+}
+
+rewrite {
+    activeRecipe("org.openrewrite.java.migrate.UpgradeToJava21")
+    activeRecipe("org.openrewrite.java.migrate.guava.NoGuava")
+    activeRecipe("org.openrewrite.java.RemoveUnusedImports")
+    activeRecipe("org.openrewrite.java.OrderImports")
+    activeRecipe("dev.vortex.sculk.rewrite.LicenseHeader")
+    activeRecipe("dev.vortex.sculk.rewrite.PackageRefactor")
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -25,6 +35,8 @@ repositories {
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
     compileOnly("org.bukkit:craftbukkit:1.8.8-R0.1-SNAPSHOT")
+
+    rewrite("org.openrewrite.recipe:rewrite-migrate-java:2.28.0")
 }
 
 tasks.processResources {
