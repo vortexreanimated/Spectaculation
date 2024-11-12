@@ -2,18 +2,6 @@ package me.superischroma.spectaculation.util;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.MaxChangedBlocksException;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.WorldEditException;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.extent.clipboard.Clipboard;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
-import com.sk89q.worldedit.function.operation.Operation;
-import com.sk89q.worldedit.function.operation.Operations;
-import com.sk89q.worldedit.session.ClipboardHolder;
-import com.sk89q.worldedit.world.World;
-import com.sk89q.worldedit.world.registry.WorldData;
 import me.superischroma.spectaculation.Spectaculation;
 import me.superischroma.spectaculation.enchantment.Enchantment;
 import me.superischroma.spectaculation.gui.GUI;
@@ -555,28 +543,7 @@ public class SUtil
     // not my code
     public static boolean pasteSchematic(File schematicFile, Location location, boolean withAir)
     {
-        try
-        {
-            com.sk89q.worldedit.Vector pasteLocation = new com.sk89q.worldedit.Vector(
-                    location.getX(), location.getY(), location.getZ());
-            World pasteWorld = new BukkitWorld(location.getWorld());
-            WorldData pasteWorldData = pasteWorld.getWorldData();
-            Clipboard clipboard = ClipboardFormat.SCHEMATIC.getReader(new FileInputStream(schematicFile)).read(pasteWorldData);
-            ClipboardHolder clipboardHolder = new ClipboardHolder(clipboard, pasteWorldData);
-            EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(pasteWorld, -1);
-            Operation operation = clipboardHolder
-                    .createPaste(editSession, pasteWorldData)
-                    .to(pasteLocation)
-                    .ignoreAirBlocks(!withAir)
-                    .build();
-            Operations.complete(operation);
-            return true;
-        }
-        catch (IOException | WorldEditException ex)
-        {
-            ex.printStackTrace();
-            return false;
-        }
+        return false;
     }
 
     public static void setBlocks(Location c1, Location c2, Material material, boolean applyPhysics)

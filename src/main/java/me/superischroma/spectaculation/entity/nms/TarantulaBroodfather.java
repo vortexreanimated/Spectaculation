@@ -1,7 +1,6 @@
 package me.superischroma.spectaculation.entity.nms;
 
 import com.google.common.util.concurrent.AtomicDouble;
-import lib.trove.function.TObjectFunction;
 import me.superischroma.spectaculation.Spectaculation;
 import me.superischroma.spectaculation.enchantment.EnchantmentType;
 import me.superischroma.spectaculation.entity.*;

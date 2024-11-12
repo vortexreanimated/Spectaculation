@@ -1,5 +1,5 @@
-name: Spectaculation
-version: ${project.version}
-main: me.superischroma.spectaculation.Spectaculation
-authors: [ super ]
-description: ridiculousness
+name: ${name}
+version: ${version}
+main: ${mainClass}
+authors: [ VortexReanimated ]
+description: ${description}
