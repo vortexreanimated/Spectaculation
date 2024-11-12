@@ -24,41 +24,34 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.item.SpecificItemType;
 import dev.vortex.sculk.item.armor.LeatherArmorStatistics;
 
-public class LapisArmorBoots implements LeatherArmorStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Lapis Armor Boots";
-    }
+public class LapisArmorBoots implements LeatherArmorStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Lapis Armor Boots";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.UNCOMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.UNCOMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.BOOTS;
-    }
-    
-    @Override
-    public double getBaseDefense()
-    {
-        return 20;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.BOOTS;
+	}
 
-    @Override
-    public int getColor()
-    {
-        return 0x0000FF;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 20;
+	}
+
+	@Override
+	public int getColor() {
+		return 0x0000FF;
+	}
 }

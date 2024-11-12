@@ -23,23 +23,19 @@ import dev.vortex.sculk.item.MaterialFunction;
 import dev.vortex.sculk.item.MaterialStatistics;
 import dev.vortex.sculk.item.Rarity;
 
-public class SummoningFrame implements MaterialFunction, MaterialStatistics
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Summoning Frame";
-    }
+public class SummoningFrame implements MaterialFunction, MaterialStatistics {
+	@Override
+	public String getDisplayName() {
+		return "Summoning Frame";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.EXCLUSIVE;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.EXCLUSIVE;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.BLOCK;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.BLOCK;
+	}
 }

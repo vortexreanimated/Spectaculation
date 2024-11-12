@@ -20,35 +20,29 @@ package dev.vortex.sculk.item.armor.vanilla.chainmail;
 
 import dev.vortex.sculk.item.*;
 
-public class ChainmailLeggings implements ToolStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Chainmail Chestplate";
-    }
+public class ChainmailLeggings implements ToolStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Chainmail Chestplate";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.LEGGINGS;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.LEGGINGS;
+	}
 
-    @Override
-    public double getBaseDefense()
-    {
-        return 20;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 20;
+	}
 }

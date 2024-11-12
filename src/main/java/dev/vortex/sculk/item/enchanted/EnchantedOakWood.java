@@ -20,41 +20,34 @@ package dev.vortex.sculk.item.enchanted;
 
 import dev.vortex.sculk.item.*;
 
-public class EnchantedOakWood implements EnchantedMaterialStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Enchanted Oak Wood";
-    }
+public class EnchantedOakWood implements EnchantedMaterialStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Enchanted Oak Wood";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.UNCOMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.UNCOMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 
-    @Override
-    public boolean isEnchanted()
-    {
-        return true;
-    }
+	@Override
+	public boolean isEnchanted() {
+		return true;
+	}
 
-    @Override
-    public SMaterial getCraftingMaterial()
-    {
-        return SMaterial.OAK_WOOD;
-    }
+	@Override
+	public SMaterial getCraftingMaterial() {
+		return SMaterial.OAK_WOOD;
+	}
 
-    @Override
-    public MaterialQuantifiable getResult()
-    {
-        return new MaterialQuantifiable(SMaterial.ENCHANTED_OAK_WOOD);
-    }
+	@Override
+	public MaterialQuantifiable getResult() {
+		return new MaterialQuantifiable(SMaterial.ENCHANTED_OAK_WOOD);
+	}
 }

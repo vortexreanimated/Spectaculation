@@ -21,29 +21,24 @@ package dev.vortex.sculk.entity.den;
 import dev.vortex.sculk.entity.EntityFunction;
 import dev.vortex.sculk.entity.EntityStatistics;
 
-public class Silverfish implements EntityStatistics, EntityFunction
-{
-    @Override
-    public String getEntityName()
-    {
-        return "Silverfish";
-    }
+public class Silverfish implements EntityStatistics, EntityFunction {
+	@Override
+	public String getEntityName() {
+		return "Silverfish";
+	}
 
-    @Override
-    public double getEntityMaxHealth()
-    {
-        return 50.0;
-    }
+	@Override
+	public double getEntityMaxHealth() {
+		return 50.0;
+	}
 
-    @Override
-    public double getDamageDealt()
-    {
-        return 20.0;
-    }
+	@Override
+	public double getDamageDealt() {
+		return 20.0;
+	}
 
-    @Override
-    public double getXPDropped()
-    {
-        return 5.4;
-    }
+	@Override
+	public double getXPDropped() {
+		return 5.4;
+	}
 }

@@ -1,6 +1,7 @@
 plugins {
     java
     id("io.freefair.lombok") version "8.10.2"
+    id("com.diffplug.spotless") version "7.0.0.BETA4"
 }
 
 java {
@@ -35,5 +36,14 @@ tasks.processResources {
 
     filesMatching(listOf("plugin.yml")) {
         expand(inputs.properties)
+    }
+}
+
+spotless {
+    java {
+        importOrder()
+        removeUnusedImports()
+        formatAnnotations()
+        eclipse()
     }
 }

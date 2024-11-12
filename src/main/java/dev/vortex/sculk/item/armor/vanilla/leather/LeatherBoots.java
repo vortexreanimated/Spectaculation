@@ -20,35 +20,29 @@ package dev.vortex.sculk.item.armor.vanilla.leather;
 
 import dev.vortex.sculk.item.*;
 
-public class LeatherBoots implements ToolStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Leather Boots";
-    }
+public class LeatherBoots implements ToolStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Leather Boots";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.BOOTS;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.BOOTS;
+	}
 
-    @Override
-    public double getBaseDefense()
-    {
-        return 5;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 5;
+	}
 }

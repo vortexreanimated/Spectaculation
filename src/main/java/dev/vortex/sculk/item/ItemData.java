@@ -18,16 +18,13 @@
  */
 package dev.vortex.sculk.item;
 
+import java.util.List;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 
-import java.util.List;
+public interface ItemData {
+	NBTTagCompound getData();
 
-public interface ItemData
-{
-    NBTTagCompound getData();
-
-    default List<String> getDataLore(String key, Object value)
-    {
-        return null;
-    }
+	default List<String> getDataLore(String key, Object value) {
+		return null;
+	}
 }

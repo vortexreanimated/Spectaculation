@@ -18,46 +18,41 @@
  */
 package dev.vortex.sculk.sidebar;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
-import java.util.ArrayList;
-import java.util.List;
+public class Sidebar {
+	private static final ScoreboardManager manager = Bukkit.getScoreboardManager();
 
-public class Sidebar
-{
-    private static final ScoreboardManager manager = Bukkit.getScoreboardManager();
+	private final String name;
+	private final String identifier;
 
-    private final String name;
-    private final String identifier;
+	private final Scoreboard board;
+	private final Objective obj;
+	private final List<Score> scores;
 
-    private final Scoreboard board;
-    private final Objective obj;
-    private final List<Score> scores;
+	public Sidebar(String name, String identifier) {
+		this.name = name;
+		this.identifier = identifier;
+		this.board = manager.getNewScoreboard();
+		this.obj = board.registerNewObjective(identifier, "");
+		this.scores = new ArrayList<>();
+		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+		obj.setDisplayName(name);
+	}
 
-    public Sidebar(String name, String identifier)
-    {
-        this.name = name;
-        this.identifier = identifier;
-        this.board = manager.getNewScoreboard();
-        this.obj = board.registerNewObjective(identifier, "");
-        this.scores = new ArrayList<>();
-        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        obj.setDisplayName(name);
-    }
+	public void add(String s) {
+		Score score = obj.getScore(s);
+		scores.addFirst(score);
+	}
 
-    public void add(String s)
-    {
-        Score score = obj.getScore(s);
-        scores.addFirst(score);
-    }
-
-    public void apply(Player player)
-    {
-        for (int i = 0; i < scores.size(); i++) {
-            scores.get(i).setScore(i);
-        }
-        player.setScoreboard(board);
-    }
+	public void apply(Player player) {
+		for (int i = 0; i < scores.size(); i++) {
+			scores.get(i).setScore(i);
+		}
+		player.setScoreboard(board);
+	}
 }

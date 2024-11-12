@@ -18,7 +18,6 @@
  */
 package dev.vortex.sculk.item;
 
-public interface SkullStatistics extends MaterialStatistics
-{
-    String getURL();
+public interface SkullStatistics extends MaterialStatistics {
+	String getURL();
 }

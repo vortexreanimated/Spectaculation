@@ -20,35 +20,29 @@ package dev.vortex.sculk.item.weapon.vanilla;
 
 import dev.vortex.sculk.item.*;
 
-public class IronSword implements ToolStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Iron Sword";
-    }
+public class IronSword implements ToolStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Iron Sword";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public int getBaseDamage()
-    {
-        return 30;
-    }
+	@Override
+	public int getBaseDamage() {
+		return 30;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.WEAPON;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.WEAPON;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.SWORD;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.SWORD;
+	}
 }

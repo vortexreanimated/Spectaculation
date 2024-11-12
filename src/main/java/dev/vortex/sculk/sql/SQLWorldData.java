@@ -20,30 +20,24 @@ package dev.vortex.sculk.sql;
 
 import org.bukkit.World;
 
-public class SQLWorldData
-{
-    public boolean exists(World world)
-    {
-        return false;
-    }
+public class SQLWorldData {
+	public boolean exists(World world) {
+		return false;
+	}
 
-    public boolean existsID(int id)
-    {
-        return false;
-    }
+	public boolean existsID(int id) {
+		return false;
+	}
 
-    public int getWorldID(World world)
-    {
-        return -1;
-    }
+	public int getWorldID(World world) {
+		return -1;
+	}
 
-    public World getWorld(int id)
-    {
-        return null;
-    }
+	public World getWorld(int id) {
+		return null;
+	}
 
-    public int getWorldCount()
-    {
-        return 0;
-    }
+	public int getWorldCount() {
+		return 0;
+	}
 }

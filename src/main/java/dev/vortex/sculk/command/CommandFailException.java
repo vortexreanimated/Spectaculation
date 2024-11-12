@@ -18,10 +18,8 @@
  */
 package dev.vortex.sculk.command;
 
-public class CommandFailException extends RuntimeException
-{
-    public CommandFailException(String message)
-    {
-        super(message);
-    }
+public class CommandFailException extends RuntimeException {
+	public CommandFailException(String message) {
+		super(message);
+	}
 }

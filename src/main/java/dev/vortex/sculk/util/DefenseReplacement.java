@@ -18,8 +18,8 @@
  */
 package dev.vortex.sculk.util;
 
-public interface DefenseReplacement
-{
-    String getReplacement();
-    long getEnd();
+public interface DefenseReplacement {
+	String getReplacement();
+
+	long getEnd();
 }

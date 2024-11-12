@@ -21,10 +21,8 @@ package dev.vortex.sculk.entity.end;
 import dev.vortex.sculk.entity.EntityStatistics;
 import org.bukkit.material.MaterialData;
 
-public interface EndermanStatistics extends EntityStatistics
-{
-    default MaterialData getCarriedMaterial()
-    {
-        return null;
-    }
+public interface EndermanStatistics extends EntityStatistics {
+	default MaterialData getCarriedMaterial() {
+		return null;
+	}
 }

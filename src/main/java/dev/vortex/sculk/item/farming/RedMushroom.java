@@ -25,35 +25,29 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.skill.FarmingSkill;
 import dev.vortex.sculk.skill.Skill;
 
-public class RedMushroom implements ExperienceRewardStatistics, MaterialFunction
-{
-    @Override
-    public double getRewardXP()
-    {
-        return 2.0;
-    }
+public class RedMushroom implements ExperienceRewardStatistics, MaterialFunction {
+	@Override
+	public double getRewardXP() {
+		return 2.0;
+	}
 
-    @Override
-    public Skill getRewardedSkill()
-    {
-        return FarmingSkill.INSTANCE;
-    }
+	@Override
+	public Skill getRewardedSkill() {
+		return FarmingSkill.INSTANCE;
+	}
 
-    @Override
-    public String getDisplayName()
-    {
-        return "Red Mushroom";
-    }
+	@Override
+	public String getDisplayName() {
+		return "Red Mushroom";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 }

@@ -20,7 +20,6 @@ package dev.vortex.sculk.item.armor;
 
 import dev.vortex.sculk.item.ToolStatistics;
 
-public interface LeatherArmorStatistics extends ToolStatistics
-{
-    int getColor();
+public interface LeatherArmorStatistics extends ToolStatistics {
+	int getColor();
 }

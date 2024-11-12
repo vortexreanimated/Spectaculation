@@ -23,29 +23,24 @@ import dev.vortex.sculk.item.MaterialFunction;
 import dev.vortex.sculk.item.MaterialStatistics;
 import dev.vortex.sculk.item.Rarity;
 
-public class Bedrock implements MaterialStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Bedrock";
-    }
+public class Bedrock implements MaterialStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Bedrock";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.LEGENDARY;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.LEGENDARY;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.BLOCK;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.BLOCK;
+	}
 
-    @Override
-    public String getLore()
-    {
-        return "How do you have this??";
-    }
+	@Override
+	public String getLore() {
+		return "How do you have this??";
+	}
 }

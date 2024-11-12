@@ -21,41 +21,34 @@ package dev.vortex.sculk.item.dragon.strong;
 import dev.vortex.sculk.item.MaterialStatistics;
 import dev.vortex.sculk.item.armor.ArmorSet;
 
-public class StrongDragonSet implements ArmorSet
-{
-    @Override
-    public String getName()
-    {
-        return "Strong Blood";
-    }
+public class StrongDragonSet implements ArmorSet {
+	@Override
+	public String getName() {
+		return "Strong Blood";
+	}
 
-    @Override
-    public String getDescription()
-    {
-        return "Improves the Aspect of the End: +75 Base Damage, +2 Teleport distance, +3 seconds of speed, Strength on ability";
-    }
+	@Override
+	public String getDescription() {
+		return "Improves the Aspect of the End: +75 Base Damage, +2 Teleport distance, +3 seconds of speed, Strength on ability";
+	}
 
-    @Override
-    public Class<? extends MaterialStatistics> getHelmet()
-    {
-        return StrongDragonHelmet.class;
-    }
+	@Override
+	public Class<? extends MaterialStatistics> getHelmet() {
+		return StrongDragonHelmet.class;
+	}
 
-    @Override
-    public Class<? extends MaterialStatistics> getChestplate()
-    {
-        return StrongDragonChestplate.class;
-    }
+	@Override
+	public Class<? extends MaterialStatistics> getChestplate() {
+		return StrongDragonChestplate.class;
+	}
 
-    @Override
-    public Class<? extends MaterialStatistics> getLeggings()
-    {
-        return StrongDragonLeggings.class;
-    }
+	@Override
+	public Class<? extends MaterialStatistics> getLeggings() {
+		return StrongDragonLeggings.class;
+	}
 
-    @Override
-    public Class<? extends MaterialStatistics> getBoots()
-    {
-        return StrongDragonBoots.class;
-    }
+	@Override
+	public Class<? extends MaterialStatistics> getBoots() {
+		return StrongDragonBoots.class;
+	}
 }

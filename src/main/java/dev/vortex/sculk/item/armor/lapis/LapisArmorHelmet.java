@@ -20,35 +20,29 @@ package dev.vortex.sculk.item.armor.lapis;
 
 import dev.vortex.sculk.item.*;
 
-public class LapisArmorHelmet implements ToolStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Lapis Armor Helmet";
-    }
+public class LapisArmorHelmet implements ToolStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Lapis Armor Helmet";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.UNCOMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.UNCOMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.HELMET;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.HELMET;
+	}
 
-    @Override
-    public double getBaseDefense()
-    {
-        return 25;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 25;
+	}
 }

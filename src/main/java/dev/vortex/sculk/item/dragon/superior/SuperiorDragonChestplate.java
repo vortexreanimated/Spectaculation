@@ -24,83 +24,69 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.item.SpecificItemType;
 import dev.vortex.sculk.item.armor.LeatherArmorStatistics;
 
-public class SuperiorDragonChestplate implements MaterialFunction, LeatherArmorStatistics
-{
-    @Override
-    public double getBaseStrength()
-    {
-        return 10;
-    }
+public class SuperiorDragonChestplate implements MaterialFunction, LeatherArmorStatistics {
+	@Override
+	public double getBaseStrength() {
+		return 10;
+	}
 
-    @Override
-    public double getBaseCritChance()
-    {
-        return 0.02;
-    }
+	@Override
+	public double getBaseCritChance() {
+		return 0.02;
+	}
 
-    @Override
-    public double getBaseCritDamage()
-    {
-        return 0.08;
-    }
+	@Override
+	public double getBaseCritDamage() {
+		return 0.08;
+	}
 
-    @Override
-    public double getBaseIntelligence()
-    {
-        return 25;
-    }
+	@Override
+	public double getBaseIntelligence() {
+		return 25;
+	}
 
-    @Override
-    public double getBaseSpeed()
-    {
-        return 0.03;
-    }
+	@Override
+	public double getBaseSpeed() {
+		return 0.03;
+	}
 
-    @Override
-    public double getBaseHealth()
-    {
-        return 150;
-    }
+	@Override
+	public double getBaseHealth() {
+		return 150;
+	}
 
-    @Override
-    public double getBaseDefense()
-    {
-        return 190;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 190;
+	}
 
-    @Override
-    public int getColor()
-    {
-        return 0xF2DF11;
-    }
+	@Override
+	public int getColor() {
+		return 0xF2DF11;
+	}
 
-    @Override
-    public String getDisplayName()
-    {
-        return "Superior Dragon Chestplate";
-    }
+	@Override
+	public String getDisplayName() {
+		return "Superior Dragon Chestplate";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.LEGENDARY;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.LEGENDARY;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.CHESTPLATE;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.CHESTPLATE;
+	}
 
-    @Override
-    public String getLore()
-    {
-        return null;
-    }
+	@Override
+	public String getLore() {
+		return null;
+	}
 }

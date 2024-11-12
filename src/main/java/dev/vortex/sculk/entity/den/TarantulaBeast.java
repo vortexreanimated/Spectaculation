@@ -23,39 +23,33 @@ import dev.vortex.sculk.entity.EntityDropType;
 import dev.vortex.sculk.item.SItem;
 import dev.vortex.sculk.item.SMaterial;
 import dev.vortex.sculk.util.SUtil;
-
 import java.util.Collections;
 import java.util.List;
 
-public class TarantulaBeast extends BaseSpider
-{
-    @Override
-    public String getEntityName()
-    {
-        return "Tarantula Beast";
-    }
+public class TarantulaBeast extends BaseSpider {
+	@Override
+	public String getEntityName() {
+		return "Tarantula Beast";
+	}
 
-    @Override
-    public double getEntityMaxHealth()
-    {
-        return 144000;
-    }
+	@Override
+	public double getEntityMaxHealth() {
+		return 144000;
+	}
 
-    @Override
-    public double getDamageDealt()
-    {
-        return 2500.0;
-    }
+	@Override
+	public double getDamageDealt() {
+		return 2500.0;
+	}
 
-    @Override
-    public double getXPDropped()
-    {
-        return 300.0;
-    }
+	@Override
+	public double getXPDropped() {
+		return 300.0;
+	}
 
-    @Override
-    public List<EntityDrop> drops()
-    {
-        return Collections.singletonList(new EntityDrop(SUtil.setStackAmount(SItem.of(SMaterial.TARANTULA_WEB).getStack(), 2), EntityDropType.GUARANTEED, 1.0));
-    }
+	@Override
+	public List<EntityDrop> drops() {
+		return Collections.singletonList(new EntityDrop(
+				SUtil.setStackAmount(SItem.of(SMaterial.TARANTULA_WEB).getStack(), 2), EntityDropType.GUARANTEED, 1.0));
+	}
 }

@@ -25,35 +25,29 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.skill.MiningSkill;
 import dev.vortex.sculk.skill.Skill;
 
-public class Gravel implements ExperienceRewardStatistics, MaterialFunction
-{
-    @Override
-    public double getRewardXP()
-    {
-        return 4.0;
-    }
+public class Gravel implements ExperienceRewardStatistics, MaterialFunction {
+	@Override
+	public double getRewardXP() {
+		return 4.0;
+	}
 
-    @Override
-    public Skill getRewardedSkill()
-    {
-        return MiningSkill.INSTANCE;
-    }
+	@Override
+	public Skill getRewardedSkill() {
+		return MiningSkill.INSTANCE;
+	}
 
-    @Override
-    public String getDisplayName()
-    {
-        return "Sand";
-    }
+	@Override
+	public String getDisplayName() {
+		return "Sand";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 }

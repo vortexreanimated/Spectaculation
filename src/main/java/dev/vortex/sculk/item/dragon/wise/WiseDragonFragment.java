@@ -23,29 +23,24 @@ import dev.vortex.sculk.item.MaterialFunction;
 import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.item.SkullStatistics;
 
-public class WiseDragonFragment implements SkullStatistics, MaterialFunction
-{
-    @Override
-    public String getURL()
-    {
-        return "1d7620b2e4934963bb12508310d05494c067dc33e008cecf2cd7b4549654fab3";
-    }
+public class WiseDragonFragment implements SkullStatistics, MaterialFunction {
+	@Override
+	public String getURL() {
+		return "1d7620b2e4934963bb12508310d05494c067dc33e008cecf2cd7b4549654fab3";
+	}
 
-    @Override
-    public String getDisplayName()
-    {
-        return "Wise Dragon Fragment";
-    }
+	@Override
+	public String getDisplayName() {
+		return "Wise Dragon Fragment";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.EPIC;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.EPIC;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 }

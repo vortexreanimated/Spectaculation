@@ -20,35 +20,29 @@ package dev.vortex.sculk.item.armor.vanilla.iron;
 
 import dev.vortex.sculk.item.*;
 
-public class IronHelmet implements ToolStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Iron Helmet";
-    }
+public class IronHelmet implements ToolStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Iron Helmet";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.HELMET;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.HELMET;
+	}
 
-    @Override
-    public double getBaseDefense()
-    {
-        return 10;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 10;
+	}
 }

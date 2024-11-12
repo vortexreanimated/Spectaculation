@@ -23,29 +23,24 @@ import dev.vortex.sculk.item.MaterialFunction;
 import dev.vortex.sculk.item.MaterialStatistics;
 import dev.vortex.sculk.item.Rarity;
 
-public class GoldenPowder implements MaterialStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Golden Powder";
-    }
+public class GoldenPowder implements MaterialStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Golden Powder";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.EPIC;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.EPIC;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 
-    @Override
-    public boolean isEnchanted()
-    {
-        return true;
-    }
+	@Override
+	public boolean isEnchanted() {
+		return true;
+	}
 }

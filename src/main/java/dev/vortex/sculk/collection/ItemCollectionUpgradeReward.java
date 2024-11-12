@@ -21,24 +21,22 @@ package dev.vortex.sculk.collection;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class ItemCollectionUpgradeReward extends ItemCollectionReward
-{
-    private final String name;
-    private final ChatColor color;
+public class ItemCollectionUpgradeReward extends ItemCollectionReward {
+	private final String name;
+	private final ChatColor color;
 
-    public ItemCollectionUpgradeReward(String name, ChatColor color)
-    {
-        super(Type.UPGRADE);
-        this.name = name;
-        this.color = color;
-    }
+	public ItemCollectionUpgradeReward(String name, ChatColor color) {
+		super(Type.UPGRADE);
+		this.name = name;
+		this.color = color;
+	}
 
-    @Override
-    public String toRewardString()
-    {
-        return color + name + " Upgrade";
-    }
+	@Override
+	public String toRewardString() {
+		return color + name + " Upgrade";
+	}
 
-    @Override
-    public void onAchieve(Player player) {} // no immediate rewards
+	@Override
+	public void onAchieve(Player player) {
+	} // no immediate rewards
 }

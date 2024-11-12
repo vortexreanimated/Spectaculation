@@ -20,29 +20,24 @@ package dev.vortex.sculk.item.tarantula;
 
 import dev.vortex.sculk.item.*;
 
-public class ToxicArrowPoison implements MaterialStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Toxic Arrow Poison";
-    }
+public class ToxicArrowPoison implements MaterialStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Toxic Arrow Poison";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.UNCOMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.UNCOMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.ARROW_POISON;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.ARROW_POISON;
+	}
 }

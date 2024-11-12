@@ -19,39 +19,34 @@
 package dev.vortex.sculk.entity;
 
 import dev.vortex.sculk.Spectaculation;
+import java.util.*;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 
-import java.util.*;
+public final class StaticDragonManager {
+	public static boolean ACTIVE;
+	public static Map<UUID, List<Location>> EYES = new HashMap<>();
+	public static SEntity DRAGON;
 
-public final class StaticDragonManager
-{
-    public static boolean ACTIVE;
-    public static Map<UUID, List<Location>> EYES = new HashMap<>();
-    public static SEntity DRAGON;
+	public static void endFight() {
+		if (DRAGON == null) {
+			return;
+		}
+		ACTIVE = false;
+		for (List<Location> locations : StaticDragonManager.EYES.values()) {
+			for (Location location : locations) {
+				Block b = location.getBlock();
+				BlockState s = b.getState();
+				s.setRawData((byte) 0);
+				s.update();
+				b.removeMetadata("placer", Spectaculation.getPlugin());
+			}
+		}
+		EYES.clear();
+		DRAGON = null;
+	}
 
-    public static void endFight()
-    {
-        if (DRAGON == null) {
-            return;
-        }
-        ACTIVE = false;
-        for (List<Location> locations : StaticDragonManager.EYES.values())
-        {
-            for (Location location : locations)
-            {
-                Block b = location.getBlock();
-                BlockState s = b.getState();
-                s.setRawData((byte) 0);
-                s.update();
-                b.removeMetadata("placer", Spectaculation.getPlugin());
-            }
-        }
-        EYES.clear();
-        DRAGON = null;
-    }
-
-    private StaticDragonManager() {
-    }
+	private StaticDragonManager() {
+	}
 }

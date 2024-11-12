@@ -18,8 +18,6 @@
  */
 package dev.vortex.sculk.item;
 
-public enum EventType
-{
-    KILL,
-    DEATH
+public enum EventType {
+	KILL, DEATH
 }

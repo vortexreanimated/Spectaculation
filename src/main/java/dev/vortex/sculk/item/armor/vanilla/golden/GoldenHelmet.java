@@ -20,35 +20,29 @@ package dev.vortex.sculk.item.armor.vanilla.golden;
 
 import dev.vortex.sculk.item.*;
 
-public class GoldenHelmet implements ToolStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Golden Helmet";
-    }
+public class GoldenHelmet implements ToolStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Golden Helmet";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.HELMET;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.HELMET;
+	}
 
-    @Override
-    public double getBaseDefense()
-    {
-        return 10;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 10;
+	}
 }

@@ -25,35 +25,29 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.skill.FarmingSkill;
 import dev.vortex.sculk.skill.Skill;
 
-public class Pumpkin implements ExperienceRewardStatistics, MaterialFunction
-{
-    @Override
-    public double getRewardXP()
-    {
-        return 4.5;
-    }
+public class Pumpkin implements ExperienceRewardStatistics, MaterialFunction {
+	@Override
+	public double getRewardXP() {
+		return 4.5;
+	}
 
-    @Override
-    public Skill getRewardedSkill()
-    {
-        return FarmingSkill.INSTANCE;
-    }
+	@Override
+	public Skill getRewardedSkill() {
+		return FarmingSkill.INSTANCE;
+	}
 
-    @Override
-    public String getDisplayName()
-    {
-        return "Melon";
-    }
+	@Override
+	public String getDisplayName() {
+		return "Melon";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 }

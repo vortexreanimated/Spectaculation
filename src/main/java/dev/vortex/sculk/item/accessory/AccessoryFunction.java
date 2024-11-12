@@ -24,8 +24,11 @@ import dev.vortex.sculk.item.SItem;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public interface AccessoryFunction extends MaterialFunction
-{
-    default void onDamageInInventory(SItem weapon, Player damager, Entity damaged, SItem accessory, AtomicDouble damage) {}
-    default void update(SItem instance, Player player, int accessorySlot) {}
+public interface AccessoryFunction extends MaterialFunction {
+	default void onDamageInInventory(SItem weapon, Player damager, Entity damaged, SItem accessory,
+			AtomicDouble damage) {
+	}
+
+	default void update(SItem instance, Player player, int accessorySlot) {
+	}
 }

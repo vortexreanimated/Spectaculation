@@ -18,10 +18,6 @@
  */
 package dev.vortex.sculk.item;
 
-public enum ItemOrigin
-{
-    NATURAL_BLOCK,
-    CRAFTING,
-    MOB,
-    UNKNOWN
+public enum ItemOrigin {
+	NATURAL_BLOCK, CRAFTING, MOB, UNKNOWN
 }

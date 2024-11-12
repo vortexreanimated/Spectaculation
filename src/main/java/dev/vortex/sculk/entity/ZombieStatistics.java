@@ -18,10 +18,8 @@
  */
 package dev.vortex.sculk.entity;
 
-public interface ZombieStatistics extends EntityStatistics, Ageable
-{
-    default boolean isVillager()
-    {
-        return false;
-    }
+public interface ZombieStatistics extends EntityStatistics, Ageable {
+	default boolean isVillager() {
+		return false;
+	}
 }

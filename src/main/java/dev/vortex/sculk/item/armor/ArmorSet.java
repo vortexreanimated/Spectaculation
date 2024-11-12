@@ -22,16 +22,20 @@ import dev.vortex.sculk.item.MaterialStatistics;
 import dev.vortex.sculk.item.PlayerBoostStatistics;
 import org.bukkit.entity.Player;
 
-public interface ArmorSet
-{
-    String getName();
-    String getDescription();
-    Class<? extends MaterialStatistics> getHelmet();
-    Class<? extends MaterialStatistics> getChestplate();
-    Class<? extends MaterialStatistics> getLeggings();
-    Class<? extends MaterialStatistics> getBoots();
-    default PlayerBoostStatistics whileHasFullSet(Player player)
-    {
-        return null;
-    }
+public interface ArmorSet {
+	String getName();
+
+	String getDescription();
+
+	Class<? extends MaterialStatistics> getHelmet();
+
+	Class<? extends MaterialStatistics> getChestplate();
+
+	Class<? extends MaterialStatistics> getLeggings();
+
+	Class<? extends MaterialStatistics> getBoots();
+
+	default PlayerBoostStatistics whileHasFullSet(Player player) {
+		return null;
+	}
 }

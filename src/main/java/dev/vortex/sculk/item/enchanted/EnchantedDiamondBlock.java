@@ -20,41 +20,34 @@ package dev.vortex.sculk.item.enchanted;
 
 import dev.vortex.sculk.item.*;
 
-public class EnchantedDiamondBlock implements EnchantedMaterialStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Enchanted Diamond Block";
-    }
+public class EnchantedDiamondBlock implements EnchantedMaterialStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Enchanted Diamond Block";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.RARE;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.RARE;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 
-    @Override
-    public boolean isEnchanted()
-    {
-        return true;
-    }
+	@Override
+	public boolean isEnchanted() {
+		return true;
+	}
 
-    @Override
-    public SMaterial getCraftingMaterial()
-    {
-        return SMaterial.ENCHANTED_DIAMOND;
-    }
+	@Override
+	public SMaterial getCraftingMaterial() {
+		return SMaterial.ENCHANTED_DIAMOND;
+	}
 
-    @Override
-    public MaterialQuantifiable getResult()
-    {
-        return new MaterialQuantifiable(SMaterial.ENCHANTED_DIAMOND_BLOCK);
-    }
+	@Override
+	public MaterialQuantifiable getResult() {
+		return new MaterialQuantifiable(SMaterial.ENCHANTED_DIAMOND_BLOCK);
+	}
 }

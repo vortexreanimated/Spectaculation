@@ -25,35 +25,29 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.skill.FarmingSkill;
 import dev.vortex.sculk.skill.Skill;
 
-public class SugarCane implements ExperienceRewardStatistics, MaterialFunction
-{
-    @Override
-    public double getRewardXP()
-    {
-        return 2.0;
-    }
+public class SugarCane implements ExperienceRewardStatistics, MaterialFunction {
+	@Override
+	public double getRewardXP() {
+		return 2.0;
+	}
 
-    @Override
-    public Skill getRewardedSkill()
-    {
-        return FarmingSkill.INSTANCE;
-    }
+	@Override
+	public Skill getRewardedSkill() {
+		return FarmingSkill.INSTANCE;
+	}
 
-    @Override
-    public String getDisplayName()
-    {
-        return "Sugar Cane";
-    }
+	@Override
+	public String getDisplayName() {
+		return "Sugar Cane";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 }

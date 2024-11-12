@@ -18,7 +18,6 @@
  */
 package dev.vortex.sculk.entity;
 
-public interface JockeyStatistics extends EntityStatistics
-{
-    SEntityType getPassenger();
+public interface JockeyStatistics extends EntityStatistics {
+	SEntityType getPassenger();
 }

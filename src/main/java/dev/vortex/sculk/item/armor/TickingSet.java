@@ -19,12 +19,10 @@
 package dev.vortex.sculk.item.armor;
 
 import dev.vortex.sculk.item.SItem;
-import org.bukkit.entity.Player;
-
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.bukkit.entity.Player;
 
-public interface TickingSet extends ArmorSet
-{
-    void tick(Player owner, SItem helmet, SItem chestplate, SItem leggings, SItem boots, List<AtomicInteger> counters);
+public interface TickingSet extends ArmorSet {
+	void tick(Player owner, SItem helmet, SItem chestplate, SItem leggings, SItem boots, List<AtomicInteger> counters);
 }

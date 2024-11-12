@@ -23,29 +23,24 @@ import dev.vortex.sculk.item.MaterialFunction;
 import dev.vortex.sculk.item.MaterialStatistics;
 import dev.vortex.sculk.item.Rarity;
 
-public class RevenantFlesh implements MaterialStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Revenant Flesh";
-    }
+public class RevenantFlesh implements MaterialStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Revenant Flesh";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.UNCOMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.UNCOMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 
-    @Override
-    public boolean isEnchanted()
-    {
-        return true;
-    }
+	@Override
+	public boolean isEnchanted() {
+		return true;
+	}
 }

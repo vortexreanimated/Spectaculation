@@ -18,10 +18,8 @@
  */
 package dev.vortex.sculk.entity;
 
-public interface SkeletonStatistics extends EntityStatistics
-{
-    default boolean isWither()
-    {
-        return false;
-    }
+public interface SkeletonStatistics extends EntityStatistics {
+	default boolean isWither() {
+		return false;
+	}
 }

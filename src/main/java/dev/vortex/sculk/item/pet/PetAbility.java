@@ -20,16 +20,21 @@ package dev.vortex.sculk.item.pet;
 
 import com.google.common.util.concurrent.AtomicDouble;
 import dev.vortex.sculk.item.SItem;
+import java.util.List;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import java.util.List;
+public interface PetAbility {
+	String getName();
 
-public interface PetAbility
-{
-    String getName();
-    List<String> getDescription(SItem instance);
-    default void onHurt(EntityDamageByEntityEvent e, Entity damager) {}
-    default void onDamage(EntityDamageByEntityEvent e) {}
-    default void onZealotAttempt(AtomicDouble chance) {}
+	List<String> getDescription(SItem instance);
+
+	default void onHurt(EntityDamageByEntityEvent e, Entity damager) {
+	}
+
+	default void onDamage(EntityDamageByEntityEvent e) {
+	}
+
+	default void onZealotAttempt(AtomicDouble chance) {
+	}
 }

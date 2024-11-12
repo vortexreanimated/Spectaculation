@@ -23,35 +23,29 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.item.SpecificItemType;
 import dev.vortex.sculk.item.ToolStatistics;
 
-public class Bow implements ToolStatistics, BowFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Bow";
-    }
+public class Bow implements ToolStatistics, BowFunction {
+	@Override
+	public String getDisplayName() {
+		return "Bow";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public int getBaseDamage()
-    {
-        return 30;
-    }
+	@Override
+	public int getBaseDamage() {
+		return 30;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.RANGED_WEAPON;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.RANGED_WEAPON;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.BOW;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.BOW;
+	}
 }

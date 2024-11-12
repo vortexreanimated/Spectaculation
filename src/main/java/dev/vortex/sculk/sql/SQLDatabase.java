@@ -20,10 +20,8 @@ package dev.vortex.sculk.sql;
 
 import java.sql.Connection;
 
-public class SQLDatabase
-{
-    public Connection getConnection()
-    {
-        return null;
-    }
+public class SQLDatabase {
+	public Connection getConnection() {
+		return null;
+	}
 }

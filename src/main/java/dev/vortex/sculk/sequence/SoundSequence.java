@@ -19,77 +19,64 @@
 package dev.vortex.sculk.sequence;
 
 import dev.vortex.sculk.Spectaculation;
+import java.util.Arrays;
+import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Arrays;
-import java.util.List;
+public class SoundSequence implements Sequence {
+	private final List<DelayedSound> sounds;
 
-public class SoundSequence implements Sequence
-{
-    private final List<DelayedSound> sounds;
+	public SoundSequence(DelayedSound... sounds) {
+		this.sounds = Arrays.asList(sounds);
+	}
 
-    public SoundSequence(DelayedSound... sounds)
-    {
-        this.sounds = Arrays.asList(sounds);
-    }
+	public void append(DelayedSound sound) {
+		sounds.add(sound);
+	}
 
-    public void append(DelayedSound sound)
-    {
-        sounds.add(sound);
-    }
+	@Override
+	public void play(Location location) {
+		for (DelayedSound sound : sounds)
+			sound.play(location);
+	}
 
-    @Override
-    public void play(Location location)
-    {
-        for (DelayedSound sound : sounds)
-            sound.play(location);
-    }
+	@Override
+	public void play(Entity entity) {
+		for (DelayedSound sound : sounds)
+			sound.play(entity);
+	}
 
-    @Override
-    public void play(Entity entity)
-    {
-        for (DelayedSound sound : sounds)
-            sound.play(entity);
-    }
+	public static class DelayedSound {
+		private final Sound sound;
+		private final float volume;
+		private final float pitch;
+		private final long delay;
 
-    public static class DelayedSound
-    {
-        private final Sound sound;
-        private final float volume;
-        private final float pitch;
-        private final long delay;
+		public DelayedSound(Sound sound, float volume, float pitch, long delay) {
+			this.sound = sound;
+			this.volume = volume;
+			this.pitch = pitch;
+			this.delay = delay;
+		}
 
-        public DelayedSound(Sound sound, float volume, float pitch, long delay)
-        {
-            this.sound = sound;
-            this.volume = volume;
-            this.pitch = pitch;
-            this.delay = delay;
-        }
+		public DelayedSound(Sound sound, float volume, float pitch) {
+			this(sound, volume, pitch, 0);
+		}
 
-        public DelayedSound(Sound sound, float volume, float pitch)
-        {
-            this(sound, volume, pitch, 0);
-        }
+		public void play(Location location) {
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					location.getWorld().playSound(location, sound, volume, pitch);
+				}
+			}.runTaskLater(Spectaculation.getPlugin(), delay);
+		}
 
-        public void play(Location location)
-        {
-            new BukkitRunnable()
-            {
-                @Override
-                public void run()
-                {
-                    location.getWorld().playSound(location, sound, volume, pitch);
-                }
-            }.runTaskLater(Spectaculation.getPlugin(), delay);
-        }
-
-        public void play(Entity entity)
-        {
-            play(entity.getLocation());
-        }
-    }
+		public void play(Entity entity) {
+			play(entity.getLocation());
+		}
+	}
 }

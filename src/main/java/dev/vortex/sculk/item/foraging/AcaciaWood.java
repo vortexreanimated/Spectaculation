@@ -25,35 +25,29 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.skill.ForagingSkill;
 import dev.vortex.sculk.skill.Skill;
 
-public class AcaciaWood implements ExperienceRewardStatistics, MaterialFunction
-{
-    @Override
-    public double getRewardXP()
-    {
-        return 6.0;
-    }
+public class AcaciaWood implements ExperienceRewardStatistics, MaterialFunction {
+	@Override
+	public double getRewardXP() {
+		return 6.0;
+	}
 
-    @Override
-    public Skill getRewardedSkill()
-    {
-        return ForagingSkill.INSTANCE;
-    }
+	@Override
+	public Skill getRewardedSkill() {
+		return ForagingSkill.INSTANCE;
+	}
 
-    @Override
-    public String getDisplayName()
-    {
-        return "Acacia Wood";
-    }
+	@Override
+	public String getDisplayName() {
+		return "Acacia Wood";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 }

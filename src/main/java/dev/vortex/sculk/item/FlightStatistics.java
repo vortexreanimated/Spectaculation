@@ -18,7 +18,6 @@
  */
 package dev.vortex.sculk.item;
 
-public interface FlightStatistics extends MaterialStatistics
-{
-    boolean enableFlight();
+public interface FlightStatistics extends MaterialStatistics {
+	boolean enableFlight();
 }

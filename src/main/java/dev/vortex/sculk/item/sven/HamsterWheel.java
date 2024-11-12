@@ -23,29 +23,24 @@ import dev.vortex.sculk.item.MaterialFunction;
 import dev.vortex.sculk.item.MaterialStatistics;
 import dev.vortex.sculk.item.Rarity;
 
-public class HamsterWheel implements MaterialStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Hamster Wheel";
-    }
+public class HamsterWheel implements MaterialStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Hamster Wheel";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.RARE;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.RARE;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 
-    @Override
-    public boolean isEnchanted()
-    {
-        return true;
-    }
+	@Override
+	public boolean isEnchanted() {
+		return true;
+	}
 }

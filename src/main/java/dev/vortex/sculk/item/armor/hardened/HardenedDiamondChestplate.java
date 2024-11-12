@@ -20,36 +20,30 @@ package dev.vortex.sculk.item.armor.hardened;
 
 import dev.vortex.sculk.item.*;
 
-public class HardenedDiamondChestplate implements ToolStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Hardened Diamond Chestplate";
-    }
+public class HardenedDiamondChestplate implements ToolStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Hardened Diamond Chestplate";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.RARE;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.RARE;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.CHESTPLATE;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.CHESTPLATE;
+	}
 
-    @Override
-    public double getBaseDefense()
-    {
-        return 120;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 120;
+	}
 
 }

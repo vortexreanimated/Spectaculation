@@ -18,7 +18,6 @@
  */
 package dev.vortex.sculk.gui;
 
-public interface GUIQueryItem extends GUIClickableItem
-{
-    GUI onQueryFinish(String query);
+public interface GUIQueryItem extends GUIClickableItem {
+	GUI onQueryFinish(String query);
 }

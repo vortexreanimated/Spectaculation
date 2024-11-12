@@ -20,17 +20,14 @@ package dev.vortex.sculk.item.accessory;
 
 import dev.vortex.sculk.item.*;
 
-public interface AccessoryStatistics extends PlayerBoostStatistics, SkullStatistics, Reforgable
-{
-    @Override
-    default GenericItemType getType()
-    {
-        return GenericItemType.ACCESSORY;
-    }
+public interface AccessoryStatistics extends PlayerBoostStatistics, SkullStatistics, Reforgable {
+	@Override
+	default GenericItemType getType() {
+		return GenericItemType.ACCESSORY;
+	}
 
-    @Override
-    default SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.ACCESSORY;
-    }
+	@Override
+	default SpecificItemType getSpecificType() {
+		return SpecificItemType.ACCESSORY;
+	}
 }

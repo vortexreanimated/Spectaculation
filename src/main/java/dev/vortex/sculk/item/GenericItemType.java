@@ -18,14 +18,6 @@
  */
 package dev.vortex.sculk.item;
 
-public enum GenericItemType
-{
-    WEAPON,
-    TOOL,
-    RANGED_WEAPON,
-    ARMOR,
-    ACCESSORY,
-    BLOCK,
-    ITEM,
-    PET
+public enum GenericItemType {
+	WEAPON, TOOL, RANGED_WEAPON, ARMOR, ACCESSORY, BLOCK, ITEM, PET
 }

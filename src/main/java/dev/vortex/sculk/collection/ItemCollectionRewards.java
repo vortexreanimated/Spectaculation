@@ -18,19 +18,16 @@
  */
 package dev.vortex.sculk.collection;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import lombok.Getter;
 
-public class ItemCollectionRewards extends ArrayList<ItemCollectionReward>
-{
-    @Getter
-    private final int requirement;
+public class ItemCollectionRewards extends ArrayList<ItemCollectionReward> {
+	@Getter
+	private final int requirement;
 
-    public ItemCollectionRewards(int requirement, ItemCollectionReward... rewards)
-    {
-        super(Arrays.asList(rewards));
-        this.requirement = requirement;
-    }
+	public ItemCollectionRewards(int requirement, ItemCollectionReward... rewards) {
+		super(Arrays.asList(rewards));
+		this.requirement = requirement;
+	}
 }

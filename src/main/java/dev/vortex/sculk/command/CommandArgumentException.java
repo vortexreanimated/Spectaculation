@@ -18,10 +18,8 @@
  */
 package dev.vortex.sculk.command;
 
-public class CommandArgumentException extends RuntimeException
-{
-    public CommandArgumentException()
-    {
-        super("");
-    }
+public class CommandArgumentException extends RuntimeException {
+	public CommandArgumentException() {
+		super("");
+	}
 }

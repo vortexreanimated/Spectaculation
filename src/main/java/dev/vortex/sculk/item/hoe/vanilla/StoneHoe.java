@@ -20,29 +20,24 @@ package dev.vortex.sculk.item.hoe.vanilla;
 
 import dev.vortex.sculk.item.*;
 
-public class StoneHoe implements ToolStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Stone Hoe";
-    }
+public class StoneHoe implements ToolStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Stone Hoe";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.COMMON;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.COMMON;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.TOOL;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.TOOL;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.HOE;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.HOE;
+	}
 }

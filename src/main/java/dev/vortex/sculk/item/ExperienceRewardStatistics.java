@@ -20,8 +20,8 @@ package dev.vortex.sculk.item;
 
 import dev.vortex.sculk.skill.Skill;
 
-public interface ExperienceRewardStatistics extends MaterialStatistics
-{
-    double getRewardXP();
-    Skill getRewardedSkill();
+public interface ExperienceRewardStatistics extends MaterialStatistics {
+	double getRewardXP();
+
+	Skill getRewardedSkill();
 }

@@ -24,41 +24,34 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.item.SpecificItemType;
 import dev.vortex.sculk.item.armor.LeatherArmorStatistics;
 
-public class MinerLeggings implements LeatherArmorStatistics, MaterialFunction
-{
-    @Override
-    public String getDisplayName()
-    {
-        return "Miner Leggings";
-    }
+public class MinerLeggings implements LeatherArmorStatistics, MaterialFunction {
+	@Override
+	public String getDisplayName() {
+		return "Miner Leggings";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.RARE;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.RARE;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.LEGGINGS;
-    }
-    
-    @Override
-    public double getBaseDefense()
-    {
-        return 5;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.LEGGINGS;
+	}
 
-    @Override
-    public int getColor()
-    {
-        return 0x0000FF;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 5;
+	}
+
+	@Override
+	public int getColor() {
+		return 0x0000FF;
+	}
 }

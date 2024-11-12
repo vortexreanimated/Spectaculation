@@ -21,7 +21,6 @@ package dev.vortex.sculk.entity.nms;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 
-public interface SNMSEntity
-{
-    LivingEntity spawn(Location location);
+public interface SNMSEntity {
+	LivingEntity spawn(Location location);
 }

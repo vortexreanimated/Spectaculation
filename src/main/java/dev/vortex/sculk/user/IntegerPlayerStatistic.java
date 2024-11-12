@@ -18,99 +18,85 @@
  */
 package dev.vortex.sculk.user;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import lombok.Getter;
 
-public class IntegerPlayerStatistic implements PlayerStatistic<Integer>
-{
-    @Getter
-    private final int defaultValue;
-    private final ArrayList<Integer> values;
+public class IntegerPlayerStatistic implements PlayerStatistic<Integer> {
+	@Getter
+	private final int defaultValue;
+	private final ArrayList<Integer> values;
 
-    public IntegerPlayerStatistic(int defaultValue)
-    {
-        this.defaultValue = defaultValue;
-        this.values = new ArrayList<>(6);
-        this.values.addAll(Arrays.asList(0, 0, 0, 0, 0, 0));
-    }
+	public IntegerPlayerStatistic(int defaultValue) {
+		this.defaultValue = defaultValue;
+		this.values = new ArrayList<>(6);
+		this.values.addAll(Arrays.asList(0, 0, 0, 0, 0, 0));
+	}
 
-    public IntegerPlayerStatistic()
-    {
-        this(0);
-    }
+	public IntegerPlayerStatistic() {
+		this(0);
+	}
 
-    @Override
-    public Integer addAll()
-    {
-        int result = defaultValue;
-        for (Integer value : new ArrayList<>(values))
-            result += value;
-        return result;
-    }
+	@Override
+	public Integer addAll() {
+		int result = defaultValue;
+		for (Integer value : new ArrayList<>(values))
+			result += value;
+		return result;
+	}
 
-    @Override
-    public void add(int slot, Integer i)
-    {
-        set(slot, safeGet(slot) + i);
-    }
+	@Override
+	public void add(int slot, Integer i) {
+		set(slot, safeGet(slot) + i);
+	}
 
-    @Override
-    public void sub(int slot, Integer i)
-    {
-        set(slot, safeGet(slot) - i);
-    }
+	@Override
+	public void sub(int slot, Integer i) {
+		set(slot, safeGet(slot) - i);
+	}
 
-    @Override
-    public void zero(int slot)
-    {
-        set(slot, 0);
-    }
+	@Override
+	public void zero(int slot) {
+		set(slot, 0);
+	}
 
-    @Override
-    public boolean contains(int slot)
-    {
-        return slot >= 0 && slot < values.size();
-    }
+	@Override
+	public boolean contains(int slot) {
+		return slot >= 0 && slot < values.size();
+	}
 
-    @Override
-    public Integer safeGet(int index)
-    {
-        if (index < 0 || index > values.size() - 1) {
-            set(index, 0);
-        }
-        return values.get(index);
-    }
+	@Override
+	public Integer safeGet(int index) {
+		if (index < 0 || index > values.size() - 1) {
+			set(index, 0);
+		}
+		return values.get(index);
+	}
 
-    @Override
-    public void set(int slot, Integer i)
-    {
-        values.ensureCapacity(slot + 1);
-        while (values.size() < slot + 1) {
-            values.add(0);
-        }
-        values.set(slot, i);
-    }
+	@Override
+	public void set(int slot, Integer i) {
+		values.ensureCapacity(slot + 1);
+		while (values.size() < slot + 1) {
+			values.add(0);
+		}
+		values.set(slot, i);
+	}
 
-    @Override
-    public int next()
-    {
-        return values.size();
-    }
+	@Override
+	public int next() {
+		return values.size();
+	}
 
-    @Override
-    public Integer getFor(int slot)
-    {
-        return safeGet(slot);
-    }
+	@Override
+	public Integer getFor(int slot) {
+		return safeGet(slot);
+	}
 
-    public ArrayList<Integer> forInventory()
-    {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i = 6; i < values.size(); i++) {
-            list.add(safeGet(i));
-        }
-        return list;
-    }
+	public ArrayList<Integer> forInventory() {
+		ArrayList<Integer> list = new ArrayList<>();
+		for (int i = 6; i < values.size(); i++) {
+			list.add(safeGet(i));
+		}
+		return list;
+	}
 }

@@ -24,53 +24,44 @@ import dev.vortex.sculk.item.Rarity;
 import dev.vortex.sculk.item.SpecificItemType;
 import dev.vortex.sculk.item.armor.LeatherArmorStatistics;
 
-public class OldDragonBoots implements MaterialFunction, LeatherArmorStatistics
-{
-    @Override
-    public double getBaseHealth()
-    {
-        return 80;
-    }
+public class OldDragonBoots implements MaterialFunction, LeatherArmorStatistics {
+	@Override
+	public double getBaseHealth() {
+		return 80;
+	}
 
-    @Override
-    public double getBaseDefense()
-    {
-        return 90;
-    }
+	@Override
+	public double getBaseDefense() {
+		return 90;
+	}
 
-    @Override
-    public int getColor()
-    {
-        return 0xF0E6AA;
-    }
+	@Override
+	public int getColor() {
+		return 0xF0E6AA;
+	}
 
-    @Override
-    public String getDisplayName()
-    {
-        return "Old Dragon Boots";
-    }
+	@Override
+	public String getDisplayName() {
+		return "Old Dragon Boots";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.LEGENDARY;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.LEGENDARY;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ARMOR;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ARMOR;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.BOOTS;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.BOOTS;
+	}
 
-    @Override
-    public String getLore()
-    {
-        return null;
-    }
+	@Override
+	public String getLore() {
+		return null;
+	}
 }

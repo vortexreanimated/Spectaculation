@@ -21,10 +21,8 @@ package dev.vortex.sculk.entity.wolf;
 import dev.vortex.sculk.entity.Ageable;
 import dev.vortex.sculk.entity.EntityStatistics;
 
-public interface WolfStatistics extends EntityStatistics, Ageable
-{
-    default boolean isAngry()
-    {
-        return false;
-    }
+public interface WolfStatistics extends EntityStatistics, Ageable {
+	default boolean isAngry() {
+		return false;
+	}
 }

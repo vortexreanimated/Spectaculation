@@ -21,23 +21,19 @@ package dev.vortex.sculk.command;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandLoader
-{
-    private final List<SCommand> commands;
+public class CommandLoader {
+	private final List<SCommand> commands;
 
-    public CommandLoader()
-    {
-        this.commands = new ArrayList<>();
-    }
+	public CommandLoader() {
+		this.commands = new ArrayList<>();
+	}
 
-    public void register(SCommand command)
-    {
-        commands.add(command);
-        command.register();
-    }
+	public void register(SCommand command) {
+		commands.add(command);
+		command.register();
+	}
 
-    public int getCommandAmount()
-    {
-        return commands.size();
-    }
+	public int getCommandAmount() {
+		return commands.size();
+	}
 }

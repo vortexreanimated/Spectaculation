@@ -20,10 +20,8 @@ package dev.vortex.sculk.command;
 
 import org.bukkit.ChatColor;
 
-public class CommandPermissionException extends RuntimeException
-{
-    public CommandPermissionException(String permission)
-    {
-        super(ChatColor.RED + "No permission. You need \"" + permission + "\"");
-    }
+public class CommandPermissionException extends RuntimeException {
+	public CommandPermissionException(String permission) {
+		super(ChatColor.RED + "No permission. You need \"" + permission + "\"");
+	}
 }

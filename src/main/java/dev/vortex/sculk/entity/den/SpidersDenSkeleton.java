@@ -23,41 +23,35 @@ import dev.vortex.sculk.entity.EntityDropType;
 import dev.vortex.sculk.entity.EntityFunction;
 import dev.vortex.sculk.entity.EntityStatistics;
 import dev.vortex.sculk.util.SUtil;
+import java.util.Collections;
+import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collections;
-import java.util.List;
+public class SpidersDenSkeleton implements EntityStatistics, EntityFunction {
+	@Override
+	public String getEntityName() {
+		return "Skeleton";
+	}
 
-public class SpidersDenSkeleton implements EntityStatistics, EntityFunction
-{
-    @Override
-    public String getEntityName()
-    {
-        return "Skeleton";
-    }
+	@Override
+	public double getEntityMaxHealth() {
+		return 100.0;
+	}
 
-    @Override
-    public double getEntityMaxHealth()
-    {
-        return 100.0;
-    }
+	@Override
+	public double getDamageDealt() {
+		return 33.0;
+	}
 
-    @Override
-    public double getDamageDealt()
-    {
-        return 33.0;
-    }
+	@Override
+	public double getXPDropped() {
+		return 6.0;
+	}
 
-    @Override
-    public double getXPDropped()
-    {
-        return 6.0;
-    }
-
-    @Override
-    public List<EntityDrop> drops()
-    {
-        return Collections.singletonList(new EntityDrop(new ItemStack(Material.BONE, SUtil.random(5, 7)), EntityDropType.GUARANTEED, 1.0));
-    }
+	@Override
+	public List<EntityDrop> drops() {
+		return Collections.singletonList(
+				new EntityDrop(new ItemStack(Material.BONE, SUtil.random(5, 7)), EntityDropType.GUARANTEED, 1.0));
+	}
 }

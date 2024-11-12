@@ -18,10 +18,8 @@
  */
 package dev.vortex.sculk.entity;
 
-public interface Ageable
-{
-    default boolean isBaby()
-    {
-        return false;
-    }
+public interface Ageable {
+	default boolean isBaby() {
+		return false;
+	}
 }

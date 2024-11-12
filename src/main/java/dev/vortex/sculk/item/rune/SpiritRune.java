@@ -24,35 +24,29 @@ import dev.vortex.sculk.item.Rune;
 import dev.vortex.sculk.item.SpecificItemType;
 import org.bukkit.ChatColor;
 
-public class SpiritRune implements Rune
-{
-    @Override
-    public String getDisplayName()
-    {
-        return ChatColor.AQUA + "◆ Spirit Rune";
-    }
+public class SpiritRune implements Rune {
+	@Override
+	public String getDisplayName() {
+		return ChatColor.AQUA + "◆ Spirit Rune";
+	}
 
-    @Override
-    public Rarity getRarity()
-    {
-        return Rarity.RARE;
-    }
+	@Override
+	public Rarity getRarity() {
+		return Rarity.RARE;
+	}
 
-    @Override
-    public GenericItemType getType()
-    {
-        return GenericItemType.ITEM;
-    }
+	@Override
+	public GenericItemType getType() {
+		return GenericItemType.ITEM;
+	}
 
-    @Override
-    public SpecificItemType getSpecificType()
-    {
-        return SpecificItemType.COSMETIC;
-    }
+	@Override
+	public SpecificItemType getSpecificType() {
+		return SpecificItemType.COSMETIC;
+	}
 
-    @Override
-    public String getURL()
-    {
-        return "c738b8af8d7ce1a26dc6d40180b3589403e11ef36a66d7c4590037732829542e";
-    }
+	@Override
+	public String getURL() {
+		return "c738b8af8d7ce1a26dc6d40180b3589403e11ef36a66d7c4590037732829542e";
+	}
 }

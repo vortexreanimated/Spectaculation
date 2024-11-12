@@ -20,7 +20,6 @@ package dev.vortex.sculk.gui;
 
 import org.bukkit.Material;
 
-public interface BlockBasedGUI
-{
-    Material getBlock();
+public interface BlockBasedGUI {
+	Material getBlock();
 }

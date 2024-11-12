@@ -21,21 +21,18 @@ package dev.vortex.sculk.listener;
 import dev.vortex.sculk.Spectaculation;
 import org.bukkit.event.Listener;
 
-public class PListener implements Listener
-{
-    private static int amount;
+public class PListener implements Listener {
+	private static int amount;
 
-    protected Spectaculation plugin;
+	protected Spectaculation plugin;
 
-    protected PListener()
-    {
-        this.plugin = Spectaculation.getPlugin();
-        this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        amount++;
-    }
+	protected PListener() {
+		this.plugin = Spectaculation.getPlugin();
+		this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		amount++;
+	}
 
-    public static int getAmount()
-    {
-        return amount;
-    }
+	public static int getAmount() {
+		return amount;
+	}
 }

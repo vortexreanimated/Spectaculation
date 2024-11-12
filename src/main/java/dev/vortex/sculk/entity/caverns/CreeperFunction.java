@@ -22,7 +22,7 @@ import dev.vortex.sculk.entity.EntityFunction;
 import dev.vortex.sculk.entity.SEntity;
 import dev.vortex.sculk.event.CreeperIgniteEvent;
 
-public interface CreeperFunction extends EntityFunction
-{
-    default void onCreeperIgnite(CreeperIgniteEvent e, SEntity sEntity) {}
+public interface CreeperFunction extends EntityFunction {
+	default void onCreeperIgnite(CreeperIgniteEvent e, SEntity sEntity) {
+	}
 }
