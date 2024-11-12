@@ -11,6 +11,21 @@ rewrite {
     activeRecipe("org.openrewrite.java.OrderImports")
     activeRecipe("dev.vortex.sculk.rewrite.LicenseHeader")
     activeRecipe("dev.vortex.sculk.rewrite.PackageRefactor")
+    activeRecipe("org.openrewrite.staticanalysis.RemoveRedundantTypeCast")
+    activeRecipe("org.openrewrite.staticanalysis.CodeCleanup")
+    activeRecipe("org.openrewrite.staticanalysis.CombineSemanticallyEqualCatchBlocks")
+    activeRecipe("org.openrewrite.staticanalysis.java.MoveFieldAnnotationToType")
+    activeRecipe("org.openrewrite.staticanalysis.JavaApiBestPractices")
+    activeRecipe("org.openrewrite.staticanalysis.MissingOverrideAnnotation")
+    activeRecipe("org.openrewrite.staticanalysis.NoEmptyCollectionWithRawType")
+    activeRecipe("org.openrewrite.staticanalysis.NoToStringOnStringType")
+    activeRecipe("org.openrewrite.staticanalysis.NoValueOfOnStringType")
+    activeRecipe("org.openrewrite.staticanalysis.RemoveUnusedPrivateMethods")
+    activeRecipe("org.openrewrite.staticanalysis.RemoveUnusedPrivateFields")
+    activeRecipe("org.openrewrite.staticanalysis.RemoveUnusedLocalVariables")
+    activeRecipe("org.openrewrite.staticanalysis.StaticMethodNotFinal")
+    activeRecipe("org.openrewrite.staticanalysis.UseJavaStyleArrayDeclarations")
+    activeRecipe("org.openrewrite.staticanalysis.UseLambdaForFunctionalInterface")
 }
 
 java {
@@ -37,6 +52,7 @@ dependencies {
     compileOnly("org.bukkit:craftbukkit:1.8.8-R0.1-SNAPSHOT")
 
     rewrite("org.openrewrite.recipe:rewrite-migrate-java:2.28.0")
+    rewrite("org.openrewrite.recipe:rewrite-static-analysis:1.19.0")
 }
 
 tasks.processResources {
