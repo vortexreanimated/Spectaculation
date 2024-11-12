@@ -137,7 +137,7 @@ public final class Spectaculation extends JavaPlugin {
 			world.setTime(time);
 		}
 		SLog.info("Loading items...");
-		Class.forName("me.superischroma.spectaculation.item.SMaterial"); // ensuring materials are loaded prior to this
+		Class.forName("dev.vortex.sculk.item.SMaterial"); // ensuring materials are loaded prior to this
 		for (SMaterial material : SMaterial.values()) {
 			if (material.hasClass()) {
 				material.getStatistics().load();
